@@ -1,0 +1,47 @@
+# --- Secrets / credentials (NEVER commit) ---
+.env
+.env.*
+*.pem
+*.key
+id_rsa*
+*.p12
+*.pfx
+secrets/
+credentials/
+*_credentials*
+*.token
+
+# Hermes internals
+.hermes/
+*.hermes-session
+
+# --- Clinical data protection (this project must NEVER contain these) ---
+data/private/
+data/raw_private/
+data/phi/
+data/phi_unprocessed/
+**/PHI/
+**/patient_data/
+*.csv.secret
+clinical_exports/
+
+# Generic catch-all for real patient-level data formats often seen in ad-hoc exports
+# (If a real, governed dataset ever arrives it gets its OWN access-controlled repo.)
+data/raw/*.csv
+data/raw/*.xlsx
+data/raw/*.dta
+data/raw/*.sav
+
+# --- Caches / temp ---
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.tmp
+*.log
+.DS_Store
+node_modules/
+.venv/
+venv/
