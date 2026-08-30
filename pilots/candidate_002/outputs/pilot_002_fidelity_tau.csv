@@ -1,0 +1,3 @@
+method,mmd_max_gap,rmspe,corr_fro,discriminative_auc,synth_method,kendall_tau,spearman_rho,concordant,real_order,synth_order,mmd,fidelity_composite
+S1_bootstrap,0.08799101310045346,1.146338095275588,0.39985409889599366,0.5001126132914676,S1_bootstrap,1.0,0.9999999999999999,1,logistic>tree,logistic>tree,0.08799101310045346,0.7143601613830028
+S5_prevalence_random,0.07040999779749474,2.1800178771058016,4.056764302602567,0.5083524575650082,S5_prevalence_random,1.0,0.9999999999999999,1,logistic>tree,logistic>tree,0.07040999779749474,0.19775491602116585

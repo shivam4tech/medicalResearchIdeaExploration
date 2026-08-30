@@ -45,3 +45,10 @@ __pycache__/
 node_modules/
 .venv/
 venv/
+pilots/candidate_002/synthEHRella/build/
+pilots/candidate_002/synthEHRella/synthEHRella/__pycache__/
+pilots/candidate_002/synthEHRella/synthEHRella.egg-info/
+pilots/**/__pycache__/
+pilots/**/build/
+!pilots/**/logs/*.log
+!pilots/**/*.log

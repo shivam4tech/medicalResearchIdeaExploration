@@ -1,0 +1,17 @@
+train,method,pt,net_benefit
+TRTR,logistic,0.1,0.4573333333333333
+TRTR,tree,0.1,0.4474444444444444
+TRTR,logistic,0.2,0.41125
+TRTR,tree,0.2,0.39325
+TSTR_S1,logistic,0.1,0.4557777777777778
+TSTR_S1,tree,0.1,0.44277777777777777
+TSTR_S1,logistic,0.2,0.41225
+TSTR_S1,tree,0.2,0.3845
+TSTR_S5,logistic,0.1,0.45111111111111113
+TSTR_S5,tree,0.1,0.4491111111111111
+TSTR_S5,logistic,0.2,0.3825
+TSTR_S5,tree,0.2,0.37975000000000003
+treat_all,all,0.1,0.45111111111111113
+treat_none,none,0.1,0.0
+treat_all,all,0.2,0.3825
+treat_none,none,0.2,0.0

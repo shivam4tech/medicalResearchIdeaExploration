@@ -1,0 +1,45 @@
+PRISMA 2020 Pilot Flow — Candidate 004 TRIPOD Corpus Audit (pilot n=20 of target n=150)
+======================================================================================
+Locked corpus filter: TRIPOD[Title/Abstract] AND validation[Title/Abstract]
+  Filters (full): 2015/01/01[PDAT]:2025/12/31[PDAT] + Humans[Mesh] + English[lang]
+  Randomization: sorted by PMID -> numpy.random.default_rng(20260830) -> sample n=150 (Wilson +-0.06)
+
+IDENTIFICATION
+  Records identified via PubMed E-utilities esearch (re-verified 2026-08-30):
+    - TRIPOD AND validation: 570 (expected 570) [https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=TRIPOD%5BTitle/Abstract%5D%20AND%20validation%5BTitle/Abstract%5D&retmode=json]
+    - calibration AND external validation: 8188 (expected 8188) [~7% language bias, 570/8188]
+    - RECORD AND validation AND calibration: 494 (expected 494)
+    - STROBE AND external validation: 18 (expected 18)
+  Records after E-utilities identification: 570
+  Pilot sample fetched via esearch+efetch: n=20 (pilot; full target n=150)
+  Deduplication: 0 duplicates in pilot (PMIDs unique; full n=150 dedup via PMID set)
+
+SCREENING (pilot)
+  Records screened (title/abstract): n=20
+  Records excluded at title/abstract: n=4 (pilot stub; reasons: not prediction-model validation / protocol/review / non-English)
+  Records sought for full-text retrieval: n=16
+  Records not retrieved (pilot stub): n=0 (full: expect ~5% via Europe PMC fullTextXML + library proxy)
+
+ELIGIBILITY (pilot)
+  Records assessed for eligibility (full-text): n=16
+  Records excluded at full-text (pilot): n=0 (full: non-prediction validation, duplicate PMID, protocol without data)
+  Studies included in pilot extraction: n=20 (full target n=150; pilot n=20 demonstrates form)
+
+INCLUDED
+  Studies included in synthesis (pilot): n=20
+  Dual-extraction overlap: n=5 (25% pilot; full: n=30 / 20% for kappa)
+    - Cohen's kappa (interval-aware subgroup) pilot stub: kappa=0.615 Po=0.800 Pe=0.480
+    - Target kappa >=0.7 per domain; adjudication by Lead if <0.7
+  Extraction form: interval-aware per Riley 10.1136/bmj-2024-080749 (slope CI/plot band per subgroup) + TRIPOD+AI era split (pre-2024 vs 2024-2025) + masking (overall pass slope 0.8-1.2 intercept +-0.3 ICI<0.05 while >=1 subgroup fail slope<0.8/>1.2 or ICI>=0.10) + PROBAST RoB
+  Prevalence estimands (pilot stubs, Wilson 95% CI):
+    - p(interval-aware subgroup calibration) = 5/20 = 0.250 [0.112, 0.469]
+    - p(point subgroup calibration) = 4/20 = 0.200
+    - masking rate (overall pass while >=1 subgroup fails) = 1/20 = 0.050 [0.009, 0.236]
+    - p(overall calibration) = 14/20 = 0.700 [0.481, 0.855]
+  Sensitivity corpora (pre-registered): RECORD (494), STROBE (18), calibration+external-validation completeness (570 vs 8188)
+
+NOTES
+  - Rayyan-ready: outputs/pilot_004_extraction_pilot.csv includes PMID/title/journal/year + rayyan_label + dual_overlap_flag; import via Rayyan CSV or Covidence RIS (PMIDs resolvable via doi.org).
+  - E-utilities reproducibility: esearch retmode=json, tool=pilot_004, email=pilot_004@medicalresearch.local, rate <=3/s, sorted PMID deterministic.
+  - No PHI. PubMed only. Full n=150 will add Europe PMC fullTextXML retrieval (~60% OA) + institutional proxy for remainder.
+  - Verification: counts re-verified this run ({'TRIPOD_validation': 570, 'calib_external': 8188, 'RECORD_calib': 494, 'STROBE_external': 18}); Wilson via score method (not Wald) per protocol.

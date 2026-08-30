@@ -1,0 +1,106 @@
+=== PILOT 004 — Rayyan-ready corpus pilot ===
+Seed 20260830, tool pilot_004, 2026-08-30 15:26:10 IST
+Python 3.11.15
+Working dir: /home/shivam/Projects/medicalResearch/pilots/candidate_004
+
+--- Step 1: Re-verify E-utilities counts (570 vs 8188 vs RECORD 494 vs STROBE 18) ---
+  TRIPOD_validation    query='TRIPOD[Title/Abstract] AND validation[Title/Abstract]' -> count=570
+  calib_external       query='calibration[Title/Abstract] AND external validation[Title/Abstract]' -> count=8188
+  RECORD_calib         query='RECORD[Title/Abstract] AND validation[Title/Abstract] AND calibration[Title/Abstract]' -> count=494
+  STROBE_external      query='STROBE[Title/Abstract] AND external validation[Title/Abstract]' -> count=18
+    verify TRIPOD_validation: got 570 OK
+    verify calib_external: got 8188 OK
+    verify RECORD_calib: got 494 OK
+    verify STROBE_external: got 18 OK
+
+--- Step 2: esearch+efetch for TRIPOD AND validation, n=20 sample ---
+  esearch total=570, fetched 20 ids: ['40418571', '40241963', '38000872', '41082207', '39939885', '40318314', '40626581', '40065741', '38596087', '39097246', '32479165', '38783054', '41473241', '40620096', '36750236', '38226447', '40964606', '32552702', '32278089', '40059970']
+  efetch returned 20 records
+    PMID 40418571 (2025) Journal of medical Internet research | Supervised Machine Learning Models for Predicting Sepsis-Associated Liver Injury in Patien
+    PMID 40241963 (2025) Frontiers in public health | Artificial intelligence in hospital infection prevention: an integrative review.
+    PMID 38000872 (2023) The Lancet. Digital health | Machine learning and deep learning predictive models for long-term prognosis in patients w
+    PMID 41082207 (2025) JAMA pediatrics | Derivation and Validation of Predictive Models for Early Pediatric Sepsis.
+    PMID 39939885 (2025) The journal of headache and pain | Prediction models for treatment response in migraine: a systematic review and meta-analysi
+    PMID 40318314 (2025) International journal of nursing studies | Risk prediction model for chemotherapy-induced nausea and vomiting in cancer patients: a s
+    PMID 40626581 (2026) Journal of clinical nursing | Development and Validation of a Nomogram for Predicting Oral Frailty Risk in Elderly Patie
+    PMID 40065741 (2025) Annals of medicine | Applying machine learning to predict bowel preparation adequacy in elderly patients for co
+    PMID 38596087 (2024) Heliyon | Development and validation of nomograms for predicting prognosis in patients with solitary
+    PMID 39097246 (2024) Journal of pain and symptom management | Artificial Intelligence and Machine Learning in Cancer Pain: A Systematic Review.
+    PMID 32479165 (2020) Annals of internal medicine | Transparent Reporting of Multivariable Prediction Models in Journal and Conference Abstrac
+    PMID 38783054 (2024) Molecular psychiatry | Individualized prediction models in ADHD: a systematic review and meta-regression.
+    PMID 41473241 (2025) Frontiers in endocrinology | Development and external validation of machine-learning based models to predict diabetic f
+    PMID 40620096 (2025) Renal failure | A practical guide for nephrologist peer reviewers: evaluating artificial intelligence and 
+    PMID 36750236 (2023) BMJ (Clinical research ed.) | Transparent reporting of multivariable prediction models developed or validated using clus
+    PMID 38226447 (2024) Bone & joint open | Systematic review of machine-learning models in orthopaedic trauma.
+    PMID 40964606 (2025) Digital health | Development of an optimized risk evaluation system for cardiovascular-kidney-metabolic syn
+    PMID 32552702 (2020) BMC medical informatics and decision mak | Early warning score validation methodologies and performance metrics: a systematic review.
+    PMID 32278089 (2020) Journal of biomedical informatics | Development and validation of early warning score system: A systematic literature review.
+    PMID 40059970 (2025) JHEP reports : innovation in hepatology | Evaluation of prognostic scores in patients with HCC undergoing first-line immunotherapy w
+
+--- Step 3: Random pilot n=5 overlap (dual-extraction simulation) ---
+  overlap indices [2, 3, 6, 8, 11] -> PMIDs ['38000872', '41082207', '40626581', '38596087', '38783054']
+  simulated dual extraction (n=5 overlap): R1=[1, 0, 0, 1, 0] R2=[1, 0, 1, 1, 0]
+  kappa stub: Po=0.800 Pe=0.480 kappa=0.615 (target κ≥0.7; this pilot κ=0.615 borderline — would re-train per protocol)
+
+--- Step 4: Generate extraction pilot CSV (n=20, interval-aware columns) ---
+  wrote 20 rows to /home/shivam/Projects/medicalResearch/pilots/candidate_004/outputs/pilot_004_extraction_pilot.csv
+
+--- Step 5: Wilson CI stubs ---
+  p(interval-aware subgroup calibration) pilot: k=5/20 p=0.250 Wilson 95% CI [0.112, 0.469] (expected <10% at full scale)
+  masking rate stub: k=1/20 p=0.050 Wilson CI [0.009, 0.236] (full: denominator = n with subgroup data)
+  p(overall calibration) pilot: k=14/20 p=0.700 Wilson CI [0.481, 0.855]
+
+--- Step 6: PRISMA pilot flow ---
+PRISMA 2020 Pilot Flow — Candidate 004 TRIPOD Corpus Audit (pilot n=20 of target n=150)
+======================================================================================
+Locked corpus filter: TRIPOD[Title/Abstract] AND validation[Title/Abstract]
+  Filters (full): 2015/01/01[PDAT]:2025/12/31[PDAT] + Humans[Mesh] + English[lang]
+  Randomization: sorted by PMID -> numpy.random.default_rng(20260830) -> sample n=150 (Wilson +-0.06)
+
+IDENTIFICATION
+  Records identified via PubMed E-utilities esearch (re-verified 2026-08-30):
+    - TRIPOD AND validation: 570 (expected 570) [https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=TRIPOD%5BTitle/Abstract%5D%20AND%20validation%5BTitle/Abstract%5D&retmode=json]
+    - calibration AND external validation: 8188 (expected 8188) [~7% language bias, 570/8188]
+    - RECORD AND validation AND calibration: 494 (expected 494)
+    - STROBE AND external validation: 18 (expected 18)
+  Records after E-utilities identification: 570
+  Pilot sample fetched via esearch+efetch: n=20 (pilot; full target n=150)
+  Deduplication: 0 duplicates in pilot (PMIDs unique; full n=150 dedup via PMID set)
+
+SCREENING (pilot)
+  Records screened (title/abstract): n=20
+  Records excluded at title/abstract: n=4 (pilot stub; reasons: not prediction-model validation / protocol/review / non-English)
+  Records sought for full-text retrieval: n=16
+  Records not retrieved (pilot stub): n=0 (full: expect ~5% via Europe PMC fullTextXML + library proxy)
+
+ELIGIBILITY (pilot)
+  Records assessed for eligibility (full-text): n=16
+  Records excluded at full-text (pilot): n=0 (full: non-prediction validation, duplicate PMID, protocol without data)
+  Studies included in pilot extraction: n=20 (full target n=150; pilot n=20 demonstrates form)
+
+INCLUDED
+  Studies included in synthesis (pilot): n=20
+  Dual-extraction overlap: n=5 (25% pilot; full: n=30 / 20% for kappa)
+    - Cohen's kappa (interval-aware subgroup) pilot stub: kappa=0.615 Po=0.800 Pe=0.480
+    - Target kappa >=0.7 per domain; adjudication by Lead if <0.7
+  Extraction form: interval-aware per Riley 10.1136/bmj-2024-080749 (slope CI/plot band per subgroup) + TRIPOD+AI era split (pre-2024 vs 2024-2025) + masking (overall pass slope 0.8-1.2 intercept +-0.3 ICI<0.05 while >=1 subgroup fail slope<0.8/>1.2 or ICI>=0.10) + PROBAST RoB
+  Prevalence estimands (pilot stubs, Wilson 95% CI):
+    - p(interval-aware subgroup calibration) = 5/20 = 0.250 [0.112, 0.469]
+    - p(point subgroup calibration) = 4/20 = 0.200
+    - masking rate (overall pass while >=1 subgroup fails) = 1/20 = 0.050 [0.009, 0.236]
+    - p(overall calibration) = 14/20 = 0.700 [0.481, 0.855]
+  Sensitivity corpora (pre-registered): RECORD (494), STROBE (18), calibration+external-validation completeness (570 vs 8188)
+
+NOTES
+  - Rayyan-ready: outputs/pilot_004_extraction_pilot.csv includes PMID/title/journal/year + rayyan_label + dual_overlap_flag; import via Rayyan CSV or Covidence RIS (PMIDs resolvable via doi.org).
+  - E-utilities reproducibility: esearch retmode=json, tool=pilot_004, email=pilot_004@medicalresearch.local, rate <=3/s, sorted PMID deterministic.
+  - No PHI. PubMed only. Full n=150 will add Europe PMC fullTextXML retrieval (~60% OA) + institutional proxy for remainder.
+  - Verification: counts re-verified this run ({'TRIPOD_validation': 570, 'calib_external': 8188, 'RECORD_calib': 494, 'STROBE_external': 18}); Wilson via score method (not Wald) per protocol.
+
+  wrote PMIDs to /home/shivam/Projects/medicalResearch/pilots/candidate_004/outputs/pilot_004_pmids.txt
+
+=== PILOT 004 COMPLETE ===
+Outputs: /home/shivam/Projects/medicalResearch/pilots/candidate_004/outputs/pilot_004_extraction_pilot.csv (sha256:a724531fd10a), /home/shivam/Projects/medicalResearch/pilots/candidate_004/outputs/pilot_004_prisma_pilot.txt, /home/shivam/Projects/medicalResearch/pilots/candidate_004/outputs/pilot_004_pmids.txt
+Counts re-verified: TRIPOD 570 / calib 8188 / RECORD 494 / STROBE 18
+Wilson stubs logged; kappa 0.615
+Log: /home/shivam/Projects/medicalResearch/pilots/candidate_004/logs/pilot_004.log

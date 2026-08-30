@@ -1,0 +1,152 @@
+=== Pilot 002 synthEHRella ladder ===
+Date: 2026-08-30T10:10:11Z
+Python: Python 3.11.15
+Pip: pip 26.2.1 from /home/shivam/.hermes/hermes-agent/venv/lib/python3.11/site-packages/pip (python 3.11)
+Git synthEHRella log:
+74aa516 debug setup.py
+c86b294 debug pbr method
+c54b261 Merge pull request #3 from zhenkewu/main
+--- pip show synthEHRella ---
+Name: synthEHRella
+Version: 1.0.0
+Summary: SynthEHRella: A Package for Synthetic EHR Data Generation Benchmarking
+Home-page: https://github.com/chenxran/synthEHRella
+Author: Xingran Chen, Zhenke Wu, Xu Shi, Hyunghoon Cho, Bhramar Mukherjee
+Author-email: chenxran@umich.edu
+License: 
+Location: /home/shivam/.hermes/hermes-agent/venv/lib/python3.11/site-packages
+Requires: numpy, pandas
+Required-by: 
+--- Inventory help flags (run_generation, run_evaluation) ---
+usage: run_generation.py [-h]
+                         [--real_training_data_path REAL_TRAINING_DATA_PATH]
+                         [--ckpt_dir CKPT_DIR]
+                         [--num_gen_samples NUM_GEN_SAMPLES]
+                         [--params [PARAMS ...]]
+                         method
+
+positional arguments:
+  method                The generation method (e.g., corgan, plasmode,
+                        synthea)
+
+options:
+  -h, --help            show this help message and exit
+  --real_training_data_path REAL_TRAINING_DATA_PATH
+                        Path to the real training data
+  --ckpt_dir CKPT_DIR   Path to the directory containing the model checkpoints
+  --num_gen_samples NUM_GEN_SAMPLES
+                        Number of samples to generate
+  --params [PARAMS ...]
+                        Additional parameters to override from the default
+                        config
+---
+usage: run_evaluation.py [-h] [--output_dir OUTPUT_DIR]
+                         [--real_eval_data_path REAL_EVAL_DATA_PATH]
+                         [--synthetic_data_path SYNTHETIC_DATA_PATH]
+                         [--fidelity FIDELITY] [--utility UTILITY]
+                         [--privacy PRIVACY]
+                         method
+
+positional arguments:
+  method                The generation method (e.g., cor-gan, plasmode,
+                        synthea)
+
+options:
+  -h, --help            show this help message and exit
+  --output_dir OUTPUT_DIR
+                        Path to the output directory
+  --real_eval_data_path REAL_EVAL_DATA_PATH
+                        Path to the real evaluation data
+  --synthetic_data_path SYNTHETIC_DATA_PATH
+                        Path to the synthetic data
+  --fidelity FIDELITY   Whether to evaluate fidelity
+  --utility UTILITY     Whether to evaluate utility
+  --privacy PRIVACY     Whether to evaluate privacy
+---
+usage: run_postprocessing.py [-h] --data_path DATA_PATH --output_path
+                             OUTPUT_PATH
+                             method
+
+positional arguments:
+  method                The generation method (e.g., corgan, plasmode,
+                        synthea)
+
+options:
+  -h, --help            show this help message and exit
+  --data_path DATA_PATH
+                        Path to the synthetic data
+  --output_path OUTPUT_PATH
+                        Path to save the post-processed synthetic data
+---
+fidelity imports OK
+utility imports OK
+=== Running synthetic fallback pilot (5k rows) ===
+[Pilot002] SEED=20260830 N=5000 fallback=SYNTHETIC (MIMIC-III demo not credentialed - honest fallback)
+[Data] outcome prevalence=0.506
+[Data] full_real shape (5000, 26)
+[Split] train 4000 test 1000
+[S1] bootstrap shape (4000, 26)
+[S5] prevalence-random shape (4000, 26) (numeric Gaussian + binary Bernoulli)
+[Fidelity S1_bootstrap] mmd=0.0880 rmspe=1.1463 corr_fro=0.3999 disc_auc=0.5001
+[Fidelity S5_prevalence_random] mmd=0.0704 rmspe=2.1800 corr_fro=4.0568 disc_auc=0.5084
+[TRTR] logistic auc=0.8519 tree auc=0.7984
+[TSTR S1] logistic auc=0.8496 tree auc=0.7925
+[TSTR S5] logistic auc=0.5529 tree auc=0.5358
+[Tau S1] tau=1.0000 rho=1.0000 real_order=['logistic', 'tree'] synth_order=['logistic', 'tree']
+[Tau S5] tau=1.0000 rho=1.0000 real_order=['logistic', 'tree'] synth_order=['logistic', 'tree']
+[DCA] {'train': 'TRTR', 'method': 'logistic', 'pt': 0.1, 'net_benefit': np.float64(0.4573333333333333)}
+[DCA] {'train': 'TRTR', 'method': 'tree', 'pt': 0.1, 'net_benefit': np.float64(0.4474444444444444)}
+[DCA] {'train': 'TRTR', 'method': 'logistic', 'pt': 0.2, 'net_benefit': np.float64(0.41125)}
+[DCA] {'train': 'TRTR', 'method': 'tree', 'pt': 0.2, 'net_benefit': np.float64(0.39325)}
+[DCA] {'train': 'TSTR_S1', 'method': 'logistic', 'pt': 0.1, 'net_benefit': np.float64(0.4557777777777778)}
+[DCA] {'train': 'TSTR_S1', 'method': 'tree', 'pt': 0.1, 'net_benefit': np.float64(0.44277777777777777)}
+[DCA] {'train': 'TSTR_S1', 'method': 'logistic', 'pt': 0.2, 'net_benefit': np.float64(0.41225)}
+[DCA] {'train': 'TSTR_S1', 'method': 'tree', 'pt': 0.2, 'net_benefit': np.float64(0.3845)}
+[DCA] {'train': 'TSTR_S5', 'method': 'logistic', 'pt': 0.1, 'net_benefit': np.float64(0.45111111111111113)}
+[DCA] {'train': 'TSTR_S5', 'method': 'tree', 'pt': 0.1, 'net_benefit': np.float64(0.4491111111111111)}
+[DCA] {'train': 'TSTR_S5', 'method': 'logistic', 'pt': 0.2, 'net_benefit': np.float64(0.3825)}
+[DCA] {'train': 'TSTR_S5', 'method': 'tree', 'pt': 0.2, 'net_benefit': np.float64(0.37975000000000003)}
+[DCA] {'train': 'treat_all', 'method': 'all', 'pt': 0.1, 'net_benefit': np.float64(0.45111111111111113)}
+[DCA] {'train': 'treat_none', 'method': 'none', 'pt': 0.1, 'net_benefit': 0.0}
+[DCA] {'train': 'treat_all', 'method': 'all', 'pt': 0.2, 'net_benefit': np.float64(0.3825)}
+[DCA] {'train': 'treat_none', 'method': 'none', 'pt': 0.2, 'net_benefit': 0.0}
+              method  mmd_max_gap    rmspe  corr_fro  discriminative_auc         synth_method  kendall_tau  spearman_rho  concordant    real_order   synth_order      mmd  fidelity_composite
+        S1_bootstrap     0.087991 1.146338  0.399854            0.500113         S1_bootstrap          1.0           1.0           1 logistic>tree logistic>tree 0.087991            0.714360
+S5_prevalence_random     0.070410 2.180018  4.056764            0.508352 S5_prevalence_random          1.0           1.0           1 logistic>tree logistic>tree 0.070410            0.197755
+[Saved] outputs/pilot_002_fidelity_tau.csv
+[Saved] outputs/pilot_002_dca.csv
+[Saved] outputs/pilot_002_utility.csv
+[Calibration TRTR_logistic] [{'bin': 0, 'bin_low': 0.0, 'bin_high': 0.1, 'mean_pred': 0.04891522796803347, 'obs_rate': 0.05555555555555555, 'n': 126}, {'bin': 1, 'bin_low': 0.1, 'bin_high': 0.2, 'mean_pred': 0.15172570805207333, 'obs_rate': 0.15151515151515152, 'n': 99}, {'bin': 2, 'bin_low': 0.2, 'bin_high': 0.30000000000000004, 'mean_pred': 0.2453038911148879, 'obs_rate': 0.25, 'n': 88}]
+[Calibration TSTR_S1_logistic] [{'bin': 0, 'bin_low': 0.0, 'bin_high': 0.1, 'mean_pred': 0.04544505484702741, 'obs_rate': 0.06557377049180328, 'n': 122}, {'bin': 1, 'bin_low': 0.1, 'bin_high': 0.2, 'mean_pred': 0.14865465709717124, 'obs_rate': 0.13392857142857142, 'n': 112}, {'bin': 2, 'bin_low': 0.2, 'bin_high': 0.30000000000000004, 'mean_pred': 0.250771980017168, 'obs_rate': 0.26436781609195403, 'n': 87}]
+[Calibration TSTR_S5_logistic] [{'bin': 4, 'bin_low': 0.4, 'bin_high': 0.5, 'mean_pred': 0.47668925249122446, 'obs_rate': 0.44935064935064933, 'n': 385}, {'bin': 5, 'bin_low': 0.5, 'bin_high': 0.6000000000000001, 'mean_pred': 0.5325782452364581, 'obs_rate': 0.5414634146341464, 'n': 615}]
+[Done] Pilot002 complete - honest synthetic fallback, 5k rows, S1 vs S5 2-point ladder
+=== Outputs ===
+total 24K
+-rw-rw-r-- 1 shivam shivam 639 Aug 30 15:40 pilot_002_calibration_TRTR_logistic.csv
+-rw-rw-r-- 1 shivam shivam 652 Aug 30 15:40 pilot_002_calibration_TSTR_S1_logistic.csv
+-rw-rw-r-- 1 shivam shivam 163 Aug 30 15:40 pilot_002_calibration_TSTR_S5_logistic.csv
+-rw-rw-r-- 1 shivam shivam 529 Aug 30 15:40 pilot_002_dca.csv
+-rw-rw-r-- 1 shivam shivam 554 Aug 30 15:40 pilot_002_fidelity_tau.csv
+-rw-rw-r-- 1 shivam shivam 267 Aug 30 15:40 pilot_002_utility.csv
+method,mmd_max_gap,rmspe,corr_fro,discriminative_auc,synth_method,kendall_tau,spearman_rho,concordant,real_order,synth_order,mmd,fidelity_composite
+S1_bootstrap,0.08799101310045346,1.146338095275588,0.39985409889599366,0.5001126132914676,S1_bootstrap,1.0,0.9999999999999999,1,logistic>tree,logistic>tree,0.08799101310045346,0.7143601613830028
+S5_prevalence_random,0.07040999779749474,2.1800178771058016,4.056764302602567,0.5083524575650082,S5_prevalence_random,1.0,0.9999999999999999,1,logistic>tree,logistic>tree,0.07040999779749474,0.19775491602116585
+---
+train,method,pt,net_benefit
+TRTR,logistic,0.1,0.4573333333333333
+TRTR,tree,0.1,0.4474444444444444
+TRTR,logistic,0.2,0.41125
+TRTR,tree,0.2,0.39325
+TSTR_S1,logistic,0.1,0.4557777777777778
+TSTR_S1,tree,0.1,0.44277777777777777
+TSTR_S1,logistic,0.2,0.41225
+TSTR_S1,tree,0.2,0.3845
+TSTR_S5,logistic,0.1,0.45111111111111113
+TSTR_S5,tree,0.1,0.4491111111111111
+TSTR_S5,logistic,0.2,0.3825
+TSTR_S5,tree,0.2,0.37975000000000003
+treat_all,all,0.1,0.45111111111111113
+treat_none,none,0.1,0.0
+treat_all,all,0.2,0.3825
+treat_none,none,0.2,0.0
+=== Done ===
