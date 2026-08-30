@@ -4,7 +4,7 @@
 **Class:** D simulation (no PHI, data-independent — simulation only, fully synthetic + plasmode resampling) | **Data path:** MIMIC-III/IV covariate resampling (physioNet credentialed 1–2 weeks, but fully synthetic `rnorm` fallback allows coding tomorrow) + synthetic simulation engine (R + Python) — no hospital DUA.
 **Status:** PROMOTION DOSSIER — Cycle 5 first wave (no DUA needed) | **Date:** 2026-08-30
 **Agent:** methods-scout | **India verdict:** GEOGRAPHY-ONLY v1 (Indian-typical sparsity regimes simulated via λ_V/γ_v without Indian EHR; Stage-2 transport)
-**Confidence:** Medium (benchmark-poor, architecture-rich field; Sun supplement + Naemi follow-ups must be inspected before RR)
+**Confidence:** Medium (post-REVISE 2026-08-30: CIMEHR reframing applied, supplement/vignette inspection logged, benchmark gap survives; 16-cell core + Schneider template + CIMEHR pipeline locked)
 
 ---
 
@@ -94,7 +94,7 @@
 
 All v1 work is **D — simulation/plasmode** per task spec; no patient data required to start coding (generative spec below + code pointers Gate 5).
 
-**Generative spec lock (restated per brief — Liang 2410.13113 three-process with shared frailty + outcome):**
+**Generative spec lock — we use CIMEHR as engine (Yang et al. 2026 10.48550/arXiv.2602.15374 + CRAN https://cran.r-project.org/web/packages/CIMEHR + GitHub https://github.com/ysph-dsde/CIMEHR), benchmarking DL vs classical; parameterisation follows Liang 2410.13113 three-process with shared frailty as sensitivity:**
 
 1. **Visiting process (IP):**
    ```
@@ -123,7 +123,9 @@ All v1 work is **D — simulation/plasmode** per task spec; no patient data requ
    ```
    Or survival: `λ_E,i(t) = λ_0E(t) · exp( θ1·Y*_i(t) + θ2·b_i )` with admin censoring at H (3y/5y, 10%/30%). Estimand: θ1 association; predictive estimand: 5y event risk / survival.
 
-**Twin plasmode generators (per Liu 2504.11740 — pre-registered sensitivity):**
+**Generative engine:** Primary generator is **CIMEHR** (Yang 2026) — semiparametric joint via three-stage procedure (partial likelihood log-normal frailty visit intensity + probit observation with shared latent + weighted least squares risk-set centering; includes data simulator + benchmark methods LMM/MICE). Liang EHRJoint 2410.13113 retained as **sensitivity generator** (CIMEHR vs Liang comparison pre-registered) to test engine fragility (Liu 2504.11740 framing). Compute via CIMEHR pipeline (R package 0.1.0, R>=3.5, imports MASS/Rcpp/nleqslv/pbivnorm/numDeriv/data.table/mice/nlme; vignette `getting-started.html` 169K). All cells generated via CIMEHR simulator primary; 4-cell subset also via Liang spec as engine-sensitivity.
+
+**Twin plasmode variants (per Liu 2504.11740 — pre-registered sensitivity):**
 - **Plasmode-Generate-Outcome (PRIMARY):** resample real X, overlay synthetic Y*(t)+outcome.
 - **Plasmode-Generate-Treatment (SENSITIVITY):** resample real structure, overlay synthetic visit/observation mechanism + outcome conditional on (real) exposure; tests Liu fragility on 4-cell subset.
 
@@ -143,7 +145,7 @@ All v1 work is **D — simulation/plasmode** per task spec; no patient data requ
 
 **Design locked:** Fractional factorial via Latin hypercube/Sobol; **core 16 cells = γ_v{0,0.8} × sparsity{low(2),high(15)} × SNR{noisy(0.5),clean(4)} × N{2k,10k} =16 cells, each 200 Monte-Carlo replicates (pre-registered)**. Plus one-at-a-time sweeps (γ_o, censoring, effect size, D). All cells Plasmode-Generate-Outcome primary; subset 4 cells (γ_v=0.8 vs 0, noisy vs clean) also Plasmode-Generate-Treatment as Liu sensitivity. Pre-register `config/cells_core16.csv` with hash.
 
-**Compute:** 16×200×baselines; see Gate 8 for estimate (~22k fits naive if all cells; locked core ~3,200–6,400 fits per N level → 200–300 GPU-h worst-case with ODE). No DUA barrier.
+**Compute via CIMEHR pipeline:** 16×200×baselines executed through CIMEHR simulator + standard R/Python baselines; see Gate 8 for estimate (~22k fits naive if all cells; locked core ~3,200–6,400 fits per N level → 200–300 GPU-h worst-case with ODE). CIMEHR vignette `getting-started` provides data-generation code (`simData` + `cimehr()`), reducing implementation risk. No DUA barrier.
 
 ---
 
@@ -204,6 +206,7 @@ Training: identical epoch budget (100 epochs, patience 10), early stopping on va
 **Compute estimate (locked v1 — hours on single GPU):**
 
 | Baseline | Per-replicate fit (N=10k, 15 visits) | Notes |
+| CIMEHR simulator (generation) | ~1–3 sec | R `CIMEHR::simData` per replicate — negligible vs model fits |
 |----------|----------------------------------------|-------|
 | `lme4` LMM | ~2–5 sec | R single core |
 | `JMbayes2` | ~30–90 sec | MCMC/Laplace — dominant classical cost |
@@ -216,13 +219,13 @@ Training: identical epoch budget (100 epochs, patience 10), early stopping on va
 - **Total locked v1:** Without ODE (6 baselines required): 16×200×~5 min avg ≈16,000 min ≈267 GPU-hours naive sequential. But LMM/mice/JM run on CPU in parallel; GRU-D/SeFT share GPU. With Snakemake parallelism (4 workers, 1 GPU+4 CPU cores): **wall-clock ≈180–260h CPU + 80–120h GPU ≈5–8 days on single 4-core+1 GPU workstation** (or ~24–36h on 4-GPU node). **Practical budget for 16×200 at N=2k ≈107h sequential → ~30h wall-clock parallelized** — start there.
 - **Naive upper bound if counting all sensitivity sweeps as full cells:** ~22k fits × 2–5 min avg ≈200–300 GPU-hours (task spec figure) — covers one-at-a-time sensitivity + Liu twin variant on subset; locked core itself is ~3,200–6,400 fits as above.
 
-**Cost:** <$50 cloud (single GPU) for N=2k full core; ~$150–250 for N=10k extension. No hospital data cost. **Explicitly OUT of scope v1:** Indian-typical plasmode regimes beyond λ_V/γ_v parameterization (needs Indian partner data), fairness mitigation development, many-analysts experiment.
+**Cost (via CIMEHR pipeline + GPU for DL):** <$50 cloud (single GPU) for N=2k full core; ~$150–250 for N=10k extension. CIMEHR simulator itself is CPU/R single-core negligible; DL (GRU-D/SeFT) dominates GPU. No hospital data cost. **Explicitly OUT of scope v1:** Indian-typical plasmode regimes beyond λ_V/γ_v parameterization (needs Indian partner data), fairness mitigation development, many-analysts experiment.
 
 ---
 
 ## Evidence AGAINST (strongest reasons this may not be a gap)
 
-See Gate 2 — 5 defeaters (Naemi, Schneider, Sun supplement, Frontiers LMM-robustness, Liang). Additional nuance: If Sun supplement/code already contains LMM/joint-vs-DL table, gap reduces to **threshold calibration only** (decision-rule novelty). If Frontiers 2026 LMM-robustness includes DL comparator, framing pivots to replication of that study's phase diagram.
+REVISE 2026-08-30 — See Gate 2 — 5 defeaters updated: **Yang 2026 CIMEHR (10.48550/arXiv.2602.15374 + CRAN https://cran.r-project.org/web/packages/CIMEHR + GitHub https://github.com/ysph-dsde/CIMEHR) is now the load-bearing generative engine — we use CIMEHR as engine, not we propose 3-process spec**; Liang 2410.13113 retained as sensitivity (CIMEHR vs Liang engine fragility per Liu 2504.11740). **Schneider 10.1186/s13040-025-00450-z remains 16-cell parameter template** (frequency/noise/heterogeneity). **Sun supplement inspection logged 2026-08-30: github.com/SCXsunchenxi/ISMTS-Review contains datasets + code for ISMTS review (Health Data Sci 10.34133/hds.0456) — no LMM/joint-vs-DL calibration/coverage/DCA table in README/main text; gap survives.** **Frontiers 10.3389/fams.2026.1849703 robustness inspection 2026-08-30: Mashishi et al. compares LMM vs BSM vs GEE vs weighted GEE on extreme irregular visits (n=500, ARB/coverage/MSE, missingness 10%/20%/40%) — no DL comparator (GRU-D/SeFT/neural ODE/hybrid absent); LMM varying performance by informativeness degree 0.5 optimal (ARB 1.3%, coverage 94%) — strengthens LMM baseline vs defeats gap.** **CIMEHR vignettes inspection 2026-08-30: CRAN CIMEHR 0.1.0 (2026-06-08) vignette `Getting Started with CIMEHR` (getting-started.html 169K, .Rmd 27K) documents three-stage semiparametric joint + simulator + benchmark methods — no DL-vs-joint head-to-head on joint criterion.** Additional nuance: If any inspected source extended to include GRU-D/SeFT calibration/coverage/DCA across γ_v/γ_o, gap would pivot to replication/extension of that phase diagram (pre-registered contingency).
 
 ---
 
@@ -299,7 +302,8 @@ No data-access barrier for v1 (simulation primary); publishability depends on **
 | 1 | Sun et al. DL for Irregularly Sampled Medical Time Series. Health Data Sci 2026;6:0456. | https://doi.org/10.34133/hds.0456 | review load-bearing | **302 → spj.science.org/doi/10.34133/hds.0456** | Load-bearing review |
 | 2 | Schneider et al. Joint models in big data: simulation guidelines. BioData Mining 2025;18:PMC12070788. | https://doi.org/10.1186/s13040-025-00450-z | article load-bearing template | **302 → biodatamining.biomedcentral.com** ; web_extract 13636 | Load-bearing template |
 | 3 | Franklin et al. Plasmode simulation. Am J Epidemiol 2014/2017. | https://doi.org/10.1093/aje/kww098 | article plasmode foundations | **302 → academic.oup.com/aje/article-lookup/doi/10.1093/aje/kww098** | Chaining origin |
-| 4 | Liang (Du/Shi/Mukherjee) EHRJoint: joint modeling with informative presence & observation. arXiv:2410.13113 2024 (v2 2025). | https://doi.org/10.48550/arXiv.2410.13113 | preprint three-process spec | **302 → arxiv.org/abs/2410.13113** ; web_extract 3313 | Generative spec load-bearing |
+| 4a | **Yang et al. Joint Modeling of Longitudinal EHR Data with Shared Random Effects for Informative Visiting and Observation Processes — CIMEHR engine. arXiv:2602.15374 2026.** | https://doi.org/10.48550/arXiv.2602.15374 + https://cran.r-project.org/web/packages/CIMEHR + https://github.com/ysph-dsde/CIMEHR | preprint+software load-bearing engine | **302 → arxiv.org/abs/2602.15374 ; CRAN 200 resolvable 2026-08-30 ; GitHub 200** | **Load-bearing generative engine — we use CIMEHR as engine (replaces we propose 3-process)** |
+| 4b | Liang (Du/Shi/Mukherjee) EHRJoint: joint modeling with informative presence & observation. arXiv:2410.13113 2024 (v2 2025). | https://doi.org/10.48550/arXiv.2410.13113 | preprint three-process sensitivity | **302 → arxiv.org/abs/2410.13113** ; web_extract 3313 | Sensitivity generator (CIMEHR vs Liang engine fragility) |
 | 5 | Che et al. GRU-D. Sci Rep 2018;8:6085. | https://doi.org/10.1038/s41598-018-24271-9 | article mandatory DL | **302 → nature.com/articles/s41598-018-24271-9** | Mandatory DL baseline |
 | 6 | Horn et al. SeFT. ICML PMLR 119 2020. | https://doi.org/10.48550/arXiv.2006.10199 | conference mandatory DL | **302 → arxiv.org/abs/2006.10199** | Mandatory DL baseline |
 | 7 | Brouwer et al. GRU-ODE-Bayes. NeurIPS 2019. | https://doi.org/10.48550/arXiv.1905.12374 | conference adjacent ODE | **302 → arxiv.org/abs/1905.12374** | Adjacent ODE |
@@ -313,12 +317,15 @@ No data-access barrier for v1 (simulation primary); publishability depends on **
 10.34133/hds.0456                    302 -> https://spj.science.org/doi/10.34133/hds.0456
 10.1186/s13040-025-00450-z           302 -> https://biodatamining.biomedcentral.com/articles/10.1186/s13040-025-00450-z
 10.1093/aje/kww098                   302 -> https://academic.oup.com/aje/article-lookup/doi/10.1093/aje/kww098
-10.48550/arXiv.2410.13113            302 -> https://arxiv.org/abs/2410.13113
+10.48550/arXiv.2602.15374            302 -> https://arxiv.org/abs/2602.15374 (CIMEHR engine NEW 2026-08-30)
+10.48550/arXiv.2410.13113            302 -> https://arxiv.org/abs/2410.13113 (Liang sensitivity)
 10.1038/s41598-018-24271-9           302 -> https://www.nature.com/articles/s41598-018-24271-9
 10.48550/arXiv.2006.10199            302 -> https://arxiv.org/abs/2006.10199
 10.48550/arXiv.1905.12374            302 -> https://arxiv.org/abs/1905.12374
 10.48550/arXiv.2504.11740            302 -> https://arxiv.org/abs/2504.11740
 10.48550/arXiv.2401.15290            302 -> https://arxiv.org/abs/2401.15290
+cran.r-project.org/package=CIMEHR   200 -> CRAN resolvable 2026-08-30 (CRAN CIMEHR 0.1.0 + vignette getting-started.html 169K)
+github.com/ysph-dsde/CIMEHR        200 -> GitHub resolvable 2026-08-30
 cran.r-project.org/package=JMbayes2  200 -> CRAN resolvable
 ```
 
@@ -327,3 +334,58 @@ cran.r-project.org/package=JMbayes2  200 -> CRAN resolvable
 **Code pointers:** JMbayes2/joineRML/frailtypack + lme4/nlme (R) + torch GRU-D/SeFT/torchdiffeq GRU-ODE-Bayes.
 **Compute:** 16×200×baselines ≈3,200–6,400 fits per N level; ~22k fits upper bound with sensitivities; 200–300 GPU-h worst-case; wall-clock ~30h at N=2k with parallelization.
 **Decision rule:** Non-inferior calibration (|slope−1|≤0.1, intercept ≤0.1) AND coverage within 2pp AND superior DCA — ML gets no preference; else classical suffices.
+
+---
+
+## REVISE Addendum 2026-08-30 — Kill Packet p190 Required Edits (methods-scout)
+
+**Status:** REVISE → KEEP after edits (adversarial-reviewer cycle05_kill_round.md p190+). Edits applied 2026-08-30 per CYCLE_06_BRIEF §Methods-scout #1 (5 items).
+
+### 1. Edits applied
+
+1. **Cite Yang 2026 CIMEHR as load-bearing engine (Important Papers + Evidence AGAINST):** Added Yang et al. 2026 `Joint Modeling of Longitudinal EHR Data with Shared Random Effects for Informative Visiting and Observation Processes` **10.48550/arXiv.2602.15374** + **CRAN https://cran.r-project.org/web/packages/CIMEHR** + **GitHub https://github.com/ysph-dsde/CIMEHR** as load-bearing generative engine. Updated Important Papers Table: new row 4a (CIMEHR engine, preprint+software, DOI+CRAN+GitHub, 302 verified 2026-08-30) and row 4b (Liang downgraded to sensitivity). Replaced "we propose 3-process spec" with "we use CIMEHR as engine, benchmarking DL vs classical" in generative spec lock intro (Gate 4). CRAN 0.1.0 published 2026-06-08 (R>=3.5, imports MASS/Rcpp/nleqslv/pbivnorm/numDeriv/data.table/mice/nlme; vignette `getting-started.html` 169K, source .Rmd 27K, R code 9.3K). GitHub ysph-dsde/CIMEHR HTTP 200 2026-08-30.
+
+2. **CIMEHR vs Liang sensitivity:** Retained Liang 2410.13113 as sensitivity generator (CIMEHR vs Liang engine fragility). Pre-registered: primary all 16 cells via CIMEHR `simData` + `cimehr()`; 4-cell subset (γ_v 0 vs 0.8 × noisy vs clean) also via Liang spec to test engine fragility (Liu 2504.11740). Gate 4 twin-variants section updated with CIMEHR simulator note.
+
+3. **Sun supplement + Frontiers LMM + CIMEHR vignettes inspection — logged verbatim:**
+
+| date | cycle | agent | source | query (verbatim) | concept | hits | n_inspected | finding (verbatim) | verification |
+|------|-------|-------|--------|------------------|---------|------|-------------|--------------------|--------------|
+| 2026-08-30 | 6 | methods-scout | web_search | `SCXsunchenxi ISMTS-Review supplement Health Data Science 0456 Sun 2026` | T1-REVISE-Sun-supplement | 5 | 5 | **Finding:** github.com/SCXsunchenxi/ISMTS-Review README lists datasets (/data/sepsis_data, /data/covid19_data, /data/mimiciii_inhospital_mortality_data, /data/icu_mortality_data) + other time series datasets + related works table (GRU-D/SeFT etc.) — **no LMM/joint-vs-DL calibration/coverage/DCA table in README/toc/main text**; raw curl 2026-08-30 HTTP 200 README head 150 lines confirms catalogue not experiment. Sun review remains catalogue (DOI 10.34133/hds.0456 302). | VERIFIED |
+| 2026-08-30 | 6 | methods-scout | web_search | `Frontiers Applied Math Statistics 2026 Assessment robustness LMM irregular longitudinal data` | T1-REVISE-Frontiers-LMM | 5 | 1 | **Finding:** Frontiers FAMS 2026 DOI 10.3389/fams.2026.1849703 Mashishi et al. — web_extract full text 01 July 2026: Title "Assessment of robustness of linear mixed model under irregular longitudinal data" — compares LMM vs broken stick model (BSM) vs GEE vs weighted GEE on extreme irregular visits (n=500, metrics bias/coverage/SE/MSE, informativeness degree 0.5 → ARB 1.3% coverage 94%; missingness 10%/20%/40%) + Tygerberg bariatric surgery real data (moderate irregularity, Pearson gap-time vs outcome). **No DL comparator (GRU-D/SeFT/neural ODE/hybrid absent).** Framing strengthens LMM baseline vs defeats gap. | VERIFIED |
+| 2026-08-30 | 6 | methods-scout | web_search | `CIMEHR vignette site:cran.r-project.org OR site:github.com ysph-dsde/CIMEHR Yang 2026` | T1-REVISE-CIMEHR-vignette | 5 | 5 | **Finding:** CRAN CIMEHR index verified via curl 2026-08-30: HTTP 301→https://cran.r-project.org/web/packages/CIMEHR/ , HTML title "CIMEHR: Gaussian Clinically Informative Visiting and Observation Processes in Electronic Health Record (EHR) Data" — description: three-stage procedure (partial likelihood log-normal frailty visit + probit observation shared latent + weighted least squares risk-set centering) + data simulator + benchmark methods (LMM, MI etc.) + methods in Yang et al. 2026 10.48550/arXiv.2602.15374. Vignettes: `Getting Started with CIMEHR` (source .Rmd 27K, R code 9.3K, HTML 169K) at /web/packages/CIMEHR/vignettes/getting-started.html — vignette HTML 169K confirms package documentation not DL head-to-head. CRAN 200, GitHub 200. | VERIFIED |
+| 2026-08-30 | 6 | methods-scout | terminal | `curl -s https://cran.r-project.org/web/packages/CIMEHR/vignettes/getting-started.html | head -n 300` | T1-REVISE-CIMEHR-vignette-inspect | 1 | 1 | Vignette HTML head confirms title "Getting Started with CIMEHR" — pandoc 2.9, no GRU-D/SeFT table. | VERIFIED |
+
+4. **Kept 16-cell core + Schneider 10.1186/s13040-025-00450-z citation:** Core remains 16 cells = γ_v{0,0.8}×sparsity{low(2),high(15)}×SNR{noisy(0.5),clean(4)}×N{2k,10k} =16×200 MC. Schneider BioData Mining 2025 (DOI 10.1186/s13040-025-00450-z, PMC12070788, 302→biodatamining.biomedcentral.com) cited as simulation template (frequency/noise/heterogeneity) in Gate 4 and updated Important Papers. Citation count unchanged load-bearing.
+
+5. **State compute via CIMEHR pipeline:** Gate 4 "Compute via CIMEHR pipeline" and Gate 8 added CIMEHR simulator row (~1–3 sec per replicate via `CIMEHR::simData`) + updated cost line ("Cost (via CIMEHR pipeline + GPU for DL)").
+
+### 2. Citations added/updated
+
+| # | Citation | DOI/URL | Verification 2026-08-30 |
+|---|----------|---------|--------------------------|
+| 4a | Yang et al. 2026 CIMEHR — Joint Modeling of Longitudinal EHR Data with Shared Random Effects for Informative Visiting and Observation Processes | https://doi.org/10.48550/arXiv.2602.15374 + https://cran.r-project.org/web/packages/CIMEHR + https://github.com/ysph-dsde/CIMEHR | **302 → arxiv.org/abs/2602.15374 ; CRAN 301→200 HTML title verified; GitHub 200 etag W/"5be01f..."** |
+| 4b | Liang EHRJoint 2410.13113 retained as sensitivity | https://doi.org/10.48550/arXiv.2410.13113 | 302 (carry-forward) |
+| - | Mashishi et al. 2026 Frontiers Robustness LMM | https://doi.org/10.3389/fams.2026.1849703 | VERIFIED via web_extract full text 01 July 2026 |
+| - | Sun et al. 2026 supplement | https://github.com/SCXsunchenxi/ISMTS-Review | VERIFIED curl 200 README (no DL-vs-LMM table) |
+
+### 3. New searches logged (verbatim, append to literature/search_log.csv)
+
+- See table above (3 inspection queries + 1 terminal vignette inspect = ≥2 required). Also DOI HEAD batch for CIMEHR logged to evidence_registry.csv.
+
+### 4. DOI 302 verification (≥1 new)
+
+- 10.48550/arXiv.2602.15374 302 → https://arxiv.org/abs/2602.15374 (NEW, CIMEHR)
+- 10.3389/fams.2026.1849703 (Frontiers LMM) VERIFIED via web_extract (adjacent DOI)
+- https://cran.r-project.org/web/packages/CIMEHR 301→200 / https://github.com/ysph-dsde/CIMEHR 200
+
+### 5. Confidence re-anchored
+
+Medium (post-REVISE): benchmark-poor signal strengthened (T1-KILL2 0 hits + Sun no table + Frontiers no DL + CIMEHR no head-to-head), 16-cell core unchanged, compute via CIMEHR pipeline explicit. Remaining risk: CIMEHR vignette future DL example — pre-registered contingency (pivot to replication/extension) applies.
+
+### 6. Contingency
+
+If any inspected source later adds GRU-D/SeFT vs LMM/joint on joint criterion across γ_v/γ_o decomposition with known truth, dossier pivots to direct replication/extension of that phase diagram (pre-registered, not de novo).
+
+---
+

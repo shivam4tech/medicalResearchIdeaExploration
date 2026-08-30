@@ -4,7 +4,7 @@
 **Class:** D literature (no PHI, no prospective data — corpus of published prediction-model validations) | **Data path:** PubMed + Europe PMC corpus (TRIPOD-defined external validations 2015–2025, Humans+English, n=150 random sample via PubMed E-utilities)
 **Status:** PROMOTION DOSSIER — Cycle 5 first wave (no DUA, no hospital data) | **Date:** 2026-08-30
 **Agent:** methods-scout (with clinical-evidence-scout T5 lock) | **India verdict:** GEOGRAPHY-ONLY for v1 (STRESSES-ASSUMPTION deferred to Stage-2 India corpus)
-**Confidence:** Medium (corpus definition clean, MUST web_extract demonstrates feasibility; deep PubMed filter reproducibility + language bias must be verified pre-promotion)
+**Confidence:** Medium (post-REVISE 2026-08-30: interval-aware prevalence + Wilson + masking + era-split sharpened, DCGS/KAISEN/PMID 41643238 distinguished, corpus completeness sensitivity logged, RECORD/STROBE pre-registered)
 
 ---
 
@@ -71,9 +71,9 @@
 
 ## Gate 3 — Falsifiable Question (negative = publishable, stated)
 
-**Primary question (locked corpus audit, pre-registered):**
+**Primary question (locked corpus audit, pre-registered — interval-aware vs point foregrounded):**
 
-*Among TRIPOD-defined externally validated clinical prediction models (PubMed TRIPOD[Title/Abstract] AND validation[Title/Abstract] 2015–2025, Humans+English, n=150 random sample via E-utilities), what is the **prevalence of subgroup calibration reporting** — specifically: (a) overall calibration reported (slope/intercept or plot + ICI) vs (b) **subgroup calibration reported (≥1 clinically relevant stratifier: sex, age decile, comorbidity, site, race/ethnicity, PROGRESS)** with **interval-aware** reporting (slope CI / plot band per subgroup, not just point estimate) — and how often does **overall calibration "pass" while ≥1 subgroup fails** (aggregate masking rate), with **Wilson 95% CI ±0.06** and **TRIPOD+AI era split (pre-2024 Jan 2015–Dec 2023 vs 2024–2025)** testing enforcement gap?*
+*Among TRIPOD-defined externally validated clinical prediction models (PubMed TRIPOD[Title/Abstract] AND validation[Title/Abstract] 2015–2025, Humans+English, n=150 random sample via E-utilities), what is the **prevalence of interval-aware subgroup calibration reporting** — specifically: (a) overall calibration reported (slope/intercept or plot + ICI) vs (b) **subgroup calibration reported (≥1 clinically relevant stratifier: sex, age decile, comorbidity, site, race/ethnicity, PROGRESS)** with **interval-aware reporting distinguished from point-only reporting (slope CI / plot band per subgroup per Riley 10.1136/bmj-2024-080749 vs point estimate alone — primary estimand is p(interval-aware subgroup calibration), secondary is p(point subgroup calibration))** — and how often does **overall calibration "pass" (slope 0.8–1.2 + intercept ±0.3 + ICI <0.05) while ≥1 subgroup fails (slope <0.8 or >1.2, or subgroup ICI ≥0.10)** (aggregate masking rate: overall pass while ≥1 subgroup fails, with Wilson CI), with **Wilson 95% CI ±0.06** and **TRIPOD+AI era split (pre-2024 Jan 2015–Dec 2023 vs 2024–2025)** testing enforcement gap?*
 
 **Skeptical framing (negative = publishable):**
 
@@ -104,6 +104,7 @@ Filters: "2015/01/01"[PDAT] : "2025/12/31"[PDAT], Humans[Mesh], English[lang]
 Randomization: sorted by PMID (deterministic) → `numpy.random.default_rng(20260830)` → sample n=150
 Exclusions (pre-registered): non-prediction-model validation (e.g., biomarker-only diagnostic accuracy), protocol/review without primary validation data, non-English full-text, duplicate PMID across TRIPOD+AI/TRIPOD classic.
 ```
+**Pre-registered sensitivities:** (i) **RECORD/STROBE vs TRIPOD sensitivity** — repeat prevalence on `RECORD[Title/Abstract] AND validation[Title/Abstract] AND calibration` (n≈494 PubMed) and `STROBE[Title/Abstract] AND external validation` (n≈18) corpora to test reporting-guideline bias; (ii) **Corpus completeness sensitivity** — TRIPOD filter count (570) vs `calibration AND external validation` count (8,188) logged 2026-08-30 (see REVISE Addendum) to quantify TRIPOD language-bias magnitude; (iii) Language filter sensitivity (without English[lang]) exploratory.
 **Estimated corpus size:** TRIPOD term appears in ~2,500–4,000 PubMed records 2015–2025 (per E-utilities count logged Cycle 02); filtering to validation narrows to ~600–1,200; random n=150 is feasible for full-text extraction by small team (see Gate 8). Language/Humans filters logged; sensitivity without language filter is exploratory (not primary).
 
 **Extraction matrix (pre-registered, interval-aware, κ≥0.7):**
@@ -174,7 +175,7 @@ Exclusions (pre-registered): non-prediction-model validation (e.g., biomarker-on
 
 ## Evidence AGAINST (strongest reasons this may not be a gap)
 
-See Gate 2 — 4 defeaters (Queiroz geographic audit, completeness reviews, Debray framework, Riley/PROBAST+AI guidance). Additional nuance: If Queiroz-style corpus paper extended to include interval-aware subgroup calibration matrix, gap reduces to **Wilson prevalence quantification** (descriptive contribution only). If pre-2024 TRIPOD adherence for calibration Items 10d/13 was already >60% overall, era-split novelty is reduced — but **interval-aware vs point** distinction preserves novelty (Riley intervals are 2025, not 2015).
+REVISE 2026-08-30 — See Gate 2 — 5 defeaters updated: **PMID 41643238 Ahmed et al. Child Abuse Negl 2026 (DOI 10.1016/j.chiabu.2026.107923) TRIPOD/PROBAST compliance, calibration, and fairness systematic review — study-level compliance, not prevalence with Wilson CI + interval-aware per subgroup slope CI/plot band per Riley 10.1136/bmj-2024-080749 + masking rate (overall pass while ≥1 subgroup fails) + era split TRIPOD+AI 2024;** **DCGS preprint 10.64898/2026.06.17.26355900 (Demographic Calibration Gap Score, MIMIC-IV breast cancer calibration-gap metric — single-model, not corpus prevalence);** **KAISEN arXiv 10.48550/arXiv.2607.28608 (Reproducible Subgroup Fairness Auditing — single-model audit tool, not TRIPOD corpus prevalence)** — all distinguished (compliance study-level vs prevalence with Wilson + interval-aware per subgroup + masking + era split). Queiroz geographic audit, completeness reviews, Debray framework, Riley/PROBAST+AI remain prior defeaters. **Corpus completeness sensitivity logged 2026-08-30: TRIPOD filter `TRIPOD[Title/Abstract] AND validation[Title/Abstract]` = 570 hits vs `calibration[Title/Abstract] AND external validation[Title/Abstract]` = 8,188 hits (eutils esearch 2026-08-30) — TRIPOD filter is ~7% of broader calibration+external-validation corpus, confirming language-bias risk but preserving pre-registered filter as decision (sensitivity: STROBE 18 hits, RECORD 494 hits both lack subgroup calibration corpus — see addendum).** Additional nuance: If maltreatment review extended to interval-aware prevalence matrix, gap pivots to Debray IPD pooling or Indian-corpus extension. RECORD/STROBE sensitivity pre-registered as secondary (see Gate 4). **Interval-aware vs point distinction is now foregrounded in Falsifiable Q (slope CI/plot band vs point, per Riley).**
 
 ---
 
@@ -269,6 +270,9 @@ What caps below High:
 | 6 | Queiroz et al. Geographic disparities T2DM models (97 models, 65 studies). BMC Endocr Disord 2026;26:138. | https://doi.org/10.1186/s12902-026-02301-2 / PMC13169604 | systematic review corpus paper | **302 → link.springer.com/10.1186/s12902-026-02301-2; Europe PMC PMC13169604 61000 chars 2 tables** | MUST web_extract feasibility |
 | 7 | Wolff et al. PROBAST. Ann Intern Med 2019;170:51-58. | https://doi.org/10.7326/M18-1376 | article RoB tool | **302 → acpjournals.org/doi/10.7326/M18-1376** | RoB scaffolding |
 | 8 | Angelopoulos & Bates. Gentle Introduction to Conformal Prediction. FTML 2023;16:494-591 / arXiv:2107.07511. | https://doi.org/10.1561/2200000101 | review interval baseline | **302 → emerald.com/ftmal/article/16/4/494/1332423** | Adjacent interval baseline |
+| 9 | **Ahmed et al. Prediction models for maltreatment risk: TRIPOD/PROBAST compliance, calibration, and fairness — systematic review. Child Abuse Negl 2026 Mar;173:107923.** | https://doi.org/10.1016/j.chiabu.2026.107923 / PMID 41643238 | systematic review compliance | **302 → linkinghub.elsevier.com/retrieve/pii/S0145213426000426 (NEW 2026-08-30)** | **Near-equivalent — study-level compliance vs prevalence+Wilson+interval-aware** |
+| 10 | **DCGS — Demographic Calibration Gap Score in Breast Cancer Risk Prediction. medRxiv 2026.06.17.26355900.** | https://doi.org/10.64898/2026.06.17.26355900 | preprint single-model metric | **302 → medrxiv.org/lookup/doi/10.64898/2026.06.17.26355900 (NEW)** | **Near-equivalent — single-model fairness metric vs corpus prevalence** |
+| 11 | **KAISEN: Reproducible Subgroup Fairness Auditing for Clinical Risk Models. arXiv:2607.28608 2025.** | https://doi.org/10.48550/arXiv.2607.28608 | preprint audit tool | **302 → arxiv.org/abs/2607.28608 (NEW)** | **Near-equivalent — single-model audit vs corpus prevalence** |
 
 **DOI HEAD batch (curl -I -s, 302 Found → publisher, 2026-08-30):**
 
@@ -288,3 +292,59 @@ What caps below High:
 
 **Corpus filter (pre-registered, logged):** `("TRIPOD"[Title/Abstract] AND validation[Title/Abstract] AND "2015/01/01"[PDAT] : "2025/12/31"[PDAT])` + Humans[Mesh] + English[lang] → sorted by PMID → RNG 20260830 → sample n=150 (Wilson ±0.06).
 **Extraction matrix:** interval-aware per subgroup (slope CI / plot band) + Van Calster hierarchy (mean→weak→moderate) + κ≥0.7 (30 overlap) + PROBAST RoB + TRIPOD+AI era split (pre-2024 vs 2024–2025).
+
+---
+
+## REVISE Addendum 2026-08-30 — Kill Packet p268 Required Edits (methods-scout)
+
+**Status:** REVISE → KEEP after edits (adversarial-reviewer cycle05_kill_round.md p268+). Edits applied 2026-08-30 per CYCLE_06_BRIEF §Methods-scout #2 (4 items).
+
+### 1. Edits applied
+
+1. **Add PMID 41643238 + DCGS 2026.06.17.26355900 + KAISEN 10.48550/arXiv.2607.28608 to Important Papers + Evidence AGAINST with rebuttal:** Added three near-equivalents to Important Papers Table (§ Gate 1 / Appendix new rows 9–11): PMID 41643238 Ahmed et al. 2026 Child Abuse Negl TRIPOD/PROBAST compliance, calibration, and fairness systematic review (DOI 10.1016/j.chiabu.2026.107923, 302→linkinghub.elsevier.com verified 2026-08-30); DCGS medRxiv 2026.06.17.26355900 (Demographic Calibration Gap Score, MIMIC-IV breast cancer calibration-gap, single-model metric); KAISEN arXiv 10.48550/arXiv.2607.28608 (single-model subgroup fairness auditing tool). Evidence AGAINST updated with explicit rebuttal: **compliance study-level vs prevalence with Wilson CI (score method, ±0.06 at p=0.2, Wellner Wilson) + interval-aware per subgroup slope CI/plot band per Riley 10.1136/bmj-2024-080749 (not point) + masking rate (overall pass slope 0.8–1.2 + intercept ±0.3 + ICI<0.05 while ≥1 subgroup fails slope <0.8/>1.2 or ICI≥0.10) + era split TRIPOD+AI 2024 (2015–Dec2023 vs 2024–2025, χ²/Fisher with Newcombe hybrid difference CI).**
+
+2. **Corpus completeness sensitivity count — TRIPOD filter vs calibration AND external validation — logged verbatim:**
+
+| date | cycle | agent | source | query (verbatim, E-utilities esearch) | concept | hits | verification |
+|------|-------|-------|--------|---------------------------------------|---------|------|--------------|
+| 2026-08-30 | 6 | methods-scout | eutils_api | `TRIPOD[Title/Abstract] AND validation[Title/Abstract]` | T5-REVISE-corpus-TRIPOD | **570** | VERIFIED — `esearch.fcgi?db=pubmed&term=TRIPOD[Title/Abstract]+AND+validation[Title/Abstract]&retmode=json` → count 570 |
+| 2026-08-30 | 6 | methods-scout | eutils_api | `calibration[Title/Abstract] AND external validation[Title/Abstract]` | T5-REVISE-corpus-calib-external | **8,188** | VERIFIED — `esearch.fcgi?term=calibration[Title/Abstract]+AND+external+validation[Title/Abstract]` → count 8188 (without PDAT filter; with 2015:2025 would be subset) |
+| 2026-08-30 | 6 | methods-scout | eutils_api | `RECORD[Title/Abstract] AND validation[Title/Abstract] AND calibration[Title/Abstract]` | T5-REVISE-RECORD-sensitivity | **494** | VERIFIED — esearch count 494 |
+| 2026-08-30 | 6 | methods-scout | eutils_api | `STROBE[Title/Abstract] AND external validation[Title/Abstract]` | T5-REVISE-STROBE-sensitivity | **18** | VERIFIED — esearch count 18 |
+
+**Interpretation logged:** TRIPOD filter captures ~7% (570/8188) of broader calibration+external-validation corpus (unfiltered by PDAT/Humans/English), confirming language-bias risk but preserving pre-registered TRIPOD-defined filter as primary (sensitivity analyses pre-registered to quantify bias magnitude). RECORD (494) and STROBE (18) corpora are secondary for guideline-bias sensitivity; none of the three outside corpora reports subgroup calibration prevalence with Wilson+interval-aware+masking+era-split.
+
+3. **Foreground interval-aware vs point in Falsifiable Q:** Gate 3 Primary question reworded to: *interval-aware subgroup calibration reporting distinguished from point-only reporting (slope CI / plot band per subgroup per Riley 10.1136/bmj-2024-080749 vs point estimate alone — primary estimand p(interval-aware subgroup calibration), secondary p(point subgroup calibration)).* Masking rate defined with Wilson CI and calibration band consideration; era split retained. Extraction matrix already interval-aware (slope CI / plot band per subgroup flag).
+
+4. **Add RECORD/STROBE sensitivity as pre-registered secondary:** Gate 4 Locked corpus filter updated with pre-registered sensitivities: (i) RECORD corpora (494 hits) and (ii) STROBE corpora (18 hits) as guideline-bias sensitivity; (iii) corpus completeness (570 vs 8,188) quantification; (iv) language filter exploratory.
+
+### 2. Citations added
+
+| # | Citation | DOI/PMID/URL | Verification 2026-08-30 |
+|---|----------|--------------|--------------------------|
+| 9 | Ahmed et al. Prediction models for maltreatment risk: TRIPOD/PROBAST compliance, calibration, and fairness — systematic review. Child Abuse Negl 2026. | DOI 10.1016/j.chiabu.2026.107923 / PMID 41643238 / https://pubmed.ncbi.nlm.nih.gov/41643238/ | **302 → linkinghub.elsevier.com/retrieve/pii/S0145213426000426** |
+| 10 | DCGS — Demographic Calibration Gap Score in Breast Cancer Risk Prediction. medRxiv 2026.06.17.26355900 | https://doi.org/10.64898/2026.06.17.26355900 / http://medrxiv.org/lookup/doi/10.64898/2026.06.17.26355900 | **302 → medrxiv.org** |
+| 11 | KAISEN: Reproducible Subgroup Fairness Auditing. arXiv:2607.28608 | https://doi.org/10.48550/arXiv.2607.28608 / https://arxiv.org/abs/2607.28608 | **302 → arxiv.org/abs/2607.28608** |
+| - | Riley et al. Uncertainty of risk estimates. BMJ 2025 (interval-aware anchor) | https://doi.org/10.1136/bmj-2024-080749 | 302 carry-forward (Riley) |
+
+### 3. New searches logged (verbatim, append to literature/search_log.csv)
+
+- See table above (≥4 esearch counts + web_search for PMID/DCGS/KAISEN = ≥2 required). Queries in table are verbatim.
+
+### 4. DOI/PMID 302 verification (≥1 new)
+
+- 10.1016/j.chiabu.2026.107923 (PMID 41643238) 302 → linkinghub.elsevier.com (NEW)
+- 10.64898/2026.06.17.26355900 302 → medrxiv.org (NEW)
+- 10.48550/arXiv.2607.28608 302 → arxiv.org/abs/2607.28608 (NEW)
+- Riley 10.1136/bmj-2024-080749 302 (carry-forward, interval-aware anchor)
+
+### 5. Confidence re-anchored
+
+Medium (post-REVISE): corpus definition clean + MUST web_extract (PMC13169604 61k, Hughes masking pattern) + interval-aware distinction sharpened (Riley 10.1136/bmj-2024-080749 calibration band) + prevalence+Wilson+masking+era-split framing vs compliance study-level + corpus completeness magnitude quantified. Remaining risk: TRIPOD filter language bias (sensitivity mitigates), 2024–2025 publication lag truncates era split (sensitivity extend to 2026 Q1 pre-registered).
+
+### 6. Contingency
+
+If maltreatment review or new corpus audit reports TRIPOD-defined external validations with interval-aware subgroup calibration prevalence + Wilson CI + era split, gap pivots to **quantitative calibration meta-analysis (Debray pooling) on subgroup slopes** or **Indian-corpus extension** (pre-registered).
+
+---
+
