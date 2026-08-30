@@ -1,0 +1,23 @@
+column,type,allowed_values,interval_aware_flag,kappa_domain,definition,pilot_example,notes
+pmid,integer,PMID integer 2015–2025,no,—,PubMed PMID (sorted PMID randomization),40418571,One per included study; from esearch idlist
+title,string,free text,no,—,Article title via efetch,Supervised Machine Learning Models for Predicting Sepsis-Associated Liver Injury...,Verbatim efetch title
+journal,string,free text,no,—,Journal via efetch,Journal of medical Internet research,Verbatim efetch
+year,integer,2015–2025,no,—,Publication year via efetch,2025,Used for TRIPOD+AI era split
+overall_calib_reported,binary 0/1,0=no calibration reported;1=slope/intercept or plot or ICI or HL reported,no,yes κ≥0.7,"Any overall calibration (Van Calster ≥mean): slope/intercept, calibration plot, ICI, HL p",1,Weakest signal: HL-only still 1 but sensitivity excludes HL-only
+overall_calib_slope_CI_reported,binary 0/1,0=point only/no slope;1=slope with 95% CI (bootstrap/Bayesian),slope_CI,yes κ≥0.7,Riley interval-aware overall: slope CI per bootstrap or credible interval,1,Pilot 40418571=1; 40241963=0
+overall_calib_plot_band,binary 0/1,0=plot without band or no plot;1=plot with confidence band,band,yes κ≥0.7,Moderate calibration with band (Van Calster moderate + band),1,Pilot 40418571=1; 40241963=0
+subgroup_calib_reported_any,binary 0/1,0=no subgroup calibration;1=≥1 clinically relevant subgroup with calibration,no,yes κ≥0.7,≥1 stratifier (sex/age/comorbidity/site/race_ethnicity/deprivation/PROGRESS_other) with calibration (any),1 (sex),Primary stratification flag
+subgroup_stratifiers,semicolon list,sex;age;comorbidity;site;race_ethnicity;deprivation;PROGRESS_other (empty if none),no,yes κ≥0.7,Which stratifiers are evaluated for subgroup calibration (PROGRESS framework Evans 2022 + site),sex,Site and deprivation are equity-relevant; pilot 40241963=site;sex
+subgroup_interval_aware,binary 0/1,0=no interval-aware subgroup;1=≥1 subgroup with interval-aware (CI or band) — PRIMARY ESTIMAND,INTERVAL-AWARE,yes κ≥0.7,≥1 subgroup stratifier level with slope CI or plot band per Riley 2025 — p(interval-aware) numerator,0 (sex:CI=no),Primary: pilot 5/20=0.250 interval-aware
+subgroup_point_only,binary 0/1,0=not point-only;1=subgroup calibration point-only without CI/band,no,yes κ≥0.7,Subgroup calibration exists but without CI/band (point estimate or plot without band),1,Secondary p(point)=4/20 pilot
+subgroup_slope_CI_per_stratifier,string,e.g. sex:CI=yes;comorbidity:CI=no (empty if none),per-stratifier,yes κ≥0.7,"For each listed stratifier, CI/band present per stratifier level",sex:CI=no,Granular; pilot 40626581=site;race_ethnicity:CI=yes
+masking_overall_pass_subgroup_fail,binary 0/1,0=no masking or no subgroup data;1=overall pass while ≥1 subgroup fail,band-considered,yes κ≥0.7,Masking indicator: overall slope 0.8–1.2 + intercept ±0.3 + ICI<0.05 pass AND ≥1 subgroup fail slope<0.8 or >1.2 or subgroup ICI≥0.10 (band-considered per Riley),1 (40418571),Denominator = papers with ≥1 subgroup calibration
+masking_definition,string,verbatim definition,—,—,Overall pass slope 0.8–1.2 + intercept ±0.3 + ICI<0.05 pass; subgroup fail slope<0.8 or >1.2 or ICI≥0.10 (with band consideration per Riley),verbatim as column,Locked at OSF timestamp
+triPod_AI_era,categorical,pre-2024 (2015–Dec 2023) | 2024-2025 (Jan 2024–Dec 2025 TRIPOD+AI era Collins 10.1136/bmj-2023-078378),no,—,Publication era split at TRIPOD+AI Jan 2024,2024-2025,Locked before coding; no post-hoc cut optimization
+PROBAST_overall,categorical,high/low/unclear,no,yes κ≥0.7,PROBAST Wolff 2019 10.7326/M18-1376 + update Moons 2025 10.1136/bmj-2024-082505; 4 domains → overall,high,Exploratory association high vs absent subgroup
+extraction_reviewer,categorical,R1/R2/adjudicated,no,—,Which extractor coded this row (pilot R1 or adjudicated for dual),R1,Full 20% dual n=30
+dual_overlap_flag,binary 0/1,0=single;1=in 20% dual overlap (n=30 of 150),no,—,1 if this paper in randomized dual-extraction overlap,0,"Pilot indices [2,3,6,8,11] are 1"
+adjudication_note,free text,,no,—,Note resolving R1 vs R2 (lead adjudication)," (empty) or 'R1=0 R2=1 -> adjudicated 1 (plot band ambiguous, Riley band counted per protocol)' (pilot 40626581)",Pilot shows band ambiguity resolution
+rayyan_label,categorical,include/exclude,no,—,Rayyan screening label (CSV import; pilot stub),include,Full n=150 uses real label
+Wilson_p_interval_aware_stub,string,,no,—,Pilot stub prevalence field (full uses real Wilson), (empty) pilot synthetic,Placeholder
+notes,free text,,no,—,Free note per extraction,pilot synthetic — full n=150 uses real extraction per Riley 10.1136/bmj-2024-080749,Pilot honesty: 20 rows synthetic stubs demonstrating form

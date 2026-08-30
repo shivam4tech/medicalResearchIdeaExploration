@@ -1,0 +1,43 @@
+Section,Item,PRISMA_2020_Item,Location_in_manuscript,Status,Notes
+Title,1,Identify report as systematic review / corpus audit,Title + §2 Methods,DONE,RR Stage-1: n=150 TRIPOD corpus audit
+Abstract,2,Structured summary per PRISMA abstract checklist,Abstract (RR Stage-1) + OSF §1,DONE,"Interval-aware, Wilson, era-split foregrounded"
+Introduction,3,"Rationale: what is known, why audit needed","§1.1 (TRIPOD 570 vs 8188, Queiroz 91.8%, Jin, Riley interval-aware gap)",DONE,Gap: no p(interval-aware subgroup calibration) with Wilson
+Introduction,4,Objectives: explicit question with estimands,"§1.2 falsifiable Q + H0/H1 (p(interval-aware) primary, masking, era-split)",DONE,Negative = publishable
+Methods,5,"Eligibility criteria (study, report characteristics)","§2.1 table (TRIPOD + validation 2015–2025 Humans English, exclusions)",DONE,Locked before screening
+Methods,6,"Information sources (databases, date searched)",§2.2 PubMed E-utilities esearch+efetch + Europe PMC fullTextXML,DONE,E-utilities 2026-08-30 re-verified 570/8188/494/18
+Methods,7,Search strategy (present full strategy for at least one source),§2.2 locked corpus filter string + E-utilities URLs (retmode=json),DONE,"TRIPOD[Title/Abstract] AND validation, 2015:2025[PDAT] etc."
+Methods,8,"Selection process (how many reviewers, independence)","§2.3 PRISMA flow + Rayyan + 2 reviewers title/abstract, 20% dual full-text",DONE,Rayyan-ready CSV per pilot
+Methods,9,"Data collection process (extraction method, reviewers, piloting)","§2.4 22-col extraction form + pilot 20 rows, 20% dual, κ≥0.7",DONE,Form per pilots/candidate_004/outputs/pilot_004_extraction_pilot.csv
+Methods,10a,Data items: outcomes sought,"§2.4 extraction domains: overall calib, subgroup per PROGRESS, interval-aware, masking, era, PROBAST",DONE,22 cols; primary = interval-aware
+Methods,10b,"Data items: other variables (participant, intervention, funding)","§2.4 PMID/journal/year, PROBAST, subgroup stratifiers PROGRESS",DONE,PROGRESS-Plus
+Methods,11,Risk of bias assessment per study,§2.7 PROBAST 2019 + PROBAST+AI 2025 (4 domains + overall),DONE,Alongside calibration matrix
+Methods,12,Effect measures (how chosen),"§2.5 Wilson 95% CI (score) for prevalences + masking, Newcombe diff CI for era",DONE,Not Wald
+Methods,13a,Synthesis: process for deciding eligibility for synthesis,"§2.3 PRISMA: n=150 included after screening, n=30 dual for κ",DONE,
+Methods,13b,Synthesis: methods to prepare data for presentation,§2.5 Prevalence denominators; masking denominator = n_with_subgroup_data,DONE,
+Methods,13c,Synthesis: methods to tabulate/visualise results,"§2.3 flow figure + §2.5 Wilson CIs per PROGRESS, masking plot, era bar",DONE,Pilot stubs show table
+Methods,13d,Synthesis: methods to synthesize results (model),§2.5 Prevalence estimation (not meta-analysis); Debray framework Stage-2 if slopes sufficient,DONE,Descriptive
+Methods,13e,Synthesis: heterogeneity exploration,§2.6.1 stratification per PROGRESS; era as heterogeneity,DONE,
+Methods,13f,Synthesis: sensitivity analyses,§2.2 RECORD 494 / STROBE 18 + 570 vs 8188 completeness + language sensitivity,DONE,Pre-registered
+Methods,14,Reporting bias assessment,"§2.7 corpus completeness 570 vs 8188 (~7%), RECORD/STROBE bias, retrieval bias",DONE,
+Methods,15,Certainty assessment (GRADE etc.),§2.7 Not applicable — descriptive audit; no GRADE (no intervention effect),DONE,Explicit non-GRADE
+Results,16a,Study selection: flow diagram with numbers per stage,Appendix PRISMA pilot flow + full flow TBD (Fig 1: PRISMA 2020),TBD,"RR Stage-1: pilot flow Fig, full results TBD"
+Results,16b,Study selection: excluded studies with reasons at full-text,"TBD full (§2.3 n≈10–15 excluded: non-prediction, duplicate PMID)",TBD,Pilot n=20 uses stubs
+Results,17,Study characteristics: table per included study,TBD (extraction CSV per study + journal/year/overall-calib summary),TBD,22-col CSV TBD
+Results,18,Risk of bias per study,"TBD PROBAST per study, overall high/low",TBD,
+Results,19,Results of individual studies: extracted data per outcome,"TBD (22-col form per study, subgroup slope CIs, masking indicator)",TBD,
+Results,20a,Synthesis results: characteristics + risk of bias contributions,TBD prevalence + Wilson CI per estimand + PROBAST association,TBD,
+Results,20b,Synthesis results: statistical synthesis per outcome,TBD p(interval-aware) Wilson CI; masking rate; PROGRESS breakdown,TBD,
+Results,20c,Heterogeneity results,TBD era split χ²/Fisher + Newcombe diff CI,TBD,
+Results,20d,Sensitivity results,TBD RECORD/STROBE prevalence + 570 vs 8188,TBD,
+Results,21,Reporting biases,TBD retrieval rate + corpus completeness interpretation,TBD,
+Results,22,Certainty of evidence,TBD narrative (no GRADE; Wilson precision) — ±0.06 at n=150,TBD,
+Discussion,23a,Interpretation in context of other evidence,"TBD (Queiroz 91.8%, Hughes masking, Riley interval warning)",TBD,RR Stage-1 discusses framing
+Discussion,23b,Limitations of review process,"TBD E-utilities TRIPOD language bias (~7%), English filter, 60% OA retrieval",TBD,§2.7 already notes
+Discussion,23c,Limitations of evidence (bias in included studies),TBD PROBAST high risk + missing CI/bands,TBD,
+Discussion,23d,Implications for practice/policy/research + India Stage-2,"§4 geography-only v1, Stage-2 India corpus",DONE,Stage-2 pre-registered
+Other,24a,Registration & protocol: where accessed,"OSF companion osf_prereg/candidate_004_OSF.md (registered 2026-08-30, git 70730ae, seed 20260830)",DONE,OSF DOI TBD
+Other,24b,Protocol amendments,OSF §0 version hash; none before Stage-1 acceptance,DONE,
+Other,24c,Protocol description,"OSF §2–5 + Methods §2 (corpus filter, 22-col form, Wilson, κ≥0.7, masking, PRISMA)",DONE,
+Other,25,Support (funding etc.),Acknowledgements / funding statement TBD,TBD,No pharma
+Other,26,Competing interests,COI statement TBD,TBD,
+Other,27,Availability of data/code/materials,"§2.8 + pilot archive: pilots/candidate_004/ (logs/pilot_004.log, outputs/*.csv), E-utilities string + seed 20260830, Europe PMC, extraction CSVs, git 70730ae",DONE,No PHI
