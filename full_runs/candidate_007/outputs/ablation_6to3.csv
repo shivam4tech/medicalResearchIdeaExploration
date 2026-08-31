@@ -1,0 +1,4 @@
+ablation,n_vars,vars,completeness_pct,ARI_vs_denovo,ARI_vs_6var_transport,verdict
+6var,6,"GADA,age,BMI,HbA1c,HOMA2_B,HOMA2_IR",98.3625,0.24989804851649092,1.0,primary transports
+4var,4,"age,BMI,HbA1c,HOMA2_IR proxy C-peptide",101.925,0.34796568165325165,0.6217438672861114,bridging (IMI-RHAPSODY C-peptide+HDL analogue)
+3var,3,"age,BMI,HbA1c",99.925,0.44603331479001235,0.2434877345722229,GADA-free co-primary; deployable in Indian primary care (Anjana sparsity)

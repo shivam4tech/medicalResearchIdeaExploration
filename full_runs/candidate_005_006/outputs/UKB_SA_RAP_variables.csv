@@ -1,0 +1,16 @@
+variable,UKB_field_ID,MIMIC_equivalent,type,needed_for,priority,notes
+BMI,21001,"chartevents BMI / weight,height",continuous kg/m2,"MONO definition, SMD/S-score, tilting",essential,UKB-SA 8k BMI mean ~26 vs 28.3 MIMIC; risk-equivalent 21-22 vs 30 White
+Waist circumference,48,chartevents waist (sparse),continuous cm,MONO joint (BMI<25 ∩ ≥2/5 risks),essential,ICMR-INDIAB joint BMI×WC×HDL×TG×FBG tilting
+HbA1c,30750,labevents HbA1c (LOINC 4548-4),"continuous %, missingness target",S_visit P(O) calibration (78%->15% audit),essential,Selective observation gating cost/symptom
+Fasting glucose,30740,labevents glucose,continuous mmol/L,"MONO 2/5 risks, HOMA",essential,FBG joint with BMI/WC/HDL/TG
+HDL cholesterol,30760,labevents HDL,continuous mg/dL,"MONO joint, S-score",essential,Tilting to ICMR-INDIAB 43.3% MONO
+Triglycerides,30870,labevents triglycerides,continuous mg/dL,MONO joint,essential,Same joint
+Systolic/Diastolic BP,4080/4079,chartevents SBP/DBP,continuous mmHg,"MONO 2/5, age shift 62->48",essential,CARRS 5-10y earlier onset
+Age at assessment,34,admissions age,continuous y,"Shift G0 62->G3 48, SMD",essential,CARRS/MDRF Young Diabetes Registry
+Medication count / generic prescribing,20003 (self-reported meds) + GP scripts,prescriptions generic flag,"categorical / count, % generic",Generic 100%->4.7% (Kaur/Khanna 60-pt spread),important,NLEM compliance 61-87%; drugs/Rx 1.8->6.8
+AYUSH / supplement concomitant,20084 (supplements) + 20003 herbal; bespoke AYUSH not in UKB — proxy,U_AYUSH binary (no MIMIC),binary ever/simultaneous 44-96%,Unmeasured U for B/R* (Galib 95.9%/44%),important,UKB proxy limited; CARRS field dictionary pending DUA — honest staged
+Diagnosis documentation,40005/40006 (HES) + 20002 (self-report),diagnoses_icd documented 100%,binary recorded % 100->8.5%,"Documentation shift, S_formulary",important,Kaur 8.5% ED; Khanna 29% ward
+Ethnicity / South Asian,21000 (ethnic background),N/A (SA enrichment),categorical Indian/Pakistani/Bangladeshi,Define UKB-SA n~8k cohort,essential,RAP filter: White British vs SA; ~500k total -> ~8k SA
+Sex,31,patients gender,binary,Stratified SMD/S-score,essential,Standard covariate
+Smoking / SES (IMD),20116/189 (Townsend),social history (sparse),categorical,Confounder for AYUSH/generic,useful,Cost/distance S_visit score
+GADA / HOMA2-B/IR (if available),30800/30810 (insulin/C-peptide limited),labevents C-peptide (sparse),continuous,Ahlqvist cluster transport (007) not 005/006 core,useful (007),Completeness threshold 85% per OSF 007

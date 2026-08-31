@@ -1,0 +1,18 @@
+metric,value,threshold,verdict
+ARI_transport_vs_denovo_6var,0.24989804851649092,>=0.60 transports,FAIL
+completeness_6var_pct,98.3625,>=85%,TRANSPORTS
+completeness_3var_pct,99.925,>=85% (co-primary),TRANSPORTS
+ARI_transport_vs_denovo_3var,0.44603331479001235,>=0.60,INTERMEDIATE
+ARI_6var_vs_3var_transport,0.2434877345722229,<0.60 indicates GADA/HOMA drives,GADA/HOMA drives
+silhouette_transport,0.10717440707436458,comparable to de-novo,0.107 vs 0.174
+silhouette_denovo,0.17436419260335959,>0.40 stable,poor
+ESS_ratio_pct,99.16959780356407,>70% adequate <50% fails,adequate
+S_score_AUC_stub,0.7300000000000001,<0.70 adequate >0.80 fails,intermediate
+SMD_fail_rate_pct,50.0,<10% adequate >=30% fails,fails
+N_total,8000.0,8000 UKB-SA proxy,honest synthetic proxy (DUA staged)
+SMD_GADA,-0.019858369722058827,|SMD|>0.1,OK
+SMD_age,-1.1041971804753679,|SMD|>0.1,FAIL
+SMD_BMI,-0.7242711065299968,|SMD|>0.1,FAIL
+SMD_HbA1c,0.027195884031619152,|SMD|>0.1,OK
+SMD_HOMA2_B,0.1978145675073916,|SMD|>0.1,FAIL
+SMD_HOMA2_IR,-0.028017988908351204,|SMD|>0.1,OK

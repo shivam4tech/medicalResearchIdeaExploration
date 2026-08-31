@@ -1,0 +1,109 @@
+=== FULL 005+006 — G0->G3 India plasmode N=10k×4 (40k total) audit-anchored II ===
+Seed 20260830, 2026-08-31 12:16:52 IST, Python 3.11.15
+Versions: sklearn 1.9.0 pandas 3.0.5 numpy 2.4.3
+Base: /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006
+Git rev 8824caa (Cycle10), shortlist FROZEN Tier2 005+006, honest synthetic 40k (MIMIC credential staged)
+Pool muse-spark-1.2-contributor-free ~40/min target≤24 ceiling30 max2concurrent
+N per grade 10000 total 40000
+EBAL available: False — honest stub: IPW/resampling tilting via logistic S-score (ebal missing)
+
+--- Step 1: Write audit-anchored G0->G3 verified table (9 rows) ---
+            dimension                      parameter G0_MIMIC_ref_no_shift G1_Mild_lean_urban_India G2_Moderate_national_avg_MAIN G3_Severe_rural_Tripura                                                                             anchor_justification verified                                            source_pmid_anchor
+           BMI (mean)                Mean BMI, kg/m2                  28.3                     26.0                          24.5                    22.8 MIMIC-IV mean ~28-29; ICMR-INDIAB gen obesity 28.6% -> thin-fat phenotype 10.25259/IJMR_328_2025       OK            MIMIC-IV v3.0/PhysioNet; ICMR-INDIAB IJMR_328_2025
+      MONO prevalence         BMI<25 ∩ ≥2/5 risks, %                     0                       18                          43.3                    56.7                                      Mohan IJMR 2025 PMC12550443 (national 43.3%, Tripura 56.7%)       OK                                   Mohan IJMR 2025 PMC12550443
+         Age at event        Median CVD/T2D onset, y                    62                       58                            52                      48                      CARRS IJE 10.1093/ije/dyac122; MDRF Young Diabetes Registry (5-10y earlier)       OK                        CARRS IJE dyac122; MDRF Young Diabetes
+    HbA1c measurement % eligible with HbA1c observed                    78                       55                            30                      15           MIMIC ~78% protocol; ICMR-INDIAB every-5th 20% -> real-world lower; Kaur/Khanna tables       OK            MIMIC ~78%; ICMR-INDIAB every-5th 20%; Kaur/Khanna
+Selective observation         P(test | asymptomatic)                  0.78                     0.45                          0.20                    0.20      Cost/availability gating; diagnosis 91.5% missing ED; vs P(test|sympt)=0.80 gating (severe)       OK                      Cost gating; Kaur diagnosis 8.5% missing
+  Generic prescribing                      Generic %                   100                       85                          64.9                     4.7                      Kaur Table2 64.9% (ED), Khanna Table2 4.7% (Medicine OPD) — 60-point spread       OK Kaur PMC13312064 Table2 64.9%; Khanna PMC12813935 Table2 4.7%
+    AYUSH concomitant          Ever herbo-mineral, %                     0                       10                            44                      96                                   Galib AYU 10.4103/ayu.ayu_81_20 95.9%/44%; NSS 10-40% national       OK                            Galib AYU ayu_81_20 95.9%/44%; NSS
+        Documentation          Diagnosis recorded, %                   100                       70                            29                     8.5                                                 Kaur Table3 8.5% (ED), Khanna 70->29% (Medicine)       OK                                  Kaur Table3 8.5%; Khanna 29%
+         Polypharmacy         Drugs per prescription               1.8-2.0                     2.65                           4.5                     6.8                                                    Kaur 2.65±1.59, Khanna 6.8±1.7; 71% >=3 drugs       OK                                Kaur 2.65±1.59; Khanna 6.8±1.7
+  check BMI G0: 28.3 OK
+  check BMI G3: 22.8 OK
+  check MONO G0: 0 OK
+  check MONO G3: 56.7 OK
+  check Age G0: 62 OK
+  check Age G3: 48 OK
+  check HbA1c G0: 78 OK
+  check HbA1c G3: 15 OK
+  check Generic G0: 100 OK
+  check Generic G3: 4.7 OK
+  check AYUSH G0: 0 OK
+  check AYUSH G3: 96 OK
+  check Docs G0: 100 OK
+  check Docs G3: 8.5 OK
+  wrote /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006/outputs/G0_G3_table_verified.csv (9 rows) sha256:d15d005e9e26
+
+--- Step 2: Synthetic MIMIC-like base cohort N=10000 + tilting per grade (40k total) ---
+  base G0: N=10000 mean BMI 28.30 age 62.2 mono 0.0167 wc 92.1 hdl 47.9
+  G0: N=10000 bmi 28.30 mono 0.000 age 62.2 obs 0.775 SMD_bmi 0.000 SMD_mono -0.184 AUC 0.500 ESS/n 1.000 trim10 0.000 S_visit cal slope 1.00 ICI 0.000
+/home/shivam/.hermes/hermes-agent/venv/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+  G1: N=10000 bmi 26.01 mono 0.179 age 58.1 obs 0.548 SMD_bmi -0.455 SMD_mono 0.568 AUC 0.759 ESS/n 0.210 trim10 0.026 S_visit cal slope 1.03 ICI 0.007
+/home/shivam/.hermes/hermes-agent/venv/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+  G2: N=10000 bmi 24.52 mono 0.428 age 52.2 obs 0.389 SMD_bmi -0.754 SMD_mono 1.138 AUC 0.911 ESS/n 0.017 trim10 0.377 S_visit cal slope 1.01 ICI 0.007
+/home/shivam/.hermes/hermes-agent/venv/lib/python3.11/site-packages/sklearn/linear_model/_logistic.py:1403: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', l1_ratio set to a float between 0 and 1 instead of penalty='elasticnet', and C=np.inf instead of penalty=None.
+  warnings.warn(
+  G3: N=10000 bmi 22.87 mono 0.576 age 48.2 obs 0.379 SMD_bmi -1.091 SMD_mono 1.548 AUC 0.967 ESS/n 0.005 trim10 0.670 S_visit cal slope 1.00 ICI 0.009
+
+  wrote diagnostics to /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006/outputs/india_diagnostics_full.csv (4 rows, 4 grades)
+grade     N  bmi_mean  mono_prev  age_mean  hba1c_observed_rate  S_score_AUC  ESS_ratio  trim_frac_alpha0.10  S_visit_ICI
+   G0 10000     28.30      0.000      62.2                0.775        0.500      1.000                0.000        0.000
+   G1 10000     26.01      0.179      58.1                0.548        0.759      0.210                0.026        0.007
+   G2 10000     24.52      0.428      52.2                0.389        0.911      0.017                0.377        0.007
+   G3 10000     22.87      0.576      48.2                0.379        0.967      0.005                0.670        0.009
+
+  Dose-response: AUC [0.5, 0.759, 0.911, 0.967] ESS/n [1.0, 0.21, 0.017, 0.005] trim10 [0.0, 0.026, 0.377, 0.67]
+  Grades exceeding AUC>0.80 (transport required): ['G2', 'G3']
+
+--- Step 3: 9-cell plasmode 3×P(U) 0.10/0.44/0.96 ×3×RR_UD 1.5/2.0/3.0 full R* contour ---
+  Formulas: B=[p1(RR-1)+1]/[p0(RR-1)+1]  E=RR+sqrt(RR(RR-1))  R* solves E(R*)=B (numeric)
+ P_U  RR_UD   p1   p0  B_bounding_factor  Rstar robust_at_RR1.2 robust_at_RR1.5 robust_at_RR1.8
+0.10    1.5 0.10 0.05              1.024  1.001          robust          robust          robust
+0.10    2.0 0.10 0.05              1.048  1.002          robust          robust          robust
+0.10    3.0 0.10 0.05              1.091  1.007          robust          robust          robust
+0.44    1.5 0.44 0.10              1.162  1.020          robust          robust          robust
+0.44    2.0 0.44 0.10              1.309  1.059          robust          robust          robust
+0.44    3.0 0.44 0.10              1.567  1.151          robust          robust          robust
+0.96    1.5 0.96 0.10              1.410  1.092          robust          robust          robust
+0.96    2.0 0.96 0.10              1.782  1.238         fragile          robust          robust
+0.96    3.0 0.96 0.10              2.433  1.531         fragile         fragile          robust
+  wrote 9-cell to /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006/outputs/india_Rstar_9cell_full.csv (9 rows) R* range 1.001-1.531
+
+  At P(U)=0.44 (national AYUSH simultaneous): R* [[1.5, 1.02], [2.0, 1.059], [3.0, 1.151]]
+  At P(U)=0.96 (ever AYUSH extreme): R* [[1.5, 1.092], [2.0, 1.238], [3.0, 1.531]]
+  Decision: RR_obs 1.2 never robust except lowest B; RR 1.5 robust only at P(U)=0.10 or RR_UD=1.5; RR 1.8 robust at moderate, fragile at AYUSH 96%/RR3.0
+
+--- Step 4: UKB_SA_RAP_variables.csv (RAP application checklist) ---
+                              variable                                                         UKB_field_ID     priority
+                                   BMI                                                                21001    essential
+                   Waist circumference                                                                   48    essential
+                                 HbA1c                                                                30750    essential
+                       Fasting glucose                                                                30740    essential
+                       HDL cholesterol                                                                30760    essential
+                         Triglycerides                                                                30870    essential
+                 Systolic/Diastolic BP                                                            4080/4079    essential
+                     Age at assessment                                                                   34    essential
+Medication count / generic prescribing                              20003 (self-reported meds) + GP scripts    important
+        AYUSH / supplement concomitant 20084 (supplements) + 20003 herbal; bespoke AYUSH not in UKB — proxy    important
+               Diagnosis documentation                              40005/40006 (HES) + 20002 (self-report)    important
+               Ethnicity / South Asian                                            21000 (ethnic background)    essential
+                                   Sex                                                                   31    essential
+                   Smoking / SES (IMD)                                                 20116/189 (Townsend)       useful
+      GADA / HOMA2-B/IR (if available)                              30800/30810 (insulin/C-peptide limited) useful (007)
+  wrote /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006/outputs/UKB_SA_RAP_variables.csv (15 rows)
+
+--- Hashes ---
+  sha256:d15d005e9e26  G0_G3_table_verified.csv (1718 bytes)
+  sha256:ce171f81adb4  india_diagnostics_full.csv (2183 bytes)
+  sha256:d9e6d20c487d  india_Rstar_9cell_full.csv (2832 bytes)
+  sha256:2f99a63d12a3  UKB_SA_RAP_variables.csv (2525 bytes)
+
+=== FULL 005+006 COMPLETE ===
+Outputs: /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006/outputs/G0_G3_table_verified.csv, /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006/outputs/india_diagnostics_full.csv, /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006/outputs/india_Rstar_9cell_full.csv, /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006/outputs/UKB_SA_RAP_variables.csv
+Diagnostics (N=10k per grade): AUC [0.5, 0.759, 0.911, 0.967] ESS/n [1.0, 0.21, 0.017, 0.005] trim10 [0.0, 0.026, 0.377, 0.67] S_visit ICI [0.0, 0.007, 0.007, 0.009]
+R* 9-cell range 1.001-1.531 (pilot 1.01-1.63; full consistent)
+Total synthetic rows generated: 40000 (10k×4 grades) seed 20260830
+Log: /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006/logs/full_005_006.log
+Next: CARRS 8k SA + ICMR-INDIAB 113k validation pipeline ready (see README extrapolation)
