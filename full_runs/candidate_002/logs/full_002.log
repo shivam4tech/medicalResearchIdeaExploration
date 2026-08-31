@@ -1,0 +1,158 @@
+[Full002] python 3.11.15 sklearn 1.9.0 numpy 2.4.3
+[Full002] git rev fc213fd synthetic fallback honest (MIMIC not credentialed)
+[Config] N=5000 split 80/20 (train 4000 test 1000) levels=['S1_plasmode_treat', 'S1p_plasmode_outcome', 'S2_gan_epochs', 'S4_resample', 'S5_random'] methods=['logistic', 'tree', 'rf'] seeds=[20260830, 20260831, 20260832] total_fits=45 (45) + TRTR per seed
+
+[Seed 20260830] === start ===
+[Seed 20260830] prevalence 0.506 full shape (5000, 26)
+[Seed 20260830] train 4000 test 1000 TRTR baseline next
+[TRTR seed20260830 logistic] auc=0.8519
+[TRTR seed20260830 tree] auc=0.7984
+[TRTR seed20260830 rf] auc=0.8210
+[Fidelity seed20260830 S1_plasmode_treat] mmd=0.0806 corr_fro=0.4111 disc=0.4809 rmspe=2.6293
+[TSTR seed20260830 S1_plasmode_treat logistic] auc=0.8509
+[TSTR seed20260830 S1_plasmode_treat tree] auc=0.7815
+[TSTR seed20260830 S1_plasmode_treat rf] auc=0.8236
+[Fidelity seed20260830 S1p_plasmode_outcome] mmd=0.0720 corr_fro=0.3888 disc=0.4909 rmspe=1.3872
+[TSTR seed20260830 S1p_plasmode_outcome logistic] auc=0.8485
+[TSTR seed20260830 S1p_plasmode_outcome tree] auc=0.7913
+[TSTR seed20260830 S1p_plasmode_outcome rf] auc=0.8118
+[Fidelity seed20260830 S2_gan_epochs] mmd=0.1578 corr_fro=4.0031 disc=0.6864 rmspe=1.5516
+[TSTR seed20260830 S2_gan_epochs logistic] auc=0.4642
+[TSTR seed20260830 S2_gan_epochs tree] auc=0.4952
+[TSTR seed20260830 S2_gan_epochs rf] auc=0.4925
+[Fidelity seed20260830 S4_resample] mmd=0.0017 corr_fro=0.0088 disc=0.4449 rmspe=0.0314
+[TSTR seed20260830 S4_resample logistic] auc=0.8518
+[TSTR seed20260830 S4_resample tree] auc=0.7894
+[TSTR seed20260830 S4_resample rf] auc=0.8218
+[Fidelity seed20260830 S5_random] mmd=0.0609 corr_fro=4.0378 disc=0.4734 rmspe=1.3185
+[TSTR seed20260830 S5_random logistic] auc=0.4995
+[TSTR seed20260830 S5_random tree] auc=0.4833
+[TSTR seed20260830 S5_random rf] auc=0.4893
+[Tau seed20260830] fid_scores ['0.709', '0.720', '0.200', '0.991', '0.198'] util ['0.819', '0.817', '0.484', '0.821', '0.491'] tau=0.6000 rho=0.8000 LB=-0.2002
+
+[Seed 20260831] === start ===
+[Seed 20260831] prevalence 0.516 full shape (5000, 26)
+[Seed 20260831] train 4000 test 1000 TRTR baseline next
+[TRTR seed20260831 logistic] auc=0.8567
+[TRTR seed20260831 tree] auc=0.8136
+[TRTR seed20260831 rf] auc=0.8330
+[Fidelity seed20260831 S1_plasmode_treat] mmd=0.0263 corr_fro=0.4046 disc=0.4803 rmspe=1.3435
+[TSTR seed20260831 S1_plasmode_treat logistic] auc=0.8550
+[TSTR seed20260831 S1_plasmode_treat tree] auc=0.7824
+[TSTR seed20260831 S1_plasmode_treat rf] auc=0.8182
+[Fidelity seed20260831 S1p_plasmode_outcome] mmd=0.0519 corr_fro=0.3954 disc=0.4868 rmspe=3.1375
+[TSTR seed20260831 S1p_plasmode_outcome logistic] auc=0.8541
+[TSTR seed20260831 S1p_plasmode_outcome tree] auc=0.8128
+[TSTR seed20260831 S1p_plasmode_outcome rf] auc=0.8309
+[Fidelity seed20260831 S2_gan_epochs] mmd=0.1088 corr_fro=3.9823 disc=0.6425 rmspe=2.8898
+[TSTR seed20260831 S2_gan_epochs logistic] auc=0.6257
+[TSTR seed20260831 S2_gan_epochs tree] auc=0.5165
+[TSTR seed20260831 S2_gan_epochs rf] auc=0.4999
+[Fidelity seed20260831 S4_resample] mmd=0.0012 corr_fro=0.0082 disc=0.4373 rmspe=0.0324
+[TSTR seed20260831 S4_resample logistic] auc=0.8567
+[TSTR seed20260831 S4_resample tree] auc=0.8190
+[TSTR seed20260831 S4_resample rf] auc=0.8331
+[Fidelity seed20260831 S5_random] mmd=0.0495 corr_fro=3.9742 disc=0.4828 rmspe=1.6708
+[TSTR seed20260831 S5_random logistic] auc=0.5151
+[TSTR seed20260831 S5_random tree] auc=0.5071
+[TSTR seed20260831 S5_random rf] auc=0.5140
+[Tau seed20260831] fid_scores ['0.712', '0.717', '0.201', '0.992', '0.201'] util ['0.819', '0.833', '0.547', '0.836', '0.512'] tau=0.8000 rho=0.9000 LB=-0.0002
+
+[Seed 20260832] === start ===
+[Seed 20260832] prevalence 0.505 full shape (5000, 26)
+[Seed 20260832] train 4000 test 1000 TRTR baseline next
+[TRTR seed20260832 logistic] auc=0.8637
+[TRTR seed20260832 tree] auc=0.8033
+[TRTR seed20260832 rf] auc=0.8403
+[Fidelity seed20260832 S1_plasmode_treat] mmd=0.0733 corr_fro=0.3479 disc=0.4850 rmspe=4.5368
+[TSTR seed20260832 S1_plasmode_treat logistic] auc=0.8632
+[TSTR seed20260832 S1_plasmode_treat tree] auc=0.8081
+[TSTR seed20260832 S1_plasmode_treat rf] auc=0.8361
+[Fidelity seed20260832 S1p_plasmode_outcome] mmd=0.0463 corr_fro=0.3998 disc=0.4809 rmspe=3.4792
+[TSTR seed20260832 S1p_plasmode_outcome logistic] auc=0.8597
+[TSTR seed20260832 S1p_plasmode_outcome tree] auc=0.8072
+[TSTR seed20260832 S1p_plasmode_outcome rf] auc=0.8360
+[Fidelity seed20260832 S2_gan_epochs] mmd=0.1288 corr_fro=3.9644 disc=0.6172 rmspe=5.0468
+[TSTR seed20260832 S2_gan_epochs logistic] auc=0.3801
+[TSTR seed20260832 S2_gan_epochs tree] auc=0.4460
+[TSTR seed20260832 S2_gan_epochs rf] auc=0.4259
+[Fidelity seed20260832 S4_resample] mmd=0.0014 corr_fro=0.0095 disc=0.4462 rmspe=0.0587
+[TSTR seed20260832 S4_resample logistic] auc=0.8636
+[TSTR seed20260832 S4_resample tree] auc=0.8000
+[TSTR seed20260832 S4_resample rf] auc=0.8409
+[Fidelity seed20260832 S5_random] mmd=0.0646 corr_fro=3.9579 disc=0.4780 rmspe=4.3703
+[TSTR seed20260832 S5_random logistic] auc=0.5198
+[TSTR seed20260832 S5_random tree] auc=0.4762
+[TSTR seed20260832 S5_random rf] auc=0.5072
+[Tau seed20260832] fid_scores ['0.742', '0.714', '0.201', '0.991', '0.202'] util ['0.836', '0.834', '0.417', '0.835', '0.501'] tau=0.8000 rho=0.9000 LB=-0.0002
+[Fidelity agg]
+                level  mmd_mean   mmd_sd  corr_fro_mean  corr_fro_sd  disc_mean  disc_sd  rmspe_mean
+   S1_plasmode_treat  0.060037 0.029473       0.387871     0.034727   0.482051 0.002556    2.836521
+S1p_plasmode_outcome  0.056704 0.013520       0.394702     0.005528   0.486184 0.005015    2.667987
+       S2_gan_epochs  0.131754 0.024637       3.983230     0.019374   0.648715 0.034972    3.162749
+         S4_resample  0.001435 0.000259       0.008831     0.000681   0.442777 0.004778    0.040806
+           S5_random  0.058359 0.007856       3.989965     0.042223   0.478061 0.004681    2.453194
+[Utility agg]
+                level   method  tstr_mean  tstr_sd  trtr_mean  gap_mean
+   S1_plasmode_treat logistic   0.856376 0.006284   0.857455  0.001079
+   S1_plasmode_treat       rf   0.825984 0.009172   0.831440  0.005456
+   S1_plasmode_treat     tree   0.790660 0.015086   0.805089  0.014430
+S1p_plasmode_outcome logistic   0.854094 0.005598   0.857455  0.003361
+S1p_plasmode_outcome       rf   0.826217 0.012784   0.831440  0.005223
+S1p_plasmode_outcome     tree   0.803741 0.011170   0.805089  0.001348
+       S2_gan_epochs logistic   0.489995 0.124837   0.857455  0.367460
+       S2_gan_epochs       rf   0.472765 0.040747   0.831440  0.358675
+       S2_gan_epochs     tree   0.485910 0.036128   0.805089  0.319179
+         S4_resample logistic   0.857390 0.005922   0.857455  0.000065
+         S4_resample       rf   0.831944 0.009637   0.831440 -0.000504
+         S4_resample     tree   0.802797 0.015035   0.805089  0.002293
+           S5_random logistic   0.511445 0.010612   0.857455  0.346010
+           S5_random       rf   0.503519 0.012758   0.831440  0.327921
+           S5_random     tree   0.488866 0.016170   0.805089  0.316223
+[Tau overall] kendall mean 0.7333 sd 0.1155 spearman 0.8667 LB -0.0668
+[Level summary]
+                level  mmd_mean  corr_fro_mean  disc_mean  rmspe_mean  fidelity_composite  tstr_auc_mean  rank_fidelity  rank_utility  kendall_tau_overall  spearman_rho_overall  lb_tau_overall
+   S1_plasmode_treat  0.060037       0.387871   0.482051    2.836521            0.720528       0.824340            2.0           3.0             0.733333              0.866667       -0.066833
+S1p_plasmode_outcome  0.056704       0.394702   0.486184    2.667987            0.716999       0.828017            3.0           2.0             0.733333              0.866667       -0.066833
+       S2_gan_epochs  0.131754       3.983230   0.648715    3.162749            0.200673       0.482890            4.0           5.0             0.733333              0.866667       -0.066833
+         S4_resample  0.001435       0.008831   0.442777    0.040806            0.991247       0.830710            1.0           1.0             0.733333              0.866667       -0.066833
+           S5_random  0.058359       3.989965   0.478061    2.453194            0.200402       0.501277            5.0           4.0             0.733333              0.866667       -0.066833
+[DCA agg]
+                level   method  pt  nb_mean    nb_sd
+   S1_plasmode_treat logistic 0.1 0.464630 0.006706
+   S1_plasmode_treat logistic 0.2 0.417333 0.009125
+   S1_plasmode_treat       rf 0.1 0.456370 0.007570
+   S1_plasmode_treat       rf 0.2 0.407583 0.010693
+   S1_plasmode_treat     tree 0.1 0.450630 0.011946
+   S1_plasmode_treat     tree 0.2 0.394333 0.006672
+S1p_plasmode_outcome logistic 0.1 0.463815 0.008904
+S1p_plasmode_outcome logistic 0.2 0.418417 0.009187
+S1p_plasmode_outcome       rf 0.1 0.456000 0.006942
+S1p_plasmode_outcome       rf 0.2 0.404000 0.012757
+[Cal agg]
+                level   method  slope_mean  slope_sd  intercept_mean
+   S1_plasmode_treat logistic    0.919786  0.054767        0.012048
+   S1_plasmode_treat       rf    1.242544  0.088504        0.003117
+   S1_plasmode_treat     tree    0.561012  0.031949       -0.001151
+S1p_plasmode_outcome logistic    1.030162  0.065701        0.048093
+S1p_plasmode_outcome       rf    1.346365  0.054148        0.025675
+S1p_plasmode_outcome     tree    0.689291  0.047938        0.022437
+       S2_gan_epochs logistic   -0.121367  2.875077        0.440293
+       S2_gan_epochs       rf   -0.270414  0.429515        0.073274
+       S2_gan_epochs     tree   -0.114756  0.311267        0.064635
+         S4_resample logistic    0.980564  0.061691        0.027902
+         S4_resample       rf    1.295731  0.047887        0.003462
+         S4_resample     tree    0.748521  0.054863        0.029887
+           S5_random logistic    0.240064  0.207931        0.034134
+           S5_random       rf    0.058317  0.119718        0.035150
+           S5_random     tree   -0.001760  0.083646        0.038740
+                TRTR logistic    0.979635  0.062686        0.027963
+                TRTR       rf    1.289863  0.039165        0.007872
+                TRTR     tree    0.708978  0.068163        0.015078
+[Saved] outputs/full_002_fidelity.csv
+[Saved] outputs/full_002_utility.csv
+[Saved] outputs/full_002_tau.csv
+[Saved] outputs/full_002_dca.csv
+[Saved] outputs/full_002_calibration.csv
+[Done] Full002 complete 45 fits + TRTR elapsed 9.5s seeds [20260830, 20260831, 20260832] levels ['S1_plasmode_treat', 'S1p_plasmode_outcome', 'S2_gan_epochs', 'S4_resample', 'S5_random'] methods ['logistic', 'tree', 'rf']
+[Honest] Synthetic fallback N=5000 10+15cat train4000/test1000 hold-out; scaled from ~1500 full (8 methods×50 reps×5 levels) see README extrapolation

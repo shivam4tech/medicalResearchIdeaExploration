@@ -52,3 +52,5 @@ pilots/**/__pycache__/
 pilots/**/build/
 !pilots/**/logs/*.log
 !pilots/**/*.log
+!full_runs/**/logs/*.log
+!full_runs/**/*.log
