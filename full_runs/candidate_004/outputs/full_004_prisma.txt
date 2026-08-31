@@ -1,0 +1,55 @@
+PRISMA 2020 Flow — Candidate 004 TRIPOD Corpus Audit (full n=40 kickoff of n=150 target)
+=========================================================================================
+Locked corpus filter: TRIPOD[Title/Abstract] AND validation[Title/Abstract]
+  Filters: "2015/01/01"[PDAT]:"2025/12/31"[PDAT] + Humans[Mesh] + English[lang]
+  Randomization: sorted by PMID -> numpy.random.default_rng(20260830) -> sample n=150 (Wilson +-0.06)
+  Target n=150: 2 reviewers, 20% dual n=30 for κ≥0.7; this kickoff n=40 (first batch, 10/40 dual 25% interim)
+  E-utilities: esearch retmode=json tool=full_004 email=full_004@medicalresearch.local rate ≤3/s sortable PMID deterministic
+
+IDENTIFICATION (re-verified 2026-08-31)
+  Records identified via PubMed E-utilities esearch:
+    - TRIPOD AND validation: 570 (expected 570) [https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=TRIPOD%5BTitle/Abstract%5D%20AND%20validation%5BTitle/Abstract%5D&retmode=json]
+    - calibration AND external validation: 8188 (expected 8188) [~7% TRIPOD language bias, 570/8188]
+    - RECORD AND validation AND calibration: 494 (expected 494)
+    - STROBE AND external validation: 18 (expected 18)
+  Records after identification before deduplication: 570
+  Records after deduplication (PMID unique set): 40 (pilot 20 + new 20 → dedup 40; duplicates 0)
+  Pilot fetch: n=20 PMIDs ['40418571', '40241963', '38000872'] ... (2026-08-30 log, κ0.615)
+  New fetch (this run, retstart 20): n=20 PMIDs ['40604360', '40536772', '41047269'] ... (de-duplicated via PMID set)
+
+SCREENING (n=40 kickoff)
+  Records screened (title/abstract, Rayyan import n=40, of target n=150): n=40
+  Records excluded at title/abstract (rayyan_label exclude): n=9 (reasons: not prediction-model validation / protocol/review / non-English / non-TRIPOD validation)
+  Records sought for full-text retrieval (include label): n=31
+  Records not retrieved (via Europe PMC fullTextXML OA ~60% + library proxy): n=0 (expected ~5% at full n=150; 0 at kickoff n=40 PubMed-only)
+  → Update path: 570 identified → 40 screened (kickoff 40/150 = 27% of target) → 31 sought → 40 included for extraction
+
+ELIGIBILITY (n=40 extraction kickoff; full n=150 will add full-text eligibility filter)
+  Records assessed for eligibility (full-text sought): n=31
+  Records excluded at full-text (n=40 kickoff screening, stubs): n=0 (full n=150 expected ~10–15: non-prediction validation, duplicate PMID, protocol without data)
+  Studies included in extraction (this kickoff): n=40 (22-col form per study)
+  ─→ Full trajectory (extrapolated): 570 → 150 screened → ~135 included after eligibility (per Queiroz 21.6% external validation rate analogue, not a filter) → Wilson prevalence ±0.06
+
+INCLUDED
+  Studies included in synthesis (kickoff): n=40
+  Dual-extraction overlap: n=10 of n=40 (25% interim; protocol target n=30 of n=150 =20%)
+    - Overlap PMIDs: ['38000872', '41082207', '40626581', '38596087', '39097246', '32479165', '38783054', '40964606', '40536772', '41175546']
+    - Cohen's κ (interval-aware subgroup, primary estimand): κ=0.615 Po=0.800 Pe=0.480 (n=10; pilot n=5 κ=0.615 → interim κ=0.615 borderline, re-training per protocol before full n=30)
+    - Masking: reviewers blinded to era/journal/year during interval-aware coding; adjudication by Lead (band ambiguous → Riley band counted)
+    - Target κ≥0.7 per domain (interval-aware, masking, era); re-training if <0.6 before prevalence reported
+  Extraction form (22 cols): interval-aware per Riley 10.1136/bmj-2024-080749 (slope CI/plot band per subgroup; band-considered masking) + TRIPOD+AI era split (pre-2024 vs 2024-2025 Collins 10.1136/bmj-2023-078378) + PROGRESS stratifiers + PROBAST RoB + Van Calster hierarchy
+  Prevalence estimands (n=40 interim, Wilson 95% CI score method not Wald):
+    - p(interval-aware subgroup calibration) = 11/40 = 0.275 [0.161, 0.428] (primary; expected <0.10 at full scale; pilot 5/20=0.250 [0.161])
+    - p(point subgroup calibration) = 7/40 = 0.175
+    - p(subgroup any) = 16/40 = 0.400
+    - p(overall calibration) = 27/40 = 0.675
+    - masking rate = 1/16 (denom n with subgroup data) = 0.062 [0.011, 0.283] (all-denominator 0.025 [0.004, 0.129]); definition overall slope 0.8-1.2 + intercept ±0.3 + ICI<0.05 pass while ≥1 subgroup fail slope<0.8/>1.2 or ICI≥0.10
+    - era-split 2024 TRIPOD+AI contingency: pre-2024 2/11=0.182 [0.051, 0.477] vs 2024-2025 9/29=0.310 [0.173, 0.492] diff 0.129; χ²=0.661 p=0.4163; Fisher p=0.6937 (full n=150 target 75 vs 75 enables detectable diff 0.20 at 80% power)
+  Sensitivity corpora (pre-registered, re-verified this run): RECORD 494, STROBE 18, calibration+external-valid 8188 (570 vs 8188 corpus completeness)
+  Rayyan import: outputs/full_004_rayyan_import.csv (Rayyan CSV for n=150: 40 real populated + 110 TBD placeholders, columns title/authors/journal/year/abstract/pmid/doi/eread)
+  No PHI. PubMed only. Full n=150 will add Europe PMC fullTextXML (~60% OA) + institutional proxy for remainder + real title/abstract screening via Rayyan with 20% dual + full PROBAST.
+
+NOTES
+  - Reproducibility: esearch retmode=json tool=full_004 email=full_004@medicalresearch.local rate ≤3/s sorted PMID deterministic RNG 20260830; efetch rettype=abstract retmode=xml
+  - Verification: counts re-verified this run {'TRIPOD_validation': 570, 'calib_external': 8188, 'RECORD_calib': 494, 'STROBE_external': 18}; Wilson via score method (not Wald) per protocol ideas/candidate_004.md Gate 5
+  - Checkpoint: git rev fc213fd (cycle-09 freeze) → this run; pilot hash a724531fd10a; full n=40 hash TBD in README

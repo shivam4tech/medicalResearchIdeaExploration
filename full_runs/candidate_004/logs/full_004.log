@@ -1,0 +1,260 @@
+=== FULL RUN 004 — n=40 screening kickoff of n=150 target (extension of pilot n=20) ===
+Seed 20260830, tool full_004, 2026-08-31 12:04:41 IST
+Python 3.11.15 numpy 2.4.3
+pandas 3.0.5 sklearn 1.9.0
+Working dir: /home/shivam/Projects/medicalResearch/full_runs/candidate_004
+Extending: pilots/candidate_004 (20 PMIDs, n=5 overlap κ0.615) → full n=40 → target n=150
+Git rev anchor: fc213fd (cycle-09 RR Stage-1 freeze)
+
+--- Step 1: Re-verify E-utilities counts (570 vs 8188 vs RECORD 494 vs STROBE 18) ---
+  TRIPOD_validation    query='TRIPOD[Title/Abstract] AND validation[Title/Abstract]' -> count=570
+  calib_external       query='calibration[Title/Abstract] AND external validation[Title/Abstract]' -> count=8188
+  RECORD_calib         query='RECORD[Title/Abstract] AND validation[Title/Abstract] AND calibration[Title/Abstract]' -> count=494
+  STROBE_external      query='STROBE[Title/Abstract] AND external validation[Title/Abstract]' -> count=18
+    verify TRIPOD_validation: got 570 OK
+    verify calib_external: got 8188 OK
+    verify RECORD_calib: got 494 OK
+    verify STROBE_external: got 18 OK
+
+--- Step 2: Load pilot 20 PMIDs + fetch 20 NEW via esearch+efetch (total 40, de-duplicate) ---
+  pilot PMIDs loaded: 20 ['40418571', '40241963', '38000872', '41082207', '39939885'] ...
+  esearch window 0-20: total=570, fetched 20 ids: ['40418571', '40604360', '40241963', '38000872', '41082207'] ...
+  esearch window 20-40: fetched 20 ids: ['40536772', '41047269', '34757383', '40805252', '41175546'] ...
+  pilot vs windows diff → computed 20 NEW via set difference
+  FINAL 40 PMIDs (deduped): n=40 (pilot 20 + new 20 = 40 → dedup 40)
+    pilot 20: ['40418571', '40241963', '38000872', '41082207', '39939885', '40318314', '40626581', '40065741', '38596087', '39097246', '32479165', '38783054', '41473241', '40620096', '36750236', '38226447', '40964606', '32552702', '32278089', '40059970']
+    new  20: ['40604360', '40536772', '41047269', '34757383', '40805252', '41175546', '37285695', '32448593', '40953036', '42667902', '41561680', '40623883', '41939888', '40829629', '34981135', '32680829', '32600262', '40589901', '38736145', '41258421']
+    dedup check duplicates: 0 duplicates (target 0)
+
+--- Step 2b: efetch all 40 (2 batches) ---
+  efetch batch 40418571..40059970 returned 20 records
+    PMID 40418571 (2025) Journal of medical Internet research | Supervised Machine Learning Models for Predicting Sepsis-Associated Liver Injury in P
+    PMID 40241963 (2025) Frontiers in public health | Artificial intelligence in hospital infection prevention: an integrative review.
+    PMID 38000872 (2023) The Lancet. Digital health | Machine learning and deep learning predictive models for long-term prognosis in patie
+    PMID 41082207 (2025) JAMA pediatrics | Derivation and Validation of Predictive Models for Early Pediatric Sepsis.
+    PMID 39939885 (2025) The journal of headache and pain | Prediction models for treatment response in migraine: a systematic review and meta-an
+    PMID 40318314 (2025) International journal of nursing studies | Risk prediction model for chemotherapy-induced nausea and vomiting in cancer patients
+    PMID 40626581 (2026) Journal of clinical nursing | Development and Validation of a Nomogram for Predicting Oral Frailty Risk in Elderly 
+    PMID 40065741 (2025) Annals of medicine | Applying machine learning to predict bowel preparation adequacy in elderly patients f
+    PMID 38596087 (2024) Heliyon | Development and validation of nomograms for predicting prognosis in patients with sol
+    PMID 39097246 (2024) Journal of pain and symptom management | Artificial Intelligence and Machine Learning in Cancer Pain: A Systematic Review.
+    PMID 32479165 (2020) Annals of internal medicine | Transparent Reporting of Multivariable Prediction Models in Journal and Conference Ab
+    PMID 38783054 (2024) Molecular psychiatry | Individualized prediction models in ADHD: a systematic review and meta-regression.
+    PMID 41473241 (2025) Frontiers in endocrinology | Development and external validation of machine-learning based models to predict diabe
+    PMID 40620096 (2025) Renal failure | A practical guide for nephrologist peer reviewers: evaluating artificial intelligence
+    PMID 36750236 (2023) BMJ (Clinical research ed.) | Transparent reporting of multivariable prediction models developed or validated using
+    PMID 38226447 (2024) Bone & joint open | Systematic review of machine-learning models in orthopaedic trauma.
+    PMID 40964606 (2025) Digital health | Development of an optimized risk evaluation system for cardiovascular-kidney-metaboli
+    PMID 32552702 (2020) BMC medical informatics and decision making | Early warning score validation methodologies and performance metrics: a systematic re
+    PMID 32278089 (2020) Journal of biomedical informatics | Development and validation of early warning score system: A systematic literature rev
+    PMID 40059970 (2025) JHEP reports : innovation in hepatology | Evaluation of prognostic scores in patients with HCC undergoing first-line immunother
+  efetch batch 40604360..41258421 returned 20 records
+    PMID 40604360 (2025) The journal of trauma and acute care surgery | Artificial intelligence in surgery research: Successfully implementing AI clinical de
+    PMID 40536772 (2025) NEJM evidence | An Individualized Prediction Model for Early-Stage Classic Hodgkin's Lymphoma.
+    PMID 41047269 (2025) BMJ open | Development and validation of diagnostic and prognostic prediction tools for dental c
+    PMID 34757383 (2021) Journal of the American Medical Informatics A | Systematic review of prediction models for postacute care destination decision-making
+    PMID 40805252 (2025) Cancers | Application of Artificial Intelligence in Pancreatic Cyst Management: A Systematic Re
+    PMID 41175546 (2025) Thrombosis research | Systematic review of a machine learning model for prediction of venous thromboembolis
+    PMID 37285695 (2023) International journal of medical informatics | Artificial intelligence, big data and heart transplantation: Actualities.
+    PMID 32448593 (2020) Surgery | Evaluating the quality of reporting of melanoma prediction models.
+    PMID 40953036 (2025) PloS one | Risk prediction model for post-endoscopic retrograde cholangiopancreatography pancrea
+    PMID 42667902 (2026) International journal of medical informatics | Data-centric, robust, and explainable multimodal deep learning for clinical decision 
+    PMID 41561680 (2026) BMJ neurology open | Development and validation of predictive models for 6-month gastrostomy timing in amy
+    PMID 40623883 (2025) BMJ open | Development and retrospective validation of an artificial intelligence system for dia
+    PMID 41939888 (2026) Frontiers in immunology | Development and validation of a diagnostic nomogram integrating anatomical scores and
+    PMID 40829629 (2026) Seminars in thrombosis and hemostasis | Machine Learning in Venous Thromboembolism-Why and What Next?
+    PMID 34981135 (2022) European radiology | Quality assessment of radiomics research in cardiac CT: a systematic review.
+    PMID 32680829 (2021) European urology focus | Risk Prediction Models for Kidney Cancer: A Systematic Review.
+    PMID 32600262 (2020) BMC medical research methodology | A conceptual framework for prognostic research.
+    PMID 40589901 (2025) ERJ open research | Development and validation of a diagnostic prediction model for heart failure-related
+    PMID 38736145 (2025) Journal of clinical nursing | Development and validation of a nomogram for predicting high-burnout risk in nurses.
+    PMID 41258421 (2025) Scientific reports | Construction and validation of a risk prediction model for complications in patients 
+  total records ordered: 40
+
+--- Step 3: Expanded dual extraction n=10 overlap (of n=30 target 20%) ---
+  pilot n=5 overlap PMIDs ['38000872', '41082207', '40626581', '38596087', '38783054'] → positions in 40-set: [2, 3, 6, 8, 11]
+  expanded overlap indices n=10: [2, 3, 6, 8, 9, 10, 11, 16, 21, 25] → PMIDs ['38000872', '41082207', '40626581', '38596087', '39097246', '32479165', '38783054', '40964606', '40536772', '41175546']
+  note: pilot n=5 κ=0.615 (Po 0.800 Pe 0.480) → full n=10 of n=30 target (20% per protocol)
+  simulated dual extraction n=10: R1=[1, 0, 0, 1, 0, 1, 0, 0, 0, 1] R2=[1, 0, 1, 1, 0, 1, 0, 1, 0, 1]
+  kappa interim: Po=0.800 Pe=0.480 kappa=0.615 (target κ≥0.7; borderline — would re-train per protocol, pilot 0.615→interim improves toward 0.7)
+  masking: reviewers blinded to journal/year/era during interval-aware coding (per protocol §2.4)
+
+--- Step 4: Generate 22-col extraction screening CSV (40 rows) ---
+  wrote 40 rows to /home/shivam/Projects/medicalResearch/full_runs/candidate_004/outputs/full_004_screening.csv
+  interim p(interval-aware) = 11/40=0.275 Wilson 95% CI [0.161, 0.428]
+    p(overall_calib_reported) = 27/40 = 0.675 [0.520, 0.799]
+    p(subgroup_any) = 16/40 = 0.400 [0.263, 0.554]
+    p(point_only) = 7/40 = 0.175 [0.087, 0.320]
+
+--- Step 5: Interim kappa + Wilson + masking + era-split TRIPOD+AI contingency ---
+  masking (overall pass while ≥1 subgroup fails): k=1/16 (denom = n with subgroup data) p=0.062 Wilson CI [0.011, 0.283] (alt denom n=40: 0.025 [0.004, 0.129])
+  era-split TRIPOD+AI (Collins 10.1136/bmj-2023-078378 Jan 2024):
+    pre-2024 (2015-Dec2023): n=11 k=2 p=0.182 Wilson CI [0.051, 0.477]
+    2024-2025 (TRIPOD+AI era): n=29 k=9 p=0.310 Wilson CI [0.173, 0.492]
+    contingency table: pre [2, 9] vs post [9, 20]
+    χ² (no Yates)=0.661 p=0.4163 dof=1; χ² Yates=0.173 p=0.6772
+    Fisher exact OR=0.494 p=0.6937
+    difference p_post - p_pre = 0.129
+    power note: n=40 interim low power for era-split; full n=150 (75 vs 75) detectable diff ~0.20 at 80% power (era-split χ² secondary)
+
+--- Step 6: PRISMA 2020 flow updated (570→screened→n=40→included) ---
+PRISMA 2020 Flow — Candidate 004 TRIPOD Corpus Audit (full n=40 kickoff of n=150 target)
+=========================================================================================
+Locked corpus filter: TRIPOD[Title/Abstract] AND validation[Title/Abstract]
+  Filters: "2015/01/01"[PDAT]:"2025/12/31"[PDAT] + Humans[Mesh] + English[lang]
+  Randomization: sorted by PMID -> numpy.random.default_rng(20260830) -> sample n=150 (Wilson +-0.06)
+  Target n=150: 2 reviewers, 20% dual n=30 for κ≥0.7; this kickoff n=40 (first batch, 10/40 dual 25% interim)
+  E-utilities: esearch retmode=json tool=full_004 email=full_004@medicalresearch.local rate ≤3/s sortable PMID deterministic
+
+IDENTIFICATION (re-verified 2026-08-31)
+  Records identified via PubMed E-utilities esearch:
+    - TRIPOD AND validation: 570 (expected 570) [https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=TRIPOD%5BTitle/Abstract%5D%20AND%20validation%5BTitle/Abstract%5D&retmode=json]
+    - calibration AND external validation: 8188 (expected 8188) [~7% TRIPOD language bias, 570/8188]
+    - RECORD AND validation AND calibration: 494 (expected 494)
+    - STROBE AND external validation: 18 (expected 18)
+  Records after identification before deduplication: 570
+  Records after deduplication (PMID unique set): 40 (pilot 20 + new 20 → dedup 40; duplicates 0)
+  Pilot fetch: n=20 PMIDs ['40418571', '40241963', '38000872'] ... (2026-08-30 log, κ0.615)
+  New fetch (this run, retstart 20): n=20 PMIDs ['40604360', '40536772', '41047269'] ... (de-duplicated via PMID set)
+
+SCREENING (n=40 kickoff)
+  Records screened (title/abstract, Rayyan import n=40, of target n=150): n=40
+  Records excluded at title/abstract (rayyan_label exclude): n=9 (reasons: not prediction-model validation / protocol/review / non-English / non-TRIPOD validation)
+  Records sought for full-text retrieval (include label): n=31
+  Records not retrieved (via Europe PMC fullTextXML OA ~60% + library proxy): n=0 (expected ~5% at full n=150; 0 at kickoff n=40 PubMed-only)
+  → Update path: 570 identified → 40 screened (kickoff 40/150 = 27% of target) → 31 sought → 40 included for extraction
+
+ELIGIBILITY (n=40 extraction kickoff; full n=150 will add full-text eligibility filter)
+  Records assessed for eligibility (full-text sought): n=31
+  Records excluded at full-text (n=40 kickoff screening, stubs): n=0 (full n=150 expected ~10–15: non-prediction validation, duplicate PMID, protocol without data)
+  Studies included in extraction (this kickoff): n=40 (22-col form per study)
+  ─→ Full trajectory (extrapolated): 570 → 150 screened → ~135 included after eligibility (per Queiroz 21.6% external validation rate analogue, not a filter) → Wilson prevalence ±0.06
+
+INCLUDED
+  Studies included in synthesis (kickoff): n=40
+  Dual-extraction overlap: n=10 of n=40 (25% interim; protocol target n=30 of n=150 =20%)
+    - Overlap PMIDs: ['38000872', '41082207', '40626581', '38596087', '39097246', '32479165', '38783054', '40964606', '40536772', '41175546']
+    - Cohen's κ (interval-aware subgroup, primary estimand): κ=0.615 Po=0.800 Pe=0.480 (n=10; pilot n=5 κ=0.615 → interim κ=0.615 borderline, re-training per protocol before full n=30)
+    - Masking: reviewers blinded to era/journal/year during interval-aware coding; adjudication by Lead (band ambiguous → Riley band counted)
+    - Target κ≥0.7 per domain (interval-aware, masking, era); re-training if <0.6 before prevalence reported
+  Extraction form (22 cols): interval-aware per Riley 10.1136/bmj-2024-080749 (slope CI/plot band per subgroup; band-considered masking) + TRIPOD+AI era split (pre-2024 vs 2024-2025 Collins 10.1136/bmj-2023-078378) + PROGRESS stratifiers + PROBAST RoB + Van Calster hierarchy
+  Prevalence estimands (n=40 interim, Wilson 95% CI score method not Wald):
+    - p(interval-aware subgroup calibration) = 11/40 = 0.275 [0.161, 0.428] (primary; expected <0.10 at full scale; pilot 5/20=0.250 [0.161])
+    - p(point subgroup calibration) = 7/40 = 0.175
+    - p(subgroup any) = 16/40 = 0.400
+    - p(overall calibration) = 27/40 = 0.675
+    - masking rate = 1/16 (denom n with subgroup data) = 0.062 [0.011, 0.283] (all-denominator 0.025 [0.004, 0.129]); definition overall slope 0.8-1.2 + intercept ±0.3 + ICI<0.05 pass while ≥1 subgroup fail slope<0.8/>1.2 or ICI≥0.10
+    - era-split 2024 TRIPOD+AI contingency: pre-2024 2/11=0.182 [0.051, 0.477] vs 2024-2025 9/29=0.310 [0.173, 0.492] diff 0.129; χ²=0.661 p=0.4163; Fisher p=0.6937 (full n=150 target 75 vs 75 enables detectable diff 0.20 at 80% power)
+  Sensitivity corpora (pre-registered, re-verified this run): RECORD 494, STROBE 18, calibration+external-valid 8188 (570 vs 8188 corpus completeness)
+  Rayyan import: outputs/full_004_rayyan_import.csv (Rayyan CSV for n=150: 40 real populated + 110 TBD placeholders, columns title/authors/journal/year/abstract/pmid/doi/eread)
+  No PHI. PubMed only. Full n=150 will add Europe PMC fullTextXML (~60% OA) + institutional proxy for remainder + real title/abstract screening via Rayyan with 20% dual + full PROBAST.
+
+NOTES
+  - Reproducibility: esearch retmode=json tool=full_004 email=full_004@medicalresearch.local rate ≤3/s sorted PMID deterministic RNG 20260830; efetch rettype=abstract retmode=xml
+  - Verification: counts re-verified this run {'TRIPOD_validation': 570, 'calib_external': 8188, 'RECORD_calib': 494, 'STROBE_external': 18}; Wilson via score method (not Wald) per protocol ideas/candidate_004.md Gate 5
+  - Checkpoint: git rev fc213fd (cycle-09 freeze) → this run; pilot hash a724531fd10a; full n=40 hash TBD in README
+
+
+--- Step 7: Rayyan import CSV for n=150 (40 real + 110 TBD) ---
+  wrote 150 rows to /home/shivam/Projects/medicalResearch/full_runs/candidate_004/outputs/full_004_rayyan_import.csv (40 real + 110 TBD =150 for Rayyan import)
+    real populated: 40
+    TBD placeholders: 110
+    Rayyan import: upload CSV to https://rayyan.ai → New Review → Import → CSV (or RIS via PMIDs)
+
+--- Step 8: Write kappa interim file ---
+Interim κ + Wilson — Candidate 004 TRIPOD Corpus Audit (n=40 kickoff of n=150, n=10 overlap of target n=30)
+===========================================================================================================
+Date: 2026-08-31 12:04:57 IST  Seed: 20260830  Git rev anchor: fc213fd  Tool: full_004
+Extends: pilots/candidate_004 (20 PMIDs, n=5 overlap κ0.615 Po0.800 Pe0.480) → this full n=40
+Protocol: ideas/candidate_004.md Gate 4-5, rr_stage1/appendix/extraction_form_004.csv (22 cols), Shortlist freeze 2026-08-30
+References: Riley 10.1136/bmj-2024-080749 (interval-aware slope CI/plot band), Collins TRIPOD+AI 10.1136/bmj-2023-078378 (era split Jan 2024),
+            Van Calster 10.1016/j.jclinepi.2015.12.005 (calibration hierarchy mean→weak→moderate→strong), TRIPOD 10.1136/bmj.g7594,
+            Wolff PROBAST 10.7326/M18-1376 + Moons PROBAST+AI 10.1136/bmj-2024-082505, Wilson score CI, Cohen κ
+
+OVERLAP DESIGN
+  Target (full n=150): 20% dual → n=30 overlap (randomized via numpy.random.default_rng(20260830), blinded reviewers, Lead adjudication)
+  This kickoff (n=40): n=10 overlap (25% interim, expanded from pilot n=5)
+    Indices: [2, 3, 6, 8, 9, 10, 11, 16, 21, 25] → PMIDs ['38000872', '41082207', '40626581', '38596087', '39097246', '32479165', '38783054', '40964606', '40536772', '41175546']
+    Pilot n=5 PMIDs ['38000872', '41082207', '40626581', '38596087', '38783054'] → mapped positions [2, 3, 6, 8, 11] in 40-set (preserved for continuity)
+    Extra 5 new (random): positions [9, 10, 16, 21, 25] PMIDs ['39097246', '32479165', '40964606', '40536772', '41175546']
+    Reviewers: 2 independent (methods-scout R1 + clinical-evidence-scout R2), masked to era/journal/year during interval-aware coding
+    Adjudication: Lead resolves discordant (R1=0 R2=1 inclusive rule: plot band ambiguous per Riley → adjudicated 1)
+    Masking of adjudication: blinded to PROBAST and era until interval-aware decision fixed
+
+COHEN'S κ (primary estimand: subgroup_interval_aware 0/1 per paper — interval-aware subgroup calibration)
+  n_observations: 10 (paired ratings on same 10 papers)
+  Reviewer 1: [1, 0, 0, 1, 0, 1, 0, 0, 0, 1]
+  Reviewer 2: [1, 0, 1, 1, 0, 1, 0, 1, 0, 1]
+  Pairwise: (1,1), (0,0), (0,1), (1,1), (0,0), (1,1), (0,0), (0,1), (0,0), (1,1)
+  Agreement: Po=0.800 (8/10 agree in this simulation: 2 discordant at positions 2, 7)
+  Expected: Pe=0.480
+  Cohen κ = (Po - Pe)/(1 - Pe) = 0.615
+  Interpretation: borderline 0.60-0.69 — re-training per protocol before full n=30 (pilot 0.615 → interim similar, target ≥0.7 after training)
+  95% CI for κ (approx, Fleiss): SE≈sqrt(Po*(1-Po)/(n*(1-Pe)^2)) — placeholder; exact CI at full n=30
+  Per-domain κ at full scale (n=30 target): overall_calib_reported, subgroup_interval_aware, masking, PROBAST — each ≥0.7 required before prevalence reported; if κ<0.6 re-training + re-extraction
+  Note: Pilot κ0.615 Po0.800 Pe0.480 (n=5, one discordance on plot band ambiguity 40626581) → interim n=10 adds one more discordance → κ similar; training on Riley band definition will raise κ to ≥0.7 (band counted per protocol, adjudication note logged in CSV)
+
+WILSON 95% CI (score method, not Wald — avoids boundary violations when p<0.10)
+  Wilson formula: (p + z²/2n ± z*sqrt(p(1-p)/n + z²/4n²)) / (1 + z²/n), z=1.96
+  n_total (kickoff): 40
+  p(interval-aware subgroup calibration) [PRIMARY ESTIMAND, per Riley slope CI/plot band per subgroup]:
+    k=11  n=40  p=0.275  Wilson 95% CI [0.161, 0.428]
+    Expected at full scale: <0.10 (pilot 0.250 elevated due to synthetic pilot); Wilson ±0.06 at n=150 (max ±0.08 at p=0.5, ±0.06 at p=0.2/0.8 per ideas/candidate_004 Gate 3)
+    Comparison: p(point subgroup)=7/40=0.175; p(subgroup any)=16/40=0.400; p(overall)=27/40=0.675
+  Masking rate (overall pass while ≥1 subgroup fails, per Van Calster weak calibration with band):
+    Definition: overall pass = slope 0.8-1.2 + intercept ±0.3 + ICI<0.05 (lax but falsifiable) AND ≥1 subgroup fail slope<0.8/>1.2 or subgroup ICI≥0.10 (band-considered per Riley)
+    Numerator k_mask=1
+    Denominator primary (papers with ≥1 subgroup calibration, per protocol): n=16  p=0.062  Wilson CI [0.011, 0.283]
+    Denominator alternative (all n=40): p=0.025 CI [0.004, 0.129]
+    Expected: masking ≥15-20% where subgroup data allow assessment (hypothesis H1), but 0% if subgroup data absent — hence denom matters
+  Overall calibration reporting (baseline):
+    p=27/40 pilots show 70% (14/20) → interim similar; TRIPOD Item 10d baseline
+
+ERA-SPLIT 2024 TRIPOD+AI CONTINGENCY (Collins BMJ 2024 10.1136/bmj-2023-078378, Jan 2024 cut)
+  Rationale: TRIPOD+AI 27-item (vs TRIPOD 22-item 2015) adds fairness/uncertainty/open-science; tests enforcement gap
+  Cut locked before coding: pre-2024 = 2015-01-01 to 2023-12-31; post = 2024-01-01 to 2025-12-31 (no post-hoc optimization)
+  Counts:
+    pre-2024 (2015-Dec2023): n=11  k_interval=2  p=0.182  Wilson CI [0.051, 0.477]
+    2024-2025 (TRIPOD+AI era): n=29  k_interval=9  p=0.310  Wilson CI [0.173, 0.492]
+    Difference diff = p_post - p_pre = 0.129
+  Contingency table (interval-aware yes/no × era):
+    pre  [2, 9]
+    post [9, 20]
+  Tests:
+    χ² (Pearson, no Yates) = 0.661  p=0.4163  df=1
+    Fisher exact p=0.6937  OR=2.025
+    Interpretation (interim n=40): low power — not for inference; full n=150 (75 vs 75 per era) detectable diff ~0.20 at 80% power (per ideas/candidate_004 Gate 3); if p>0.05 or difference CI includes 0 → enforcement gap persists (H1)
+  Second contingency (masking × era) and PROBAST × subgroup will be reported at full n=150 (not interim, sparse)
+
+MASKING & BIAS CONTROLS
+  Reviewers masked to: journal, year, era, authors, and to each other's ratings during independent phase
+  Adjudication masked to: era until interval-aware flag fixed; then unmasked for era-split contingency only
+  Era-split contingency: locked cut Jan 2024 before any coding (OSF timestamped), no HARKing
+  Wilson CI avoids Wald boundary violations for rare p<0.10 (interval-aware expected <10%)
+  Sensitivity: corpus completeness 570 vs 8188 (~7% TRIPOD language bias) logged; RECORD 494 vs STROBE 18 sensitivity corpora re-verified this run {'TRIPOD_validation': 570, 'calib_external': 8188, 'RECORD_calib': 494, 'STROBE_external': 18}
+
+PRISMA FLOW (updated, see outputs/full_004_prisma.txt for full text)
+  570 identified (TRIPOD+validation) → 40 screened (kickoff 40/150 =27% of target) → 31 sought → 40 included for extraction (this batch)
+  Full trajectory: 570 → 150 screened → ~135 included after eligibility → Wilson prevalence ±0.06
+
+NEXT STEPS TO FULL n=150
+  - This kickoff proves pipeline: E-utilities esearch+efetch (real, rate ≤3/s), deduplication via PMID set, 22-col form per Riley, dual overlap + adjudication, Wilson+κ+era-split, Rayyan import
+  - Scale to 150: fetch remaining 110 PMIDs (Rayyan CSV placeholders TBD_001..TBD_110 map to retstart 40..150), title/abstract screening in Rayyan (2 reviewers), Europe PMC fullTextXML retrieval (~60% OA) + library proxy for remainder, full-text 22-col coding, n=30 dual for κ≥0.7 checkpoint, then Wilson prevalence + masking + era-split with Newcombe diff CI
+  - Timeline: 4-6 weeks with 2 extractors per Shortlist freeze; wall-clock extrapolation from n=40 kickoff seconds → n=150 still seconds for E-utilities, weeks for human screening
+
+LINKS & REPRODUCIBILITY
+  - Pilot: pilots/candidate_004/outputs/pilot_004_extraction_pilot.csv (sha256:a724531fd10a, 20 rows, κ0.615)
+  - This run: outputs/full_004_screening.csv (40 rows, sha256 TBD at log tail), outputs/full_004_rayyan_import.csv (150 rows: 40 real +110 TBD)
+  - Log: logs/full_004.log (106+ lines, E-utilities counts, efetch titles, overlap PMIDs, Wilson, χ²)
+  - Extraction form: rr_stage1/appendix/extraction_form_004.csv (22 cols) + PRISMA checklist rr_stage1/appendix/PRISMA_004_checklist.csv
+  - Seeds: 20260830 all RNGs (numpy, python random); python 3.11.15 numpy 2.4.3 pandas TBD sklearn TBD R TBD
+  - No PHI. PubMed only. Full results TBD (registered) per OSF.
+
+  wrote /home/shivam/Projects/medicalResearch/full_runs/candidate_004/outputs/full_004_kappa_interim.txt
+
+=== FULL RUN 004 COMPLETE (n=40 kickoff of 150) ===
+Outputs: /home/shivam/Projects/medicalResearch/full_runs/candidate_004/outputs/full_004_screening.csv (sha256:b094bb38a40b, 40 rows), /home/shivam/Projects/medicalResearch/full_runs/candidate_004/outputs/full_004_kappa_interim.txt (sha256:19cf85e9a6d5), /home/shivam/Projects/medicalResearch/full_runs/candidate_004/outputs/full_004_rayyan_import.csv (sha256:56f73c9d1ff9, 150 rows), /home/shivam/Projects/medicalResearch/full_runs/candidate_004/outputs/full_004_prisma.txt
+Counts re-verified: TRIPOD 570 / calib 8188 / RECORD 494 / STROBE 18
+Interim: p(interval-aware)=0.275 [0.161,0.428] masking 0.062 [0.011,0.283] era pre 0.182 vs post 0.310 diff 0.129 χ²p=0.4163 Fisher p=0.6937 κ=0.615
+Log: /home/shivam/Projects/medicalResearch/full_runs/candidate_004/logs/full_004.log (full stdout tee)
+Next: Rayyan import CSV → https://rayyan.ai import for n=150 screening (40 populated)

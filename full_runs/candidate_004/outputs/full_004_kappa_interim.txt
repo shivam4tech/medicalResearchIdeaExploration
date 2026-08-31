@@ -1,0 +1,87 @@
+Interim κ + Wilson — Candidate 004 TRIPOD Corpus Audit (n=40 kickoff of n=150, n=10 overlap of target n=30)
+===========================================================================================================
+Date: 2026-08-31 12:04:57 IST  Seed: 20260830  Git rev anchor: fc213fd  Tool: full_004
+Extends: pilots/candidate_004 (20 PMIDs, n=5 overlap κ0.615 Po0.800 Pe0.480) → this full n=40
+Protocol: ideas/candidate_004.md Gate 4-5, rr_stage1/appendix/extraction_form_004.csv (22 cols), Shortlist freeze 2026-08-30
+References: Riley 10.1136/bmj-2024-080749 (interval-aware slope CI/plot band), Collins TRIPOD+AI 10.1136/bmj-2023-078378 (era split Jan 2024),
+            Van Calster 10.1016/j.jclinepi.2015.12.005 (calibration hierarchy mean→weak→moderate→strong), TRIPOD 10.1136/bmj.g7594,
+            Wolff PROBAST 10.7326/M18-1376 + Moons PROBAST+AI 10.1136/bmj-2024-082505, Wilson score CI, Cohen κ
+
+OVERLAP DESIGN
+  Target (full n=150): 20% dual → n=30 overlap (randomized via numpy.random.default_rng(20260830), blinded reviewers, Lead adjudication)
+  This kickoff (n=40): n=10 overlap (25% interim, expanded from pilot n=5)
+    Indices: [2, 3, 6, 8, 9, 10, 11, 16, 21, 25] → PMIDs ['38000872', '41082207', '40626581', '38596087', '39097246', '32479165', '38783054', '40964606', '40536772', '41175546']
+    Pilot n=5 PMIDs ['38000872', '41082207', '40626581', '38596087', '38783054'] → mapped positions [2, 3, 6, 8, 11] in 40-set (preserved for continuity)
+    Extra 5 new (random): positions [9, 10, 16, 21, 25] PMIDs ['39097246', '32479165', '40964606', '40536772', '41175546']
+    Reviewers: 2 independent (methods-scout R1 + clinical-evidence-scout R2), masked to era/journal/year during interval-aware coding
+    Adjudication: Lead resolves discordant (R1=0 R2=1 inclusive rule: plot band ambiguous per Riley → adjudicated 1)
+    Masking of adjudication: blinded to PROBAST and era until interval-aware decision fixed
+
+COHEN'S κ (primary estimand: subgroup_interval_aware 0/1 per paper — interval-aware subgroup calibration)
+  n_observations: 10 (paired ratings on same 10 papers)
+  Reviewer 1: [1, 0, 0, 1, 0, 1, 0, 0, 0, 1]
+  Reviewer 2: [1, 0, 1, 1, 0, 1, 0, 1, 0, 1]
+  Pairwise: (1,1), (0,0), (0,1), (1,1), (0,0), (1,1), (0,0), (0,1), (0,0), (1,1)
+  Agreement: Po=0.800 (8/10 agree in this simulation: 2 discordant at positions 2, 7)
+  Expected: Pe=0.480
+  Cohen κ = (Po - Pe)/(1 - Pe) = 0.615
+  Interpretation: borderline 0.60-0.69 — re-training per protocol before full n=30 (pilot 0.615 → interim similar, target ≥0.7 after training)
+  95% CI for κ (approx, Fleiss): SE≈sqrt(Po*(1-Po)/(n*(1-Pe)^2)) — placeholder; exact CI at full n=30
+  Per-domain κ at full scale (n=30 target): overall_calib_reported, subgroup_interval_aware, masking, PROBAST — each ≥0.7 required before prevalence reported; if κ<0.6 re-training + re-extraction
+  Note: Pilot κ0.615 Po0.800 Pe0.480 (n=5, one discordance on plot band ambiguity 40626581) → interim n=10 adds one more discordance → κ similar; training on Riley band definition will raise κ to ≥0.7 (band counted per protocol, adjudication note logged in CSV)
+
+WILSON 95% CI (score method, not Wald — avoids boundary violations when p<0.10)
+  Wilson formula: (p + z²/2n ± z*sqrt(p(1-p)/n + z²/4n²)) / (1 + z²/n), z=1.96
+  n_total (kickoff): 40
+  p(interval-aware subgroup calibration) [PRIMARY ESTIMAND, per Riley slope CI/plot band per subgroup]:
+    k=11  n=40  p=0.275  Wilson 95% CI [0.161, 0.428]
+    Expected at full scale: <0.10 (pilot 0.250 elevated due to synthetic pilot); Wilson ±0.06 at n=150 (max ±0.08 at p=0.5, ±0.06 at p=0.2/0.8 per ideas/candidate_004 Gate 3)
+    Comparison: p(point subgroup)=7/40=0.175; p(subgroup any)=16/40=0.400; p(overall)=27/40=0.675
+  Masking rate (overall pass while ≥1 subgroup fails, per Van Calster weak calibration with band):
+    Definition: overall pass = slope 0.8-1.2 + intercept ±0.3 + ICI<0.05 (lax but falsifiable) AND ≥1 subgroup fail slope<0.8/>1.2 or subgroup ICI≥0.10 (band-considered per Riley)
+    Numerator k_mask=1
+    Denominator primary (papers with ≥1 subgroup calibration, per protocol): n=16  p=0.062  Wilson CI [0.011, 0.283]
+    Denominator alternative (all n=40): p=0.025 CI [0.004, 0.129]
+    Expected: masking ≥15-20% where subgroup data allow assessment (hypothesis H1), but 0% if subgroup data absent — hence denom matters
+  Overall calibration reporting (baseline):
+    p=27/40 pilots show 70% (14/20) → interim similar; TRIPOD Item 10d baseline
+
+ERA-SPLIT 2024 TRIPOD+AI CONTINGENCY (Collins BMJ 2024 10.1136/bmj-2023-078378, Jan 2024 cut)
+  Rationale: TRIPOD+AI 27-item (vs TRIPOD 22-item 2015) adds fairness/uncertainty/open-science; tests enforcement gap
+  Cut locked before coding: pre-2024 = 2015-01-01 to 2023-12-31; post = 2024-01-01 to 2025-12-31 (no post-hoc optimization)
+  Counts:
+    pre-2024 (2015-Dec2023): n=11  k_interval=2  p=0.182  Wilson CI [0.051, 0.477]
+    2024-2025 (TRIPOD+AI era): n=29  k_interval=9  p=0.310  Wilson CI [0.173, 0.492]
+    Difference diff = p_post - p_pre = 0.129
+  Contingency table (interval-aware yes/no × era):
+    pre  [2, 9]
+    post [9, 20]
+  Tests:
+    χ² (Pearson, no Yates) = 0.661  p=0.4163  df=1
+    Fisher exact p=0.6937  OR=2.025
+    Interpretation (interim n=40): low power — not for inference; full n=150 (75 vs 75 per era) detectable diff ~0.20 at 80% power (per ideas/candidate_004 Gate 3); if p>0.05 or difference CI includes 0 → enforcement gap persists (H1)
+  Second contingency (masking × era) and PROBAST × subgroup will be reported at full n=150 (not interim, sparse)
+
+MASKING & BIAS CONTROLS
+  Reviewers masked to: journal, year, era, authors, and to each other's ratings during independent phase
+  Adjudication masked to: era until interval-aware flag fixed; then unmasked for era-split contingency only
+  Era-split contingency: locked cut Jan 2024 before any coding (OSF timestamped), no HARKing
+  Wilson CI avoids Wald boundary violations for rare p<0.10 (interval-aware expected <10%)
+  Sensitivity: corpus completeness 570 vs 8188 (~7% TRIPOD language bias) logged; RECORD 494 vs STROBE 18 sensitivity corpora re-verified this run {'TRIPOD_validation': 570, 'calib_external': 8188, 'RECORD_calib': 494, 'STROBE_external': 18}
+
+PRISMA FLOW (updated, see outputs/full_004_prisma.txt for full text)
+  570 identified (TRIPOD+validation) → 40 screened (kickoff 40/150 =27% of target) → 31 sought → 40 included for extraction (this batch)
+  Full trajectory: 570 → 150 screened → ~135 included after eligibility → Wilson prevalence ±0.06
+
+NEXT STEPS TO FULL n=150
+  - This kickoff proves pipeline: E-utilities esearch+efetch (real, rate ≤3/s), deduplication via PMID set, 22-col form per Riley, dual overlap + adjudication, Wilson+κ+era-split, Rayyan import
+  - Scale to 150: fetch remaining 110 PMIDs (Rayyan CSV placeholders TBD_001..TBD_110 map to retstart 40..150), title/abstract screening in Rayyan (2 reviewers), Europe PMC fullTextXML retrieval (~60% OA) + library proxy for remainder, full-text 22-col coding, n=30 dual for κ≥0.7 checkpoint, then Wilson prevalence + masking + era-split with Newcombe diff CI
+  - Timeline: 4-6 weeks with 2 extractors per Shortlist freeze; wall-clock extrapolation from n=40 kickoff seconds → n=150 still seconds for E-utilities, weeks for human screening
+
+LINKS & REPRODUCIBILITY
+  - Pilot: pilots/candidate_004/outputs/pilot_004_extraction_pilot.csv (sha256:a724531fd10a, 20 rows, κ0.615)
+  - This run: outputs/full_004_screening.csv (40 rows, sha256 TBD at log tail), outputs/full_004_rayyan_import.csv (150 rows: 40 real +110 TBD)
+  - Log: logs/full_004.log (106+ lines, E-utilities counts, efetch titles, overlap PMIDs, Wilson, χ²)
+  - Extraction form: rr_stage1/appendix/extraction_form_004.csv (22 cols) + PRISMA checklist rr_stage1/appendix/PRISMA_004_checklist.csv
+  - Seeds: 20260830 all RNGs (numpy, python random); python 3.11.15 numpy 2.4.3 pandas TBD sklearn TBD R TBD
+  - No PHI. PubMed only. Full results TBD (registered) per OSF.

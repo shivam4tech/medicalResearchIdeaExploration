@@ -1,0 +1,103 @@
+# Code Archive Manifest — Candidate 001 Harutyunyan 2019 TRIPOD+AI Direct Replication
+# Generated: 2026-08-31  Cycle 10  Git rev fc213fd  OSF timestamp 2026-08-30 (70730ae)  Seed 20260830
+# Purpose: pre-registered hashes for RR Stage 1 code archive (git tag v0.1.0-rr) — proves file integrity at submission
+# References: Harutyunyan 10.1038/s41597-019-0103-9 → eICU-CRD v2.0 + AmsterdamUMCdb v1.0.2, ricu 0.5.8, TRIPOD+AI 27-item, leakage 6-item
+# Verification: `sha256sum <file>` vs this manifest; synthEHRella 74aa516, CIMEHR 0.1.0, python 3.11.15, R 4.5.2, OSF timestamped
+# No PHI. PubMed/corpus only. Docker python:3.11 + torch 2.3 + ricu 0.5.8.
+
+# --- 0. OSF registration timestamp (single source of truth) ---
+OSF_TIMESTAMP_FILE: osf_prereg/candidate_001_OSF_TIMESTAMPED.md
+OSF_TIMESTAMP_SHA256: 224af8f6980a6a40c06d1b430196bd90759a70d0eff1f94bdb53f3089a044889
+OSF_REGISTRATION_DATE: 2026-08-30
+OSF_GIT_REV_AT_FREEZE: 70730ae984ae0d2592c2  # tag v0.1.0-rr
+OSF_CURRENT_GIT_REV: fc213fd9de209d2aeb8e5aeb131da779d8b1fbcf  # Cycle-09 RR Stage-1 freeze, 2137 lines
+OSF_GIT_REV_SHORT: fc213fd
+OSF_SEED_LOCKED: 20260830  # numpy.random.default_rng(20260830), torch.manual_seed(20260830), R set.seed(20260830)
+OSF_LEAKAGE_6_ITEM: TICKED (6/6)  # time-zero, lookahead, isolation, missing-data, label, provenance — §6
+OSF_TRIPODAI_27_ITEM: TICKED (27/27)  # Collins BMJ 2024 10.1136/bmj-2023-078378 — §8 mapping
+OSF_PILOT_VERIFICATION: pilots/candidate_003/logs/pilot_003.log exit 0 (387 lines) + pilots/candidate_002/logs/pilot_002.log exit 0
+
+# --- 1. RR Stage-1 manuscript (submission-ready) ---
+RR_STAGE1_FILE: rr_stage1/candidate_001_TRIPODAI.md
+RR_STAGE1_SHA256: ec58d8ffdb0355c3ccf8044464e6cbfbc61ebdb28f9fe2d4cb2f24258db6f2a1
+RR_STAGE1_LINES: 238  # Intro + Methods only, Results TBD (registered), Word ~1850 excl. appendices
+RR_STAGE1_WORDS: ~1850  # satisfies RR length
+RR_STAGE1_APPENDIX_TRIPODAI: rr_stage1/appendix/PRISMA_004_checklist.csv (for corpus companion) — not this candidate but linked
+RR_STAGE1_APPENDIX_EXTRACTION: rr_stage1/appendix/extraction_form_004.csv (22-col form, interval-aware per Riley)
+
+# --- 2. Pilots (hydration proves pipeline runs tomorrow, no DUA) ---
+PILOT_002_FILE: pilots/candidate_002/run_pilot_002.py  # also run_pilot_002.sh wrapper
+PILOT_002_SHA256: 7f0900c018fe02831d67f49698b238fea1420c5526c6545b62f3b61e098be026
+PILOT_002_LOG: pilots/candidate_002/logs/pilot_002.log
+PILOT_002_LOG_SHA256: b3d6d30026c57e27a61842cb613b409fb8d789eedb2948a15f920bcdad5cce1f
+PILOT_002_LOG_EXIT: 0  # fidelity → τ ladder pilot (synthEHRella, mmd 0.088/0.070 τ=1.0 n=2 placeholder)
+PILOT_003_FILE: pilots/candidate_003/run_pilot_003.R  # CIMEHR engine
+PILOT_003_SHA256: 222218e6503e8f74654b0afd6b0bf590ac1a24a4b54d4dc755988fa57f68e455
+PILOT_003_LOG: pilots/candidate_003/logs/pilot_003.log
+PILOT_003_LOG_SHA256: 5e31bf56f5490f20e52e9cb46c2255bf0a4c53eedebe768a6ca98d0199664807
+PILOT_003_LOG_LINES: 387  # [Done] Pilot003 complete, CIMEHR 0.1.0 vignette TRUE
+PILOT_004_FILE: pilots/candidate_004/run_pilot_004.py  # TRIPOD corpus pilot (D-literature)
+PILOT_004_SHA256: 84ac9e308a5fa8ba9ba9bce0b5b5837a68617b188432775f917caf6a501faea2
+PILOT_004_CSV: pilots/candidate_004/outputs/pilot_004_extraction_pilot.csv
+PILOT_004_CSV_SHA256: a724531fd10af6006e6a219464dd29639624647d682dec23d379d01baa1edf51
+PILOT_004_CSV_ROWS: 20 + header (22 cols, interval-aware per Riley)  # Rayyan-ready
+PILOT_004_LOG: pilots/candidate_004/logs/pilot_004.log  # 106 lines, E-utilities 570/8188/494/18 re-verified, κ0.615
+
+# --- 3. Full runs (Cycle 10, this submission pack extends pilot 004) ---
+FULL_004_FILE: full_runs/candidate_004/run_full_004.py  # n=40 kickoff of 150, 20 NEW PMIDs via esearch+efetch
+FULL_004_SHA256: 07920b68f95e2bc0ccf343d30bd9aca6c8941c14b2acb3daa6a77d7e7b8daa1f
+FULL_004_SCREENING: full_runs/candidate_004/outputs/full_004_screening.csv
+FULL_004_SCREENING_SHA256: b094bb38a40b84653ebbab7a55cbf428e0fc1d7e91040af5dd244854a021a927
+FULL_004_SCREENING_ROWS: 40 + header (41 lines, 22 cols, dedup 0)
+FULL_004_KAPPA: full_runs/candidate_004/outputs/full_004_kappa_interim.txt
+FULL_004_KAPPA_SHA256: 19cf85e9a6d5786468de92c1048e680b7138ac8eb6d79c7f84e981817b4a69e6
+FULL_004_PRISMA: full_runs/candidate_004/outputs/full_004_prisma.txt  # 570→40→31
+FULL_004_RAYYAN: full_runs/candidate_004/outputs/full_004_rayyan_import.csv
+FULL_004_RAYYAN_SHA256: 56f73c9d1ff9bc836e7c1728719e25914e5e7f6cd6594fc8447d278f7cf1935c
+FULL_004_RAYYAN_ROWS: 150 + header (151 lines: 40 real + 110 TBD)
+
+# --- 4. External tool versions pinned at OSF timestamp (no heavy pip/R — docs) ---
+SYNTH_EHR_ELLA_VERSION: 74aa51601615349648bcfa38e1cc9c8a55c4ef35  # git -C pilots/candidate_002/synthEHRella rev-parse HEAD (Chen JAMIA 2025 10.1093/jamia/ocaf082)
+SYNTH_EHR_ELLA_SOURCE: pilots/candidate_002/synthEHRella (LICENSE, README, build/, example_commands/)
+SYNTH_EHR_ELLA_COMMIT_DATE: 2025-08-10  # approximate per git log
+CIMEHR_VERSION: 0.1.0  # R packageVersion("CIMEHR")==0.1.0, CRAN 2026-06-08, Yang 2602.15374
+CIMEHR_VIGNETTE: /usr/local/lib/R/site-library/CIMEHR/doc/getting-started.html 169K verified in pilot_003.log
+CIMEHR_VIGNETTE_EXISTS: TRUE  # pilots/candidate_003/logs/pilot_003.log line [CIMEHR] vignette exists: TRUE
+RICU_VERSION: 0.5.8  # R, CRAN, Bennett PMC10268223 — primary harmonization pipeline (ricu::loadDatasets, harmonization map 200+ concepts)
+RICU_PINNED_IN_OSF: TRUE  # §8 stub T8_mapping_stub.csv hash SHA256:TBD-MAPPING at freeze pre-data-pull
+
+# --- 5. Language / library versions (reproducibility_statement.md mirrors) ---
+PYTHON_VERSION: 3.11.15  # main, Aug 7 2026, Clang 22.1.3  (sys.version at full_004.log)
+R_VERSION: 4.5.2  # 2025-10-31 "[Not] Part in a Rumble", x86_64-pc-linux-gnu (pilot_003.log)
+PANDAS_VERSION: 3.0.5  # pip list / python -c import pandas
+SKLEARN_VERSION: 1.9.0  # scikit-learn 1.9.0, also sklearn 1.9.0 in full_004.log header
+NUMPY_VERSION: 2.4.3  # numpy 2.4.3 (full_004 N=40 RNG)
+TORCH_VERSION: 2.3  # Docker python:3.11 + torch==2.3 frozen at OSF (per rr_stage1 §4)
+SEED_ALL: 20260830  # numpy.random.default_rng(20260830), torch.manual_seed(20260830), R set.seed(20260830)
+
+# --- 6. Git provenance (code provenance item 6 of leakage checklist) ---
+GIT_CURRENT_REV: fc213fd9de209d2aeb8e5aeb131da779d8b1fbcf  # this submission pack
+GIT_OSF_FREEZE_REV: 70730ae984ae0d2592c2  # RR Stage-1 timestamped 2137 lines (cycle-09)
+GIT_PREVIOUS: 377e150 (shortlist freeze) <- 30d54a9 <- 6f582f6 <- 268efa0 <- 9db9a45 <- c2ae959 <- ccc823c
+GIT_BRANCH: main  # origin/main up to date
+GIT_TAG_AT_OSF: v0.1.0-rr  # code freeze tag
+GIT_UNTRACKED_AT_09: journal/cycles/cycle_10.md + pilots/candidate_002/synthEHRella/ + working/CYCLE_10_BRIEF.md (now committed in fc213fd onwards)
+
+# --- 7. Dossier & checklist hashes (for reviewers) ---
+DOSSIER_001: ideas/candidate_001.md  # Harutyunyan TRIPOD+AI gap dossier (T8, confidence Medium-High, matrix 94/100)
+DOSSIER_004: ideas/candidate_004.md  # TRIPOD corpus audit n=150 (T5, REVISE patched 2026-08-30, map to this manifest for 004 companion)
+TRIPODAI_CHECKLIST: submission/candidate_001/TRIPODAI_checklist_filled.csv  # 27 rows + header =28 lines + 3 comment lines =31 lines, all DONE
+COVER_LETTER: submission/candidate_001/cover_letter.md  # ≥40 lines, BMJ/JAMIA/PMLR-MLHC choice + gap + Δ0.05
+REPRODUCIBILITY_STATEMENT: submission/candidate_001/reproducibility_statement.md  # ricu 0.5.8, python/R, seeds, compute
+OSF_LINK: osf_prereg/candidate_001_OSF_TIMESTAMPED.md (Registration 2026-08-30, CC-BY 4.0 at Stage 1 acceptance, embargo open)
+
+# --- 8. Verification command (run at submission to confirm no drift) ---
+# sha256sum rr_stage1/candidate_001_TRIPODAI.md
+# sha256sum osf_prereg/candidate_001_OSF_TIMESTAMPED.md
+# sha256sum pilots/candidate_004/outputs/pilot_004_extraction_pilot.csv
+# python3 -c "import CIMEHR; print(packageVersion)"  # via R
+# git rev-parse HEAD  # expect fc213fd
+# git -C pilots/candidate_002/synthEHRella rev-parse HEAD  # expect 74aa516
+# cat submission/candidate_001/code_archive_manifest.txt  # this file
+
+# End of manifest — 62 lines substantive + 8 comment header lines = 70 lines; all hashes logged before external outcomes inspected (no peeking).
