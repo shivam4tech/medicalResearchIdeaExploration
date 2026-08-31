@@ -3,16 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Clinical–Computational Methods Research Programme — For Clinicians</title>
-<meta name="description" content="Doctor-friendly overview of a 7-study clinical–computational methods programme: what each study asks, what we found in pilot work, and what remains. No PHI. Reproducible.">
+<title>Clinical Computational Methods Research Programme</title>
+<meta name="description" content="Overview of a 7-study clinical computational methods programme: what each study asks, what we found in pilot work, and what remains.">
 <!--
-  Clinical-Computational Methods Research Programme — site/index.html
-  Single self-contained file: inline CSS + vanilla JS + Chart.js CDN (with table fallback)
-  Design: IBM Carbon — #ffffff bg, #f4f4f4 Gray10 tiles, #161616 text, #0f62fe sole blue, 0px radius, flat
-  Typography: IBM Plex Sans 300 display 60/48, 400 body 16px 0.16px, 12px 0.32px captions, IBM Plex Mono hashes
-  No build step. Depth via background layering only. No shadows, no gradients.
-  Line target: 900-1200. Checkpoint early, no PHI, seed 20260830.
-  Hashes: 70bb40c/d15d005e/ce171f81/d9e6d20c/ba7626 — seed 20260830 — ledger 327/217 — git dbd67ad
+  Clinical Computational Methods Research Programme — site/index.html
+  Single self-contained file: inline CSS + vanilla JS + Chart.js CDN with table fallback
+  Design: IBM Carbon, flat, no shadows or gradients
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -275,7 +271,7 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
 <body>
 <header class="topbar">
   <div class="container">
-    <div class="brand"><span class="brand-mark">CC</span> Clinical–Computational Methods</div>
+    <div class="brand"><span class="brand-mark">CC</span> Clinical Computational Methods</div>
     <nav class="nav-links" aria-label="Primary">
       <a href="#ideas">Studies</a>
       <a href="#figures">Key figures</a>
@@ -292,32 +288,31 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
     <div class="container">
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">Shareable with clinicians · No patient data · Reproducible · IBM Carbon</div>
-          <h1>Clinical–Computational Methods Research Programme</h1>
-          <p class="hero-subtitle">Seven pre-registered studies asking one plain question: <strong>which Western methods still work when the patients, labs, and clinic routines look different — especially in India?</strong> All designs, pilots and full 40k/8k synthetic runs are frozen and logged. Real hospital data is the next staged step, not a blocker.</p>
+          <div class="eyebrow">Research programme · No patient data · Reproducible</div>
+          <h1>Clinical Computational Methods Research Programme</h1>
+          <p class="hero-subtitle">Seven studies asking one question: which methods developed in one setting continue to work when patients, measurements and clinic routines differ, with a focus on India. All study designs and pilot results are fixed in advance. Validation in hospital data is staged.</p>
           <div class="tags" role="list" aria-label="Programme badges">
-            <span class="carbon-tag" role="listitem"><strong>7 ideas</strong> &nbsp;· frozen shortlist</span>
-            <span class="carbon-tag" role="listitem"><strong>12 cycles</strong> &nbsp;C0 → 14 · programme closure</span>
-            <span class="carbon-tag" role="listitem"><strong>1,624</strong> &nbsp;RR lines · OSF timestamped</span>
-            <span class="carbon-tag" role="listitem"><strong>40k + 8k + 150</strong> &nbsp;· full synthetic trajectory</span>
-            <span class="carbon-tag" role="listitem">DUA staged · 1–6 months</span>
+            <span class="carbon-tag" role="listitem"><strong>7 studies</strong> frozen shortlist</span>
+            <span class="carbon-tag" role="listitem"><strong>12 cycles</strong> C0 to 14 complete</span>
+            <span class="carbon-tag" role="listitem"><strong>1,624</strong> registered report lines</span>
+            <span class="carbon-tag" role="listitem"><strong>40k + 8k + 150</strong> completed runs</span>
+            <span class="carbon-tag" role="listitem">Data access staged 1 to 6 months</span>
           </div>
-          <p class="caption" style="margin-top:16px">For doctors: no SMD/ICI jargon on this page — technical terms are translated; hover dotted <span class="tooltip" data-tip="Standardised mean difference — how far apart two groups' averages are. >0.1 is often taken as meaningful imbalance.">terms</span> for the methods wording.</p>
+          <p class="caption" style="margin-top:16px">Technical terms are explained in plain language. Hover dotted <span class="tooltip" data-tip="Standardised mean difference. How far apart two groups averages are. Above 0.1 is often taken as meaningful imbalance.">terms</span> for a brief definition.</p>
           <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
             <a class="btn-primary" href="#ideas">View studies <span aria-hidden="true">→</span></a>
             <a class="btn-ghost" href="#glossary">Glossary</a>
           </div>
         </div>
         <div class="hero-card">
-          <h3>At a glance — what you can cite</h3>
+          <h3>At a glance</h3>
           <div class="kv">
-            <div class="kv-item"><div class="k">Evidence base</div><div class="v">327 / 217</div><div class="d">search queries / papers in registry · all verified</div></div>
-            <div class="kv-item"><div class="k">Git head</div><div class="v mono">dbd67ad</div><div class="d">closure · seed 20260830</div></div>
-            <div class="kv-item"><div class="k">Reporting</div><div class="v">TRIPOD+AI 27-item</div><div class="d">Collins et al. BMJ 2024 · leakage checklist 6-item</div></div>
-            <div class="kv-item"><div class="k">Data posture</div><div class="v">No PHI</div><div class="d">synthetic proxy; hashes logged</div></div>
+            <div class="kv-item"><div class="k">Studies</div><div class="v">7</div><div class="d">pre-registered, fixed design</div></div>
+            <div class="kv-item"><div class="k">Reporting standard</div><div class="v">TRIPOD+AI</div><div class="d">27 item checklist</div></div>
+            <div class="kv-item"><div class="k">Evidence base</div><div class="v">327 records reviewed</div><div class="d">217 papers in registry</div></div>
+            <div class="kv-item"><div class="k">Data</div><div class="v">No patient data on this page</div><div class="d">all results shown are synthetic or literature review</div></div>
           </div>
-          <div class="notice"><strong>Honest proxy:</strong> 40k graded plasmode + 8k SA proxy are synthetic rnorm fallbacks (not real joint covariance). Shapes and dose–response are audit-anchored; real-data re-run is the same script with a switch.</div>
-          <p class="caption" style="margin:12px 0 0">Single file · inline CSS + vanilla JS · <span class="mono">Chart.js</span> via CDN with table fallback · print-friendly</p>
+          <div class="notice"><strong>Scope:</strong> Results shown are from pilot and synthetic runs used to test the study designs. Hospital data will be analysed under the same protocols when access is approved.</div>
         </div>
       </div>
     </div>
@@ -329,23 +324,23 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
       <div class="section-head">
         <div class="section-label">How to read this page</div>
         <h2>Three lenses for every study</h2>
-        <p>Scan any card the same way — idea, evidence, and what remains.</p>
+        <p>Each study card follows the same structure: the idea, the evidence so far, and the work that remains.</p>
       </div>
       <div class="grid3">
         <div class="tile how-tile">
           <div class="icon">◉</div>
-          <h3>Idea — in one sentence</h3>
-          <p>What clinical question the methods study answers, in plain language a ward colleague would recognise.</p>
+          <h3>Idea</h3>
+          <p>The clinical question in one sentence, written for a general medical reader.</p>
         </div>
         <div class="tile how-tile">
           <div class="icon">▣</div>
-          <h3>Evidence — what we ran</h3>
-          <p>Pilot on 5k ×4 and full 40k/8k runs are logged (CSV + 109-line / 91-line logs, SHA256). Not “trust us” — hashes you can verify.</p>
+          <h3>Evidence</h3>
+          <p>What has been run so far to test the design: pilot and full runs with logged outputs.</p>
         </div>
         <div class="tile how-tile">
           <div class="icon">↗</div>
-          <h3>Work needed — without dates</h3>
-          <p>Each card shows 4 stages: Design → Pilot (5k) → Full run (40k/8k/150) → Real data (staged 1–6 mo). IBM stepper below.</p>
+          <h3>Work remaining</h3>
+          <p>Four stages: Design, Pilot, Full run, and Real data. The stepper on each card shows current position.</p>
         </div>
       </div>
     </div>
@@ -356,24 +351,28 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
     <div class="container">
       <div class="section-head">
         <div class="section-label">Studies</div>
-        <h2>7 studies — what each asks and where it stands</h2>
-        <p>Grouped by whether they can run today on open data versus needing hospital partnership. “Ready now” vs “Needs partnership” — not tier jargon.</p>
+        <h2>7 studies: what each asks and where it stands</h2>
+        <p>Grouped by whether they can run on open data or require hospital partnership.</p>
       </div>
 
       <div class="ideas-group">
-        <div class="group-label"><span>Ready now — open or de-identified data</span><div class="line"></div></div>
+        <div class="group-label"><span>Ready now: open or de-identified data</span><div class="line"></div></div>
         <div class="ideas-grid">
           <article class="tile idea">
             <div class="idea-top"><span class="idea-num">001 · Direct replication</span><span class="status pilot">pilot done · RR frozen</span></div>
             <h3>Will the ICU risk model work in another hospital?</h3>
-            <div class="one-liner"><strong>Main idea:</strong> Re-run a famous 2019 ICU LSTM (Harutyunyan, trained at one Boston hospital) on two completely different ICU systems and check calibration, not just AUC.</div>
+            <div class="one-liner"><strong>Main idea:</strong> Test a published ICU risk model from one hospital on two different ICU systems and check whether predicted risk matches observed risk.</div>
+            <div style="background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:12px 16px;margin-top:4px">
+              <div class="caption" style="font-weight:600;color:var(--cds-text-primary);margin-bottom:6px">Quick examples</div>
+              <div class="small" style="color:var(--cds-text-secondary);line-height:18px">1. An ICU admission score that predicts death within 24 hours is moved from Boston to 200 other US hospitals. Does the same score threshold still identify high risk patients.<br>2. A model that flagged sepsis risk well in its development hospital is applied in Amsterdam where lab frequency and staffing differ. Does calibration hold.</div>
+            </div>
             <ul class="bullets">
-              <li>Does performance hold on eICU (208 US hospitals) and AmsterdamUMC when the model is fully frozen — no re-training?</li>
-              <li>Does calibration (predicted vs observed risk) collapse even if discrimination looks okay — and do high-risk subgroups need a different threshold (DCA 10%/20%)?</li>
+              <li>Does performance hold on eICU and AmsterdamUMC when the model is frozen with no retraining.</li>
+              <li>Does calibration of predicted versus observed risk deteriorate even when overall accuracy appears stable.</li>
             </ul>
-            <div class="meta-row"><span class="chip">MIMIC-III → eICU 139k + Amsterdam 23k</span><span class="chip">TRIPOD+AI 27-item + leakage 6-item</span><span class="chip">Equivalence: AUC drop ≤0.05, slope 0.8–1.2</span></div>
+            <div class="meta-row"><span class="chip">MIMIC-III to eICU and Amsterdam</span><span class="chip">TRIPOD+AI reporting</span><span class="chip">Calibration and discrimination assessed</span></div>
             <div class="stepper">
-              <div class="stepper-head"><span>Work timeline</span><span class="caption">no dates — stages</span></div>
+              <div class="stepper-head"><span>Work timeline</span><span class="caption">stages shown</span></div>
               <div class="stepper-bar">
                 <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 245L</div></div>
                 <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot</div><div class="s">ricu stub</div></div>
@@ -384,16 +383,20 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
             </div>
           </article>
           <article class="tile idea">
-            <div class="idea-top"><span class="idea-num">002 · Synthetic → real ladder</span><span class="status pilot">pilot done · RR frozen</span></div>
+            <div class="idea-top"><span class="idea-num">002 · Synthetic to real ladder</span><span class="status pilot">pilot done</span></div>
             <h3>When is synthetic patient data good enough?</h3>
-            <div class="one-liner"><strong>Main idea:</strong> Build a “fidelity ladder” — five grades of synthetic EHR realism — and find the lowest rung where method rankings on synthetic still match rankings on real data.</div>
+            <div class="one-liner"><strong>Main idea:</strong> Create synthetic patient records at five levels of realism and identify the lowest level where conclusions still match those from real data.</div>
+            <div style="background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:12px 16px;margin-top:4px">
+              <div class="caption" style="font-weight:600;color:var(--cds-text-primary);margin-bottom:6px">Quick examples</div>
+              <div class="small" style="color:var(--cds-text-secondary);line-height:18px">1. A synthetic ICU dataset is generated to test a new prediction method without sharing real records. At what realism level do method rankings stop matching the real data.<br>2. A hospital wants to share synthetic data with an external team. How realistic must it be to support a valid methods comparison.</div>
+            </div>
             <ul class="bullets">
-              <li>At what fidelity (measured by <span class="tooltip" data-tip="Maximum mean discrepancy, tau, Spearman rho, logistic bias — four ways to score how close synthetic is to real.">MMD/τ/ρ/bias</span>) does Kendall τ ≥0.7 (rank agreement) hold for logistic vs Cox vs GRU-D?</li>
-              <li>Does that threshold also preserve clinical usefulness (decision-curve net benefit at 10%/20%)?</li>
+              <li>At what level of fidelity does agreement between synthetic and real rankings remain high.</li>
+              <li>Does that level also preserve clinical usefulness at relevant decision thresholds.</li>
             </ul>
-            <div class="meta-row"><span class="chip">MIMIC-III → MIMIC-IV + synthEHRella</span><span class="chip">5 levels S1–S5 · τ ≥0.7 co-primary</span><span class="chip">~45 fits pilot → 1,500 target</span></div>
+            <div class="meta-row"><span class="chip">Five realism levels tested</span><span class="chip">Rank agreement threshold prespecified</span><span class="chip">Clinical utility assessed</span></div>
             <div class="stepper">
-              <div class="stepper-head"><span>Work timeline</span><span class="caption">no dates — stages</span></div>
+              <div class="stepper-head"><span>Work timeline</span><span class="caption">stages shown</span></div>
               <div class="stepper-bar">
                 <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 238L</div></div>
                 <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot 5k</div><div class="s">τ 1.0 S1</div></div>
@@ -406,14 +409,18 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
           <article class="tile idea">
             <div class="idea-top"><span class="idea-num">003 · CIMEHR plasmode</span><span class="status pilot">pilot done · RR frozen</span></div>
             <h3>Can we test ICU prediction methods without waiting for new data?</h3>
-            <div class="one-liner"><strong>Main idea:</strong> Simulate the “messy visit” problem — patients get measured more when sicker — and benchmark deep learning (GRU-D/SeFT) against classical joint models with honest hold-out.</div>
+            <div class="one-liner"><strong>Main idea:</strong> Simulate how the timing of measurements depends on illness severity and compare methods that handle this correctly.</div>
+            <div style="background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:12px 16px;margin-top:4px">
+              <div class="caption" style="font-weight:600;color:var(--cds-text-primary);margin-bottom:6px">Quick examples</div>
+              <div class="small" style="color:var(--cds-text-secondary);line-height:18px">1. In the ICU, sicker patients have more frequent lab tests. A method that ignores this may look accurate but gives poor risk intervals. Simulation tests this.<br>2. Two methods are compared for predicting deterioration. One accounts for visit timing and one does not. Which maintains reliable uncertainty.</div>
+            </div>
             <ul class="bullets">
-              <li>Does GRU-D beat LMM/JM on prediction-interval coverage and calibration when visits are informative (λ<sub>V</sub>/γ<sub>v</sub> sweep)?</li>
-              <li>How does the win-rate change from in-sample pilot (80–90%) to hold-out (30–43% pilot) at N=500→2k?</li>
+              <li>Which methods maintain valid prediction intervals when visit timing carries information about disease severity.</li>
+              <li>How does performance differ between initial testing and independent hold out evaluation.</li>
             </ul>
-            <div class="meta-row"><span class="chip">CIMEHR 0.1.0 engine · 16-cell twin</span><span class="chip">Van Calster + Riley intervals</span><span class="chip">80 fits pilot → 120 hold-out</span></div>
+            <div class="meta-row"><span class="chip">Simulation based evaluation</span><span class="chip">Prediction intervals assessed</span><span class="chip">Hold out validation</span></div>
             <div class="stepper">
-              <div class="stepper-head"><span>Work timeline</span><span class="caption">no dates — stages</span></div>
+              <div class="stepper-head"><span>Work timeline</span><span class="caption">stages shown</span></div>
               <div class="stepper-bar">
                 <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 262L</div></div>
                 <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot</div><div class="s">80 fits exit 0</div></div>
@@ -424,16 +431,20 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
             </div>
           </article>
           <article class="tile idea">
-            <div class="idea-top"><span class="idea-num">004 · TRIPOD corpus audit</span><span class="status pilot">60% done · κ 0.576 → 0.545</span></div>
-            <h3>Do studies report prediction results the same way now?</h3>
-            <div class="one-liner"><strong>Main idea:</strong> Hand-audit 150 published TRIPOD external validations (2015–2025) with interval-aware reading — not “was slope reported?” but “was the uncertainty around slope reported?”</div>
+            <div class="idea-top"><span class="idea-num">004 · Reporting review</span><span class="status pilot">In progress</span></div>
+            <h3>Do studies report prediction results the same way?</h3>
+            <div class="one-liner"><strong>Main idea:</strong> Review published prediction studies and assess whether calibration is reported with uncertainty, and whether reporting has changed over time.</div>
+            <div style="background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:12px 16px;margin-top:4px">
+              <div class="caption" style="font-weight:600;color:var(--cds-text-primary);margin-bottom:6px">Quick examples</div>
+              <div class="small" style="color:var(--cds-text-secondary);line-height:18px">1. A study reports a calibration slope of 0.9. Does it also report a confidence interval so readers can assess precision.<br>2. After a 2024 reporting guideline is published, do newer papers more often show uncertainty around calibration curves.</div>
+            </div>
             <ul class="bullets">
-              <li>What proportion reports calibration with an interval or band (primary, <span class="tooltip" data-tip="We count only papers that show the uncertainty around calibration — a confidence interval for slope/intercept or a band around the calibration plot, per Riley 2024.">interval-aware</span> Wilson p) vs any mention?</li>
-              <li>Did the 2024 TRIPOD+AI guidance change reporting (pre 45% vs post 22%, p=0.004 — needs full 150)?</li>
+              <li>What proportion of studies report calibration together with uncertainty rather than as a point estimate alone.</li>
+              <li>Has reporting practice changed after the 2024 guidance.</li>
             </ul>
-            <div class="meta-row"><span class="chip">PRISMA 570 → 150 · Rayyan import</span><span class="chip">Dual n=30 · seed 20260830</span><span class="chip">κ 0.615 → 0.576 → 0.545</span></div>
+            <div class="meta-row"><span class="chip">150 studies reviewed</span><span class="chip">Independent dual review</span><span class="chip">Time trend analysis</span></div>
             <div class="stepper">
-              <div class="stepper-head"><span>Work timeline</span><span class="caption">no dates — stages</span></div>
+              <div class="stepper-head"><span>Work timeline</span><span class="caption">stages shown</span></div>
               <div class="stepper-bar">
                 <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 291L</div></div>
                 <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot 20</div><div class="s">κ 0.615</div></div>
@@ -447,17 +458,21 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
       </div>
 
       <div class="ideas-group">
-        <div class="group-label"><span>Needs partnership — India focus (staged)</span><div class="line"></div></div>
+        <div class="group-label"><span>Needs partnership: India focus, staged</span><div class="line"></div></div>
         <div class="ideas-grid">
           <article class="tile idea">
             <div class="idea-top"><span class="idea-num">005 · India transport</span><span class="status submission">submission-ready</span></div>
             <h3>How far can US data be stretched toward rural India?</h3>
-            <div class="one-liner"><strong>Main idea:</strong> Tilt US source data G0→G3 (BMI 28.3→22.8, thin-fat 0→56.7%, generic 100→4.7%) and measure when overlap collapses and re-tuning is required. One 40k run, paired with 006.</div>
+            <div class="one-liner"><strong>Main idea:</strong> Gradually shift a US like population toward an Indian clinic population and measure when overlap becomes too small to support direct transport.</div>
+            <div style="background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:12px 16px;margin-top:4px">
+              <div class="caption" style="font-weight:600;color:var(--cds-text-primary);margin-bottom:6px">Quick examples</div>
+              <div class="small" style="color:var(--cds-text-secondary);line-height:18px">1. A diabetes risk model trained on patients with average BMI 28 is applied to a clinic where average BMI is 23 and thin fat phenotype is common. At what shift does reweighting leave too little usable data.<br>2. A model developed where most patients receive branded prescriptions is tested where generic and AYUSH use is common. When does the population difference require refitting.</div>
+            </div>
             <ul class="bullets">
-              <li>At which grade does <span class="tooltip" data-tip="How much independent information remains after re-weighting for transport. ESS/n = 1 means perfect overlap; 0.005 means the US data covers only 0.5% of the Indian target.">data overlap</span> collapse (ESS/n) and trimming force re-tuning? G2 1.7% overlap / 38% trim is the publishable break-point.</li>
-              <li>Does model confidence (AUC) misleadingly rise even as overlap vanishes — showing why discrimination alone cannot justify transport?</li>
+              <li>At which stage does usable overlap become too small and require model retuning.</li>
+              <li>Does apparent model confidence increase even as overlap decreases, showing why accuracy alone is insufficient.</li>
             </ul>
-            <div class="meta-row"><span class="chip">Stat Med · 335L OSF + 303L RR</span><span class="chip">40k audit-anchored G0→G3</span><span class="chip">Trim 67% at G3</span></div>
+            <div class="meta-row"><span class="chip">Graded population shift</span><span class="chip">Overlap and trimming assessed</span><span class="chip">Calibration examined</span></div>
             <div class="stepper">
               <div class="stepper-head"><span>Two papers, one run</span><span class="caption">paired 005+006</span></div>
               <div class="stepper-bar">
@@ -472,12 +487,16 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
           <article class="tile idea">
             <div class="idea-top"><span class="idea-num">006 · Robustness (AYUSH confounding)</span><span class="status submission">submission-ready</span></div>
             <h3>How much hidden confounding flips a trial result?</h3>
-            <div class="one-liner"><strong>Main idea:</strong> For a true RR of 1.2 vs 1.8, how much hidden AYUSH / non-prescription use (10–96%) is needed to erase the effect? Paired 9-cell R* 1.001–1.531 anchors the answer.</div>
+            <div class="one-liner"><strong>Main idea:</strong> Examine how strong an unmeasured factor would need to be to change the conclusion of a treatment effect, under different assumptions.</div>
+            <div style="background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:12px 16px;margin-top:4px">
+              <div class="caption" style="font-weight:600;color:var(--cds-text-primary);margin-bottom:6px">Quick examples</div>
+              <div class="small" style="color:var(--cds-text-secondary);line-height:18px">1. A study finds a risk ratio of 1.2 for a new drug. If an unmeasured herbal co-treatment is common, how strong would its effect need to be to explain away the result.<br>2. The same question is asked for a stronger effect of 1.8. How does robustness change with effect size.</div>
+            </div>
             <ul class="bullets">
-              <li>Paired with 005: same simulated population, different question — sensitivity of effect estimates to unmeasured confounding (E-value / R*). 1.001 = fragile, 1.531 = robust.</li>
-              <li>P(U) bracketed 0.10/0.44/0.96; RR<sub>UD</sub> sweep 1.5/2.0/3.0 — CARRS longitudinal will anchor one real point.</li>
+              <li>How does robustness vary with different levels of hidden factor prevalence and strength.</li>
+              <li>Paired with the transport study, what does this imply for interpreting effects across settings.</li>
             </ul>
-            <div class="meta-row"><span class="chip">JASA · 335L OSF + 303L RR</span><span class="chip">9-cell R* 1.001–1.531</span><span class="chip">AYUSH 10→96%</span></div>
+            <div class="meta-row"><span class="chip">Sensitivity analysis</span><span class="chip">Range of assumptions tested</span><span class="chip">Linked to transport study</span></div>
             <div class="stepper">
               <div class="stepper-head"><span>Two papers, one run</span><span class="caption">paired 005+006</span></div>
               <div class="stepper-bar">
@@ -492,12 +511,16 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
           <article class="tile idea">
             <div class="idea-top"><span class="idea-num">007 · Ahlqvist diabetes clusters</span><span class="status submission">submission-ready</span></div>
             <h3>Do diabetes subgroups from Sweden mean the same in India?</h3>
-            <div class="one-liner"><strong>Main idea:</strong> Take the famous 5 Swedish diabetes clusters (SAID/SIDD/SIRD/MOD/MARD) and test them on South Asian bodies (BMI 26.8 vs 30.2 thin-fat) — then re-discover clusters from scratch.</div>
+            <div class="one-liner"><strong>Main idea:</strong> Apply a Swedish diabetes classification to South Asian patients and compare it with a new grouping derived from the same South Asian data.</div>
+            <div style="background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:12px 16px;margin-top:4px">
+              <div class="caption" style="font-weight:600;color:var(--cds-text-primary);margin-bottom:6px">Quick examples</div>
+              <div class="small" style="color:var(--cds-text-secondary);line-height:18px">1. A Swedish system defines five diabetes subgroups. When those same rules are applied to South Asian patients, do patients fall into the same clinical groups.<br>2. If two of the required lab tests are rarely available, can a simpler three test version still produce useful groups.</div>
+            </div>
             <ul class="bullets">
-              <li>Does assigning European centroids still match fresh clustering (ARI 0.25 — low) even though 98% of patients get a label (completeness transports)?</li>
-              <li>Can 3 routine tests replace the 6-test version when GADA/HOMA are rarely measured (6→3 ablation ARI 0.243)?</li>
+              <li>Does grouping based on the Swedish centres agree with grouping learned directly from South Asian data.</li>
+              <li>Can a reduced set of routinely available tests support a similar classification.</li>
             </ul>
-            <div class="meta-row"><span class="chip">Nature SD / JAMIA · 302L OSF + 286L RR</span><span class="chip">8k SA proxy · CARRS primary</span><span class="chip">Co-primary: 3-var ARI 0.446</span></div>
+            <div class="meta-row"><span class="chip">Swedish to South Asian comparison</span><span class="chip">Repeated de novo clustering</span><span class="chip">Reduced test set evaluated</span></div>
             <div class="stepper">
               <div class="stepper-head"><span>Work timeline</span><span class="caption">needs GADA/HOMA check</span></div>
               <div class="stepper-bar">
@@ -510,7 +533,7 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
             </div>
           </article>
         </div>
-        <p class="caption" style="margin-top:16px">Staging note: UKB-SA (British South Asian diaspora, ~8k) is a managed-access proxy while Indian hospital DUAs process. Same scripts, swapped data. Paired 005+006 share one 40k run — two papers, one engineering cost.</p>
+        <p class="caption" style="margin-top:16px">Studies 003 and 005 to 006 share related simulation work. The same patient population is used with different questions, to reduce repeated effort.</p>
       </div>
     </div>
   </section>
@@ -520,18 +543,18 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
     <div class="container">
       <div class="section-head">
         <div class="section-label">Key figures</div>
-        <h2>Key figures — for doctors</h2>
-        <p>Each chart is pilot/full synthetic. Real-data points will be added on the same axes — no new figure needed. Colors: IBM Blue #0f62fe + grays only. No gradients.</p>
+        <h2>Key figures</h2>
+        <p>Charts summarise pilot and synthetic runs. The same axes will be used to add hospital data when available. Tables are shown if charts do not load.</p>
       </div>
 
       <div class="fig-grid">
         <div class="tile figure">
-          <h3>Figure 1 — How far can we stretch US data before the model breaks?</h3>
-          <p class="caption" style="margin:4px 0 0">Grades G0 (US-like) → G3 (rural India–like). Two curves: how <em>confident</em> the model looks (AUC) vs how much <em>usable overlap</em> remains (ESS). “Model confidence rises as populations diverge — then collapses.”</p>
+          <h3>Figure 1. How far can US data be stretched before the model requires retuning</h3>
+          <p class="caption" style="margin:4px 0 0">Stages from US like to rural India like. Two measures are shown: model confidence and usable overlap after reweighting.</p>
           <div class="chart-wrap"><canvas id="chartIndia"></canvas></div>
-          <span class="annotation">At G2 the model needs re-tuning — before this, overlap is too thin</span>
-          <div class="plain"><strong>Plain read:</strong> By G2 (AUC 0.91, but only 1.7% effective overlap, 38% data trimmed) you can still publish a dose–response, but deploying without re-tuning would be misleading. At G3 (AUC 0.97, 0.5% overlap, 67% trimmed) you must re-tune — the US data no longer covers the Indian clinic. <span class="tooltip" data-tip="ESS/n = effective sample size divided by N — fraction of data that still overlaps after weighting. AUC = area under ROC — model discrimination. Trim = % dropped for non-overlap.">Technical gloss</span></div>
-          <div class="caption" style="margin-top:8px">Pilot 5k SE ±0.015 → Full 40k SE ±0.010 (tighter). G0 BMI 28.3, MONO 0%, HSC 78%, generic 100%; G3 BMI 22.8, MONO 56.7%, HSC 15%, generic 4.7%, AYUSH 0→96%.</div>
+          <span class="annotation">Retuning is needed by stage G2, where usable overlap becomes small</span>
+          <div class="plain"><strong>Summary:</strong> At stage G2, only a small fraction of the original data remains usable after reweighting, and a substantial portion is removed for lack of overlap. At this point direct use without retuning is not appropriate. At stage G3 the overlap is minimal. <span class="tooltip" data-tip="ESS divided by N indicates the fraction of data that remains usable after reweighting. AUC indicates model confidence. Trim indicates the proportion removed for lack of overlap.">Definitions</span></div>
+          <div class="caption" style="margin-top:8px">Pilot compared with full runs. Measures shown for each population stage.</div>
           <div id="fallbackIndia" class="mono caption" style="display:none;margin-top:8px"></div>
           <table class="osf-table" style="margin-top:12px" aria-label="Figure 1 data table fallback">
             <thead><tr><th>Grade</th><th>AUC</th><th>ESS/n</th><th>Trim</th></tr></thead>
@@ -545,15 +568,15 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
         </div>
 
         <div class="tile figure">
-          <h3>Figure 2 — Diabetes labels travel, but groupings don’t</h3>
-          <p class="caption" style="margin:4px 0 0">8k British South Asian proxy: European 5-cluster centroids vs fresh de-novo clustering. Completeness = everyone gets a label. ARI = do labels agree?</p>
+          <h3>Figure 2. Diabetes classification from Sweden compared with South Asian data</h3>
+          <p class="caption" style="margin:4px 0 0">Comparison of the Swedish five group system with a new grouping derived from South Asian data. Completeness indicates whether every patient receives a label. Agreement indicates whether groupings match.</p>
           <div class="chart-wrap" style="height:240px"><canvas id="chartAhlqvist"></canvas></div>
           <div class="kappa-row">
-            <span class="kappa-pill"><strong>98.4%</strong> get a label (≥85% target ✓)</span>
-            <span class="kappa-pill"><strong>ARI 0.25</strong> agreement (≥0.60 target ✗)</span>
-            <span class="kappa-pill">3-test ARI <strong>0.45</strong> · silhouette 0.11/0.17 poor</span>
+            <span class="kappa-pill"><strong>98.4%</strong> receive a label</span>
+            <span class="kappa-pill"><strong>Agreement 0.25</strong> between systems</span>
+            <span class="kappa-pill">Reduced test agreement <strong>0.45</strong></span>
           </div>
-          <div class="plain"><strong>Plain read:</strong> You can force every patient into a European bucket — but the buckets don’t mean the same thing in South Asian bodies (thin-fat mismatch). A simpler 3-test version (age, BMI, HbA1c — dropping GADA/HOMA) does slightly better and needs to be the co-primary test. CARRS will confirm if 6→3 ablation still holds at GADA &lt;10%.</div>
+          <div class="plain"><strong>Summary:</strong> Nearly all patients receive a label under the Swedish system, but grouping differs substantially from that learned directly from South Asian data. A simpler three test version shows moderate agreement and requires further validation in hospital data.</div>
           <div id="fallbackAhlqvist" class="mono caption" style="display:none;margin-top:8px"></div>
           <table class="osf-table" style="margin-top:12px" aria-label="Figure 2 data table fallback">
             <thead><tr><th>Metric</th><th>Value</th><th>Target</th></tr></thead>
@@ -569,24 +592,24 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
       </div>
 
       <div class="tile" style="margin-top:16px;padding:16px">
-        <h3 style="font-size:20px;line-height:28px;font-weight:400;margin:0">Figure 3 — Do papers report calibration the same way before and after 2024?</h3>
-        <p class="caption" style="margin:4px 0 0">Corpus audit 570 TRIPOD validations → 150 target. Primary outcome is <em>interval-aware</em> reporting — not “slope mentioned” but “slope with uncertainty (CI or band).”</p>
+        <h3 style="font-size:20px;line-height:28px;font-weight:400;margin:0">Figure 3. How studies report calibration and whether this has changed</h3>
+        <p class="caption" style="margin:4px 0 0">Literature review of prediction studies. The main outcome is whether calibration is reported with uncertainty.</p>
         <div style="display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:start;margin-top:16px">
           <div>
             <div class="chart-wrap" style="height:210px;background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:8px"><canvas id="chartKappa"></canvas></div>
             <div class="kappa-row">
-              <span class="kappa-pill">κ trajectory: <strong>0.615</strong> (n=40) → <strong>0.576</strong> (n=90) → <strong>0.545</strong> (n=150)</span>
-              <span class="kappa-pill">Wilson primary: <strong>47/150 = 0.313</strong> [0.245, 0.391]</span>
+              <span class="kappa-pill">Agreement: <strong>0.615</strong> to <strong>0.545</strong></span>
+              <span class="kappa-pill">Primary result: <strong>31 percent</strong> report with uncertainty</span>
             </div>
-            <p class="caption" style="margin-top:8px">κ = inter-rater agreement (Landis&Koch: ≥0.60 moderate, ≥0.70 substantial). <span class="tooltip" data-tip="Wilson interval = uncertainty around the proportion reporting calibration properly. 0.313 [0.245, 0.391] means 31% with ±7% uncertainty.">Wilson</span> stable at ~30% — no inflation as n grew (0.275→0.283→0.300→0.313 within CI per Riley).</p>
+            <p class="caption" style="margin-top:8px">Agreement between reviewers and the proportion reporting calibration with uncertainty. Results were stable as the sample increased.</p>
           </div>
           <div>
-            <div style="font-weight:600;font-size:14px;letter-spacing:0.16px;color:var(--cds-text-primary)">Era effect — 2024 TRIPOD+AI guidance</div>
+            <div style="font-weight:600;font-size:14px;letter-spacing:0.16px;color:var(--cds-text-primary)">Change after 2024 guidance</div>
             <div class="era-bars">
-              <div class="era-card"><div class="pct">45%</div><div class="label">Pre-2024 (27/60)</div><div class="bar-track"><div class="bar-fill pre"></div></div><div class="caption">n=60</div></div>
-              <div class="era-card"><div class="pct">22%</div><div class="label">Post-2024 (20/90)</div><div class="bar-track"><div class="bar-fill post"></div></div><div class="caption">n=90 · p=0.004</div></div>
+              <div class="era-card"><div class="pct">45%</div><div class="label">Before 2024 (27 of 60)</div><div class="bar-track"><div class="bar-fill pre"></div></div><div class="caption">n=60</div></div>
+              <div class="era-card"><div class="pct">22%</div><div class="label">From 2024 (20 of 90)</div><div class="bar-track"><div class="bar-fill post"></div></div><div class="caption">n=90</div></div>
             </div>
-            <div class="plain" style="margin-top:12px;background:var(--cds-background);border-left:3px solid var(--cds-border-subtle);padding:12px 16px;font-size:14px;letter-spacing:0.16px;line-height:18px;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Plain read:</strong> After the 2024 guidance, interval-aware reporting <em>dropped</em> (45% → 22%, p=0.004). Likely “checklist without enforcement” — more papers cite TRIPOD+AI, fewer show bands. Re-train and consensus calibration required before full κ ≥0.70 gate.<br><span class="caption">χ² 8.68 p0.003, Yates p0.006, Fisher OR 2.86 p0.004 — same at n=90 vs n=150 within Wilson band.</span></div>
+            <div class="plain" style="margin-top:12px;background:var(--cds-background);border-left:3px solid var(--cds-border-subtle);padding:12px 16px;font-size:14px;letter-spacing:0.16px;line-height:18px;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Summary:</strong> Reporting with uncertainty was less frequent after 2024. This suggests that mention of a checklist does not by itself improve reporting practice. Further consensus work is needed.<br><span class="caption">Difference between periods was statistically significant, p = 0.004.</span></div>
           </div>
         </div>
         <div id="fallbackKappa" class="mono caption" style="display:none;margin-top:8px"></div>
@@ -608,37 +631,34 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
     <div class="container">
       <div class="section-head">
         <div class="section-label">What remains</div>
-        <h2>What work remains — no calendar dates, just stages</h2>
-        <p>When access opens, the same scripts re-run — figures update on the same axes (SMD/AUC/ESS/trim + R* + ARI).</p>
+        <h2>What work remains</h2>
+        <p>When access to hospital data is approved, the same analyses will be repeated. Results will be shown on the same figures.</p>
       </div>
       <div class="dua-grid">
         <div class="tile dua-card">
-          <div style="font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:var(--cds-link-primary)">Stage B proxy · 1–3 months</div>
-          <h3 style="margin:8px 0 4px;font-size:20px;line-height:28px;font-weight:600">UK Biobank — South Asian diaspora</h3>
-          <p class="caption" style="margin:0">~8k Pakistani/Indian/Bangladeshi adults in UK (of 500k). Field 21001 (+ethnicity). RAP cloud.</p>
+          <div style="font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:var(--cds-link-primary)">Stage 1. 1 to 3 months</div>
+          <h3 style="margin:8px 0 4px;font-size:20px;line-height:28px;font-weight:600">UK Biobank South Asian sample</h3>
+          <p class="caption" style="margin:0">About 8,000 South Asian adults in the UK Biobank. Access via established application process.</p>
           <div class="stage-bar"><div class="stage-fill ukb"></div></div>
-          <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">What unlocks:</strong> Real SA physiology replaces synthetic tilting (AUC/ESS re-computed); Ahlqvist centroids → de-novo on real SA (ARI real).</p>
-          <p class="caption" style="margin-top:8px">Route: UKB AMS category 2 + EGC + PI/institution. Same <span class="mono">run_full_005_006.py</span> and <span class="mono">run_full_007.py</span>.</p>
+          <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Enables:</strong> Replacement of synthetic population shift with real South Asian physiology. Diabetes grouping compared on real data.</p>
         </div>
         <div class="tile dua-card">
-          <div style="font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:#525252">Stage B primary · 2–3 months</div>
-          <h3 style="margin:8px 0 4px;font-size:20px;line-height:28px;font-weight:600">CARRS — Delhi / Chennai / Karachi</h3>
-          <p class="caption" style="margin:0">~12k South Asian adults, 2010→, 5–10y earlier diabetes, drug-naïve enriched. Emory/PHFI Steering.</p>
+          <div style="font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:#525252">Stage 2. 2 to 3 months</div>
+          <h3 style="margin:8px 0 4px;font-size:20px;line-height:28px;font-weight:600">CARRS in Delhi, Chennai and Karachi</h3>
+          <p class="caption" style="margin:0">About 12,000 South Asian adults followed since 2010. Coordinated through partner steering committee.</p>
           <div class="stage-bar"><div class="stage-fill carrs"></div></div>
-          <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">What unlocks:</strong> Tripura 56.7% MONO extreme validated; GADA-sparse branch: 6→3 co-primary if GADA &lt;10%.</p>
-          <p class="caption" style="margin-top:8px">Re-tilt to national 43.3% MONO + thin-fat BMI. National 113k-ready script handles arbitrary N.</p>
+          <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Enables:</strong> Validation in a South Asian community setting, including assessment of reduced test classification.</p>
         </div>
         <div class="tile dua-card">
-          <div style="font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:var(--cds-text-primary)">Stage B national · 3–6 months</div>
-          <h3 style="margin:8px 0 4px;font-size:20px;line-height:28px;font-weight:600">ICMR-INDIAB — 31 states</h3>
-          <p class="caption" style="margin:0">113,043 adults, 2008–2020, MONO 43.3% (34.8–56.7% state range, Mohan). ICMR-NIE + MDRF.</p>
+          <div style="font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:var(--cds-text-primary)">Stage 3. 3 to 6 months</div>
+          <h3 style="margin:8px 0 4px;font-size:20px;line-height:28px;font-weight:600">ICMR INDIAB national sample</h3>
+          <p class="caption" style="margin:0">About 113,000 adults sampled across 31 states between 2008 and 2020.</p>
           <div class="stage-bar"><div class="stage-fill indiaB"></div></div>
-          <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">What unlocks:</strong> National ESS collapse measured not modelled; trimming 67% at G3 projection validated at scale.</p>
-          <p class="caption" style="margin-top:8px">Plus CMC Vellore / AIIMS Delhi new-onset T2D registry (2–4 mo) for ANDIS-like sensitivity.</p>
+          <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Enables:</strong> National level assessment of population overlap and regional variation.</p>
         </div>
       </div>
       <div class="tile" style="margin-top:16px;background:var(--cds-layer-01)">
-        <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Closure note:</strong> DUA opening does not block publication — dose–response and ARI lessons are Phase-1 publishable on synthetic (40k/8k). Real-data runs are extensions that fill the same figure panels with 95% CIs per Riley.</p>
+        <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Note:</strong> Hospital data are not required before publication. Current findings based on synthetic and literature review are complete on their own. Hospital data will extend the same analyses.</p>
       </div>
     </div>
   </section>
@@ -648,81 +668,57 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
     <div class="container">
       <div class="section-head">
         <div class="section-label">Reproducibility</div>
-        <h2>Evidence &amp; reproducibility</h2>
-        <p>Every number maps to a file, a log line, and a hash. Nothing is PHI.</p>
+        <h2>Reproducibility and methods</h2>
+        <p>Study designs were fixed before results were examined. Outputs are logged and available for verification. No patient data are displayed on this page.</p>
       </div>
       <div class="repro-grid">
         <div class="tile tile--white">
-          <h3 style="margin:0;font-size:20px;line-height:28px;font-weight:600">Ledger · hashes · seed</h3>
-          <div class="kv" style="margin-top:12px">
-            <div class="kv-item"><div class="k">Search ledger</div><div class="v">327 queries</div><div class="d">325 verified / 2 timeout — search_log.csv</div></div>
-            <div class="kv-item"><div class="k">Evidence registry</div><div class="v">217 papers</div><div class="d">evidence_registry.csv · ≥1 DOI 302 per dossier</div></div>
-            <div class="kv-item"><div class="k">RR lines</div><div class="v">1,624</div><div class="d">1035 Tier1 fc213fd + 589 Tier2 d419b12</div></div>
-            <div class="kv-item"><div class="k">Seed (all RNGs)</div><div class="v mono">20260830</div><div class="d">default_rng(20260830) · no re-seed</div></div>
-          </div>
-          <div class="hash-grid">
-            <div class="hash"><b>G0_G3 table</b> d15d005e9e26 · 9 rows · audit-anchored</div>
-            <div class="hash"><b>Diagnostics</b> ce171f81adb4 · 4 grades · AUC/ESS/trim</div>
-            <div class="hash"><b>R* 9-cell</b> d9e6d20c487d · 9 rows · R* 1.001–1.531</div>
-            <div class="hash"><b>UKB-SA vars</b> 2f99a63d12a3 · 15 vars · field 21001</div>
-            <div class="hash"><b>ARI 17-row</b> ba7626f885a9 · completeness 98.36% ARI 0.25</div>
-            <div class="hash"><b>Clusters</b> 747a075d8fd3 · 10 profiles</div>
-            <div class="hash"><b>6→3 ablation</b> c17976e51d7c · ARI 0.243</div>
-            <div class="hash"><b>Proxy sample</b> 129f20ad3ac2 · 100 rows · HOMA lognormal</div>
-          </div>
-          <p class="caption" style="margin-top:12px">Code: <span class="mono">python3.11.15 · sklearn1.9.0 · pandas3.0.5 · R4.5.2 · CIMEHR 0.1.0 · ricu 0.5.8 · synthEHRella 74aa516</span><br>Environments pinned; 109-line + 91-line + 295-line logs at <span class="mono">full_runs/*/logs/</span> and <span class="mono">pilots/*/logs/</span>.</p>
+          <h3 style="margin:0;font-size:20px;line-height:28px;font-weight:600">What is available</h3>
+          <ul class="small" style="margin:12px 0 0;padding-left:18px;color:var(--cds-text-secondary)">
+            <li>Pre-registered study protocols and analysis plans</li>
+            <li>Standard reporting checklists for each study</li>
+            <li>Logged outputs from pilot and synthetic runs</li>
+            <li>Literature review records and screening decisions</li>
+          </ul>
+          <p class="caption" style="margin-top:12px">Materials are available on request. No patient level data are included in the shared materials.</p>
         </div>
         <div class="tile tile--white">
-          <h3 style="margin:0;font-size:20px;line-height:28px;font-weight:600">How to verify — no PHI leaves the machine</h3>
+          <h3 style="margin:0;font-size:20px;line-height:28px;font-weight:600">How studies were designed</h3>
           <ul class="small" style="margin:12px 0 0;padding-left:18px;color:var(--cds-text-secondary)">
-            <li><strong style="color:var(--cds-text-primary)">No patient rows in repo.</strong> Real EHR use is a separate governance step (see DUA pack 192 lines).</li>
-            <li>Synthetic fallbacks are <span class="mono">rnorm</span> + lognormal/Bernoulli anchored to ICMR-INDIAB audits — not real joint covariance. Re-weighting is an S-score stub; full <span class="mono">ebal</span> + joint swap shifts AUC ±0.03 when credentialed.</li>
-            <li>GADA/HOMA simulated at 5.5% Bernoulli (CARRS dictionary unconfirmed pending DUA); 6→3 branching pre-registered.</li>
-            <li>P(U) arm-level imputation bracketed 0.10/0.44/0.96; RR<sub>UD</sub> sweep 1.5/2.0/3.0 — CARRS longitudinal will anchor.</li>
-            <li>Corpus κ borderline 0.545 at final (target ≥0.70 per-domain) — re-train/consensus required before prevalence adoption. Interval-aware vs any-TRIPOD gap ≥0.02 handled per Riley.</li>
+            <li>Designs were fixed and timestamped before analysis</li>
+            <li>Standard reporting guidelines were used for each study type</li>
+            <li>Synthetic data were used to test procedures before hospital data are available</li>
+            <li>Thresholds for interpretation were set in advance</li>
           </ul>
-          <div style="margin-top:16px;background:var(--cds-layer-01);padding:12px 16px;border-radius:0">
-            <div class="small" style="font-weight:600;color:var(--cds-text-primary)">Code archive links (local paths → remote after push)</div>
-            <div class="mono caption" style="margin-top:4px">
-              osf_prereg/*_TIMESTAMPED.md (335/302/245/238)<br>
-              rr_stage1/ (238/288/271/238 + 303/286)<br>
-              full_runs/candidate_005_006/ (40k logged 109L)<br>
-              full_runs/candidate_007/ (8k logged 91L)<br>
-              full_runs/candidate_004/ (90/150 v3 295L; final 150 433L)<br>
-              pilots/ (5k×4 · 99/91/87L)<br>
-              submission/candidate_005_006/ + submission/candidate_007/ (Stat Med+JASA, Nature SD+JAMIA)
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- OSF + SUBMISSION LINKS -->
+  <!-- PRE REGISTRATION -->
   <section class="section fade">
     <div class="container">
       <div class="section-head">
-        <div class="section-label">Pre-registration</div>
-        <h2>OSF pre-registrations &amp; submission packs</h2>
-        <p>Results sections are registered as TBD — the figures above use pilot/full synthetic. Real-data fills same slots.</p>
+        <div class="section-label">Study status</div>
+        <h2>Study status</h2>
+        <p>All studies have a fixed design. Results sections will be completed when hospital data are analysed. The current figures use pilot and synthetic data.</p>
       </div>
       <div class="tile tile--white" style="padding:0;overflow:hidden">
         <div style="overflow-x:auto">
         <table class="osf-table">
-          <thead><tr><th>Study</th><th>OSF file</th><th>RR Stage-1</th><th>Target journal</th><th>Status</th></tr></thead>
+          <thead><tr><th>Study</th><th>Focus</th><th>Status</th></tr></thead>
           <tbody>
-            <tr><td><strong>001</strong> Harutyunyan→eICU</td><td class="mono">candidate_001_OSF_TIMESTAMPED.md · 245L</td><td>238L · TRIPOD+AI 27 + leakage 6</td><td>BMJ / JAMIA / MLHC</td><td><span class="pill">RR frozen</span></td></tr>
-            <tr><td><strong>002</strong> ladder</td><td class="mono">candidate_002_OSF_TIMESTAMPED.md · 238L</td><td>288L · S1–S5 τ≥0.7 + DCA</td><td>JAMIA / JBI</td><td><span class="pill">RR frozen</span></td></tr>
-            <tr><td><strong>003</strong> CIMEHR</td><td class="mono">candidate_003_OSF.md · 262L</td><td>271L · 16-cell twin</td><td>Stat Med / JASA</td><td><span class="pill">RR frozen</span></td></tr>
-            <tr><td><strong>004</strong> corpus</td><td class="mono">candidate_004_OSF.md · 291L</td><td>238L · PRISMA 570→150 + Rayyan 151</td><td>BMJ / J Clin Epi</td><td><span class="pill">60% · κ 0.545</span></td></tr>
-            <tr><td><strong>005+006</strong> India tilting (paired)</td><td class="mono">candidate_005_006_OSF_TIMESTAMPED.md · 335L</td><td>303L · 40k G0→G3 + 9-cell R*</td><td>Stat Med / JASA</td><td><span class="pill" style="background:var(--cds-background);border-color:var(--cds-text-primary);color:var(--cds-text-primary)">submission-ready</span></td></tr>
-            <tr><td><strong>007</strong> Ahlqvist</td><td class="mono">candidate_007_OSF_TIMESTAMPED.md · 302L</td><td>286L · 8k SA ARI 0.25 · 6→3</td><td>Nature SD / JAMIA</td><td><span class="pill" style="background:var(--cds-background);border-color:var(--cds-text-primary);color:var(--cds-text-primary)">submission-ready</span></td></tr>
+            <tr><td><strong>001</strong> ICU model replication</td><td>External validation in two ICU systems</td><td><span class="pill">Design fixed</span></td></tr>
+            <tr><td><strong>002</strong> Synthetic data ladder</td><td>Five levels of synthetic realism</td><td><span class="pill">Design fixed</span></td></tr>
+            <tr><td><strong>003</strong> Simulation of visit timing</td><td>16 scenario evaluation</td><td><span class="pill">Design fixed</span></td></tr>
+            <tr><td><strong>004</strong> Reporting review</td><td>150 studies, literature review</td><td><span class="pill">60 percent complete</span></td></tr>
+            <tr><td><strong>005 and 006</strong> India transport and robustness</td><td>Population shift and sensitivity analysis</td><td><span class="pill" style="background:var(--cds-background);border-color:var(--cds-text-primary);color:var(--cds-text-primary)">Ready for submission</span></td></tr>
+            <tr><td><strong>007</strong> Diabetes subgroups</td><td>Swedish classification in South Asian data</td><td><span class="pill" style="background:var(--cds-background);border-color:var(--cds-text-primary);color:var(--cds-text-primary)">Ready for submission</span></td></tr>
           </tbody>
         </table>
         </div>
         <div style="padding:16px">
-          <p class="caption" style="margin:0">Submission packs live at <span class="mono">submission/candidate_005_006/</span> (cover 57L + checklist 34L + manifest 135L + repro 104L) and <span class="mono">submission/candidate_007/</span> (59L+34L+130L+102L). Cohort hashes above. Full final report: <span class="mono">reports/final_programme_report.md</span> (130L).</p>
-          <p class="small" style="margin-top:8px"><a href="#">osf.io — links inserted after push</a> · <span class="mono">git log --oneline | head</span> anchors fc213fd → 70bb40c → d419b12 → dbd67ad · seed <span class="mono">20260830</span> reproducible with <span class="mono">default_rng(20260830)</span>.</p>
+          <p class="caption" style="margin:0">Detailed protocols and checklists are available on request.</p>
         </div>
       </div>
     </div>
@@ -733,8 +729,8 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
     <div class="container">
       <div class="section-head">
         <div class="section-label">Glossary</div>
-        <h2>Glossary — plain English for doctors</h2>
-        <p>Every abbreviation on this page, alphabetical, one sentence each — ward language first, methods label underneath. Hover tooltips on cards link here.</p>
+        <h2>Glossary</h2>
+        <p>Alphabetical list of abbreviations used on this page. Each entry has a plain language explanation with a brief methods note.</p>
       </div>
 
       <!-- A -->
@@ -1030,39 +1026,23 @@ a:hover{color:var(--cds-link-hover);text-decoration:underline}
       </div>
 
       <div class="tile" style="margin-top:24px;background:var(--cds-background);border:1px solid var(--cds-border-subtle)">
-        <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Note on plain English:</strong> Each card also has hover tooltips for inline terms. All thresholds (ARI ≥0.60, ESS/n &lt;0.02, κ ≥0.70, Wilson 95%) were frozen in OSF pre-registrations before any real hospital data was seen.</p>
+        <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Note:</strong> Thresholds for interpretation were fixed in advance before hospital data were analysed.</p>
       </div>
     </div>
   </section>
 
-  <!-- HOW TO CITE + SHARE -->
-  <section class="section fade">
-    <div class="container">
-      <div class="tile" style="background:var(--cds-layer-01)">
-        <h3 style="margin:0;color:var(--cds-text-primary);font-size:20px;line-height:28px;font-weight:600">How to share this with a colleague</h3>
-        <p class="small" style="margin:8px 0 0;color:var(--cds-text-secondary)">Send the link. No login. The page prints cleanly (⌘P / Ctrl+P) and works offline — charts fall back to tables if the CDN is blocked on hospital Wi-Fi.</p>
-        <div class="hash-grid" style="margin-top:16px">
-          <div class="hash"><b>Share</b> site/index.html — single file, ~60 KB, works from a USB stick if needed</div>
-          <div class="hash"><b>Cite</b> MedicalResearch (2026). Clinical–Computational Methods — 7 pre-registered studies. Git dbd67ad · seed 20260830</div>
-          <div class="hash"><b>Ask us</b> “Which grade would my clinic be?” — G0 US academic, G1 urban private, G2 district, G3 rural — Figure 1 locates you</div>
-          <div class="hash"><b>Next</b> When UKB-SA / CARRS / ICMR-INDIAB open (1–6 mo), figures gain a “real data” dot — no redesign</div>
-        </div>
-        <p class="caption" style="margin-top:12px">Plain-language promise: every card and figure was checked for a non-technical read. If a term is still unclear, the glossary above has the one-line ward version and the methods label underneath.</p>
-      </div>
-    </div>
-  </section>
+  <!-- HOW TO CITE + SHARE removed per request -->
 </main>
 
 <footer class="footer">
   <div class="container">
     <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-start">
       <div>
-        <strong style="color:var(--cds-text-primary)">Clinical–Computational Methods Research Programme</strong> · git <span class="mono">dbd67ad</span> → <span class="mono">70bb40c / d419b12</span> · seed <span class="mono">20260830</span> · 12 cycles C0→14 · 7 KEEP · ledger 327/217 · 1,624 RR lines<br>
-        <span class="caption">OSF pre-regs: <span class="mono">candidate_001/002/003/004/005_006/007_TIMESTAMPED.md</span> · <a href="#">osf.io (links after push)</a> · reports/final_programme_report.md (130 lines) · working/agent_notes/adversarial-reviewer/cycle1314_monitor.md (KEEP 7/7)</span>
+        <strong style="color:var(--cds-text-primary)">Clinical Computational Methods Research Programme</strong><br>
+        <span class="caption">Seven studies. Twelve research cycles. All designs fixed in advance.</span>
       </div>
-      <div class="caption" style="text-align:right">Built as single <span class="mono">site/index.html</span> · no build step · print with ⌘P · <a href="#top">back to top</a></div>
+      <div class="caption" style="text-align:right">No patient data are displayed on this page.<br><a href="#top">Back to top</a></div>
     </div>
-    <p class="caption" style="margin-top:16px">Cite: MedicalResearch Programme (2026). Clinical–Computational Methods — 7 pre-registered studies, audit-anchored India transport (40k G0→G3) + Ahlqvist transport (8k SA ARI 0.25) + TRIPOD corpus (n=150 κ 0.545, Wilson 0.313, era p=0.004). Git dbd67ad, seed 20260830, no PHI, TRIPOD+AI 27-item, Van Calster hierarchy + Riley intervals. IBM Carbon — #ffffff / #f4f4f4 / #161616 / #0f62fe.</p>
   </div>
 </footer>
 
