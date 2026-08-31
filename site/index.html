@@ -8,702 +8,1083 @@
 <!--
   Clinical-Computational Methods Research Programme — site/index.html
   Single self-contained file: inline CSS + vanilla JS + Chart.js CDN (with table fallback)
-  Design: white/light clinical, slate/teal/amber, Inter + system fallback, card shadows, rounded-2xl
-  No build step. Transparent-bg friendly for preview; standalone clean.
-  Line target: 800-1200. No AI gradients, minimal animation (fade on scroll only).
+  Design: IBM Carbon — #ffffff bg, #f4f4f4 Gray10 tiles, #161616 text, #0f62fe sole blue, 0px radius, flat
+  Typography: IBM Plex Sans 300 display 60/48, 400 body 16px 0.16px, 12px 0.32px captions, IBM Plex Mono hashes
+  No build step. Depth via background layering only. No shadows, no gradients.
+  Line target: 900-1200. Checkpoint early, no PHI, seed 20260830.
   Hashes: 70bb40c/d15d005e/ce171f81/d9e6d20c/ba7626 — seed 20260830 — ledger 327/217 — git dbd67ad
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
 :root{
-  --bg:#f8fafc;
-  --card:#ffffff;
-  --border:#e2e8f0;
-  --slate-900:#0f172a;
-  --slate-700:#334155;
-  --slate-600:#475569;
-  --slate-500:#64748b;
-  --slate-400:#94a3b8;
-  --teal-700:#0f766e;
-  --teal-600:#0d9488;
-  --teal-50:#f0fdfa;
-  --teal-100:#ccfbf1;
-  --amber-600:#d97706;
-  --amber-50:#fffbeb;
-  --amber-100:#fef3c7;
-  --rose-50:#fff1f2;
-  --rose-600:#e11d48;
-  --radius:16px;
-  --radius-lg:20px;
-  --shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);
-  --shadow-hover:0 4px 16px rgba(15,23,42,.08),0 12px 32px rgba(15,23,42,.08);
+  --cds-background:#ffffff;
+  --cds-layer-01:#f4f4f4;
+  --cds-layer-hover:#e8e8e8;
+  --cds-layer-02:#e0e0e0;
+  --cds-text-primary:#161616;
+  --cds-text-secondary:#525252;
+  --cds-text-placeholder:#6f6f6f;
+  --cds-border-subtle:#e0e0e0;
+  --cds-border-strong:#8d8d8d;
+  --cds-link-primary:#0f62fe;
+  --cds-link-hover:#0043ce;
+  --cds-button-primary:#0f62fe;
+  --cds-button-primary-hover:#0353e9;
+  --cds-button-primary-active:#002d9c;
+  --cds-blue-10:#edf5ff;
+  --cds-blue-10-text:#0043ce;
+  --cds-focus:#0f62fe;
+  --cds-support-error:#da1e28;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   margin:0;
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  color:var(--slate-700);
-  background:var(--bg);
-  line-height:1.6;
+  font-family:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--cds-text-primary);
+  background:var(--cds-background);
+  line-height:1.5;
   -webkit-font-smoothing:antialiased;
 }
-a{color:var(--teal-700);text-decoration:none}
-a:hover{text-decoration:underline}
-.container{max-width:1120px;margin:0 auto;padding:0 20px}
-.muted{color:var(--slate-500)}
-.small{font-size:.86rem}
-.mono{font-family:JetBrains Mono,ui-monospace,monospace;font-size:.82rem}
-/* NAV */
+a{color:var(--cds-link-primary);text-decoration:none}
+a:hover{color:var(--cds-link-hover);text-decoration:underline}
+/* IBM Carbon 8px grid */
+.container{max-width:1312px;margin:0 auto;padding:0 32px}
+@media(max-width:672px){.container{padding:0 16px}}
+.muted{color:var(--cds-text-secondary)}
+.small{font-size:14px;line-height:18px;letter-spacing:0.16px}
+.caption{font-size:12px;line-height:16px;letter-spacing:0.32px;color:var(--cds-text-secondary)}
+.mono{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+/* NAV — Carbon masthead */
 .topbar{
   position:sticky;top:0;z-index:30;
-  background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
+  background:#161616;
+  border-bottom:1px solid #393939;
+  height:48px;
+  display:flex;align-items:center;
 }
-.topbar .container{display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--slate-900);font-size:.95rem}
-.brand-mark{width:28px;height:28px;border-radius:8px;background:var(--slate-900);color:#fff;display:grid;place-items:center;font-size:.78rem;font-weight:700;letter-spacing:.02em}
-.nav-links{display:flex;gap:18px;font-size:.88rem}
-.nav-links a{color:var(--slate-600)}
-/* HERO */
-.hero{padding:48px 0 28px}
-.hero-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:24px;align-items:start}
-@media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--teal-700);background:var(--teal-50);border:1px solid #99f6e4;padding:6px 10px;border-radius:999px}
-.hero h1{margin:14px 0 10px;font-size:2.15rem;line-height:1.15;color:var(--slate-900);letter-spacing:-.02em;font-weight:700}
-@media(max-width:600px){.hero h1{font-size:1.65rem}}
-.hero-subtitle{font-size:1.02rem;color:var(--slate-600);max-width:62ch}
-.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--border);padding:7px 10px;border-radius:999px;font-size:.83rem;color:var(--slate-700);box-shadow:0 1px 2px rgba(15,23,42,.04)}
-.badge strong{color:var(--slate-900)}
-.badge.teal{background:var(--teal-50);border-color:#99f6e4;color:#115e59}
-.badge.amber{background:var(--amber-50);border-color:#fde68a;color:#92400e}
-.hero-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow)}
-.hero-card h3{margin:0 0 8px;font-size:.92rem;color:var(--slate-900)}
-.kv{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.kv-item{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px}
-.kv-item .k{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--slate-500);font-weight:600}
-.kv-item .v{font-weight:600;color:var(--slate-900);margin-top:2px;font-size:.92rem}
-.kv-item .d{font-size:.78rem;color:var(--slate-500);margin-top:2px}
-.notice{margin-top:12px;background:var(--amber-50);border:1px solid #fde68a;border-radius:12px;padding:10px 12px;font-size:.84rem;color:#78350f}
-/* SECTION */
-.section{padding:28px 0}
-.section-head{margin-bottom:18px}
-.section-head h2{margin:0;font-size:1.32rem;color:var(--slate-900);letter-spacing:-.015em}
-.section-head p{margin:6px 0 0;color:var(--slate-500);max-width:72ch;font-size:.96rem}
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
-.card h3{margin:0 0 6px;color:var(--slate-900);font-size:1rem}
+.topbar .container{display:flex;align-items:center;justify-content:space-between;width:100%;height:48px;padding-top:0;padding-bottom:0}
+.brand{display:flex;align-items:center;gap:12px;font-size:14px;letter-spacing:0.16px;font-weight:600;color:#ffffff}
+.brand-mark{width:32px;height:32px;background:#ffffff;color:#161616;display:grid;place-items:center;font-size:14px;font-weight:600;letter-spacing:0.02em}
+.nav-links{display:flex;gap:0;font-size:14px;letter-spacing:0.16px}
+.nav-links a{color:#c6c6c6;padding:0 16px;height:48px;display:grid;place-items:center;border-bottom:2px solid transparent}
+.nav-links a:hover{color:#ffffff;text-decoration:none;background:#262626}
+@media(max-width:900px){.nav-links{gap:0}.nav-links a{padding:0 10px;font-size:13px}}
+/* HERO — Carbon content block */
+.hero{padding:48px 0 32px;background:var(--cds-background);border-bottom:1px solid var(--cds-border-subtle)}
+.hero-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:32px;align-items:start}
+@media(max-width:1056px){.hero-grid{grid-template-columns:1fr}}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:0.32px;font-weight:400;color:var(--cds-text-secondary);
+  border-bottom:1px solid var(--cds-border-subtle);padding-bottom:4px;margin-bottom:16px
+}
+.hero h1{
+  margin:0 0 16px;
+  font-size:60px;line-height:70px;letter-spacing:0;
+  font-weight:300;color:var(--cds-text-primary);
+}
+@media(max-width:1056px){.hero h1{font-size:48px;line-height:56px}}
+@media(max-width:672px){.hero h1{font-size:32px;line-height:40px}}
+.hero-subtitle{font-size:16px;line-height:24px;letter-spacing:0;font-weight:400;color:var(--cds-text-secondary);max-width:640px;margin:0}
+.hero-subtitle strong{font-weight:600;color:var(--cds-text-primary)}
+/* Carbon tags — Blue10 pill 24px */
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.carbon-tag{
+  display:inline-flex;align-items:center;
+  background:var(--cds-blue-10);color:var(--cds-blue-10-text);
+  padding:4px 10px;border-radius:24px;
+  font-size:12px;line-height:16px;letter-spacing:0.32px;font-weight:400;
+  border:1px solid var(--cds-blue-10);
+}
+.carbon-tag strong{font-weight:600}
+/* Buttons — Carbon primary 48px 0px radius */
+.btn-primary{
+  display:inline-flex;align-items:center;justify-content:space-between;
+  background:var(--cds-button-primary);color:#ffffff;
+  height:48px;padding:14px 63px 14px 15px;
+  border:1px solid transparent;border-radius:0;
+  font-family:'IBM Plex Sans',sans-serif;font-size:14px;letter-spacing:0.16px;font-weight:400;
+  cursor:pointer;text-decoration:none;gap:32px;
+}
+.btn-primary:hover{background:var(--cds-button-primary-hover);color:#ffffff;text-decoration:none}
+.btn-primary:active{background:var(--cds-button-primary-active)}
+.btn-ghost{
+  display:inline-flex;align-items:center;
+  background:transparent;color:var(--cds-link-primary);
+  height:48px;padding:14px 16px;border:1px solid var(--cds-link-primary);border-radius:0;
+  font-size:14px;letter-spacing:0.16px;cursor:pointer;text-decoration:none;
+}
+.btn-ghost:hover{background:var(--cds-blue-10);color:var(--cds-link-hover);text-decoration:none}
+/* Hero at-a-glance card — Gray10 tile */
+.hero-card{background:var(--cds-layer-01);padding:16px;border-radius:0;border:1px solid transparent}
+.hero-card h3{margin:0 0 12px;font-size:20px;line-height:28px;font-weight:600;color:var(--cds-text-primary)}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--cds-border-subtle);border:1px solid var(--cds-border-subtle)}
+.kv-item{background:var(--cds-background);padding:12px 16px}
+.kv-item .k{font-size:12px;letter-spacing:0.32px;text-transform:uppercase;color:var(--cds-text-secondary);font-weight:400}
+.kv-item .v{font-weight:600;color:var(--cds-text-primary);margin-top:4px;font-size:16px;line-height:24px}
+.kv-item .d{font-size:12px;letter-spacing:0.32px;color:var(--cds-text-secondary);margin-top:4px;line-height:16px}
+.notice{margin-top:16px;background:var(--cds-background);border-left:3px solid var(--cds-text-primary);padding:12px 16px;font-size:14px;letter-spacing:0.16px;color:var(--cds-text-secondary);line-height:18px}
+.notice strong{color:var(--cds-text-primary);font-weight:600}
+/* SECTION — Carbon bands */
+.section{padding:48px 0}
+.section--alt{background:var(--cds-layer-01)}
+.section-head{margin-bottom:32px}
+.section-head h2{margin:0;font-size:32px;line-height:40px;font-weight:400;color:var(--cds-text-primary);letter-spacing:0}
+@media(max-width:672px){.section-head h2{font-size:24px;line-height:32px}}
+.section-head p{margin:8px 0 0;color:var(--cds-text-secondary);max-width:720px;font-size:16px;line-height:24px;letter-spacing:0}
+.section-label{font-size:12px;letter-spacing:0.32px;text-transform:uppercase;color:var(--cds-text-secondary);font-weight:400;margin-bottom:8px}
+/* Carbon tiles — Gray10 flat 0px no shadow */
+.tile{
+  background:var(--cds-layer-01);
+  border-radius:0;
+  border:1px solid transparent;
+  padding:16px;
+}
+.tile:hover{background:var(--cds-layer-hover)}
+.tile--white{background:var(--cds-background);border:1px solid var(--cds-border-subtle)}
+.tile--white:hover{background:var(--cds-layer-01)}
+.card-title{margin:0 0 6px;color:var(--cds-text-primary);font-size:20px;line-height:28px;font-weight:600}
+.card-title--sm{font-size:16px;line-height:24px;font-weight:600}
+/* How to read 3 tiles */
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:850px){.grid3{grid-template-columns:1fr}}
-.how-card{padding:20px}
-.how-card .icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:1.05rem;margin-bottom:10px}
-.how-card p{margin:6px 0 0;font-size:.9rem;color:var(--slate-600)}
-.how-card h3{font-size:.98rem}
-/* IDEA CARDS */
-.ideas-group{margin-bottom:22px}
-.group-label{display:flex;align-items:center;gap:10px;margin:0 0 12px}
-.group-label .line{flex:1;height:1px;background:var(--border)}
-.group-label span{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--slate-500);background:var(--bg);border:1px solid var(--border);padding:6px 10px;border-radius:999px}
+@media(max-width:900px){.grid3{grid-template-columns:1fr}}
+.how-tile{padding:16px;min-height:164px}
+.how-tile .icon{width:32px;height:32px;display:grid;place-items:center;font-size:16px;margin-bottom:12px;background:var(--cds-background);border:1px solid var(--cds-border-subtle);color:var(--cds-text-primary)}
+.how-tile p{margin:6px 0 0;font-size:14px;letter-spacing:0.16px;color:var(--cds-text-secondary);line-height:18px}
+.how-tile h3{font-size:20px;line-height:28px;font-weight:600;margin:0;color:var(--cds-text-primary)}
+/* IDEA CARDS — flat tiles 0px no shadow */
+.ideas-group{margin-bottom:32px}
+.group-label{display:flex;align-items:center;gap:16px;margin:0 0 16px;border-bottom:1px solid var(--cds-border-subtle);padding-bottom:8px}
+.group-label span{font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:var(--cds-text-primary);white-space:nowrap}
+.group-label .line{flex:1;height:1px;background:var(--cds-border-subtle)}
 .ideas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-@media(max-width:900px){.ideas-grid{grid-template-columns:1fr}}
-.idea{padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;transition:box-shadow .18s,transform .18s}
-.idea:hover{box-shadow:var(--shadow-hover);transform:translateY(-1px)}
-.idea-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.idea-num{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--teal-700);background:var(--teal-50);border:1px solid #99f6e4;padding:4px 8px;border-radius:999px}
-.status{font-size:.72rem;font-weight:700;letter-spacing:.04em;padding:5px 9px;border-radius:999px;border:1px solid}
-.status.frozen{background:#f1f5f9;border-color:#cbd5e1;color:#334155}
-.status.pilot{background:var(--teal-50);border-color:#99f6e4;color:#115e59}
-.status.submission{background:var(--amber-50);border-color:#fde68a;color:#92400e}
-.idea h3{margin:0;font-size:1.02rem;line-height:1.3;color:var(--slate-900)}
-.idea .one-liner{font-size:.88rem;color:var(--slate-600);background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
-.bullets{margin:0;padding:0;list-style:none;display:grid;gap:6px}
-.bullets li{font-size:.86rem;color:var(--slate-600);display:flex;gap:8px}
-.bullets li::before{content:"·";color:var(--teal-600);font-weight:700;margin-top:0}
-.meta-row{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-size:.74rem;background:var(--bg);border:1px solid var(--border);padding:4px 8px;border-radius:999px;color:var(--slate-600)}
-.timeline{margin-top:2px;background:#f8fafc;border:1px solid var(--border);border-radius:12px;padding:10px 10px 8px}
-.tl-head{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--slate-500);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
-.tl-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;align-items:start}
-.tl-step{text-align:center}
-.tl-dot{width:28px;height:28px;border-radius:999px;display:grid;place-items:center;margin:0 auto 6px;font-size:.78rem;font-weight:700;border:2px solid}
-.tl-step.done .tl-dot{background:var(--teal-700);border-color:var(--teal-700);color:#fff}
-.tl-step.active .tl-dot{background:#fff;border-color:var(--amber-600);color:var(--amber-600)}
-.tl-step.todo .tl-dot{background:#fff;border-color:#cbd5e1;color:#94a3b8}
-.tl-step .t{font-size:.74rem;font-weight:600;color:var(--slate-700);line-height:1.2}
-.tl-step .s{font-size:.70rem;color:var(--slate-500)}
-.tl-connector{height:2px;background:var(--border);margin: -20px 14% 14px;position:relative;z-index:0}
-@media(max-width:600px){.tl-connector{margin-left:12%;margin-right:12%}}
-/* FIGURES */
+@media(max-width:1056px){.ideas-grid{grid-template-columns:1fr}}
+.idea{padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--cds-layer-01);border-radius:0}
+.idea:hover{background:var(--cds-layer-hover)}
+.idea.idea--white{background:var(--cds-background);border:1px solid var(--cds-border-subtle)}
+.idea.idea--white:hover{background:var(--cds-layer-01)}
+.idea-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.idea-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:400;
+  color:var(--cds-text-secondary);background:var(--cds-background);border:1px solid var(--cds-border-subtle);
+  padding:4px 8px;border-radius:0
+}
+.status{font-size:12px;letter-spacing:0.32px;font-weight:400;padding:4px 8px;border-radius:0;border:1px solid}
+.status.frozen{background:#e0e0e0;border-color:#8d8d8d;color:#161616}
+.status.pilot{background:var(--cds-blue-10);border-color:#a6c8ff;color:#0043ce}
+.status.submission{background:#ffffff;border-color:#8d8d8d;color:#161616}
+.status.active{border-color:var(--cds-link-primary)}
+.idea h3{margin:0;font-size:20px;line-height:28px;font-weight:400;color:var(--cds-text-primary)}
+@media(max-width:672px){.idea h3{font-size:18px;line-height:24px}}
+.one-liner{font-size:14px;letter-spacing:0.16px;color:var(--cds-text-secondary);background:var(--cds-background);border-left:3px solid var(--cds-border-subtle);padding:8px 12px;line-height:18px}
+.one-liner strong{color:var(--cds-text-primary);font-weight:600}
+.bullets{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.bullets li{font-size:14px;letter-spacing:0.16px;color:var(--cds-text-secondary);display:flex;gap:8px;line-height:18px}
+.bullets li::before{content:"–";color:var(--cds-text-primary);font-weight:400}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:12px;letter-spacing:0.32px;background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:4px 8px;border-radius:0;color:var(--cds-text-secondary)}
+/* IBM Stepper — horizontal 4 stages, 0px radius */
+.stepper{margin-top:4px;background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:16px}
+.stepper-head{font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:var(--cds-text-secondary);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.stepper-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:start;position:relative}
+.step{ text-align:left;position:relative;padding-top:0}
+.step-dot{width:16px;height:16px;border-radius:0;display:grid;place-items:center;font-size:10px;font-weight:600;border:1px solid;margin-bottom:8px}
+.step.done .step-dot{background:var(--cds-link-primary);border-color:var(--cds-link-primary);color:#ffffff}
+.step.active .step-dot{background:#ffffff;border-color:var(--cds-link-primary);color:var(--cds-link-primary)}
+.step.todo .step-dot{background:#ffffff;border-color:#8d8d8d;color:#8d8d8d}
+.step .t{font-size:14px;letter-spacing:0.16px;font-weight:600;color:var(--cds-text-primary);line-height:18px}
+.step .s{font-size:12px;letter-spacing:0.32px;color:var(--cds-text-secondary);line-height:16px;margin-top:2px}
+.stepper-line{height:1px;background:var(--cds-border-subtle);margin:-34px 8% 24px;position:relative;z-index:0}
+@media(max-width:600px){.stepper-line{margin-left:12%;margin-right:12%}}
+/* FIGURES — flat Gray10 tiles */
 .fig-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:900px){.fig-grid{grid-template-columns:1fr}}
-.figure{padding:16px}
-.figure h3{font-size:.98rem;margin:0}
-.figure .chart-wrap{position:relative;height:220px;margin-top:10px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:8px}
-.figure .plain{margin-top:10px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:.86rem;color:var(--slate-600)}
-.figure .plain strong{color:var(--slate-900)}
-.annotation{font-size:.78rem;color:var(--amber-600);background:var(--amber-50);border:1px dashed #f59e0b;padding:6px 8px;border-radius:8px;margin-top:8px;display:inline-block}
-.kappa-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.kappa-pill{background:#fff;border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-size:.82rem}
-.kappa-pill strong{color:var(--slate-900)}
-.tooltip{position:relative;cursor:help;border-bottom:1px dotted var(--slate-400)}
+@media(max-width:1056px){.fig-grid{grid-template-columns:1fr}}
+.figure{padding:16px;background:var(--cds-layer-01);border-radius:0}
+.figure:hover{background:var(--cds-layer-hover)}
+.figure h3{font-size:20px;line-height:28px;margin:0;font-weight:400;color:var(--cds-text-primary)}
+.figure .chart-wrap{position:relative;height:220px;margin-top:16px;background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:8px;border-radius:0}
+.figure .plain{margin-top:16px;background:var(--cds-background);border-left:3px solid var(--cds-border-subtle);padding:12px 16px;font-size:14px;letter-spacing:0.16px;color:var(--cds-text-secondary);line-height:18px}
+.figure .plain strong{color:var(--cds-text-primary);font-weight:600}
+.annotation{font-size:12px;letter-spacing:0.32px;color:var(--cds-text-secondary);background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:6px 8px;margin-top:8px;display:inline-block}
+.kappa-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.kappa-pill{background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:6px 10px;font-size:12px;letter-spacing:0.32px;color:var(--cds-text-secondary);border-radius:0}
+.kappa-pill strong{color:var(--cds-text-primary);font-weight:600}
+.tooltip{position:relative;cursor:help;border-bottom:1px dotted var(--cds-border-strong)}
 .tooltip:hover::after{
   content:attr(data-tip);
   position:absolute;left:50%;bottom:125%;transform:translateX(-50%);
-  background:var(--slate-900);color:#fff;padding:8px 10px;border-radius:8px;
-  font-size:.78rem;line-height:1.3;white-space:normal;width:260px;z-index:20;
-  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  background:#393939;color:#ffffff;padding:8px 12px;border-radius:0;
+  font-size:12px;letter-spacing:0.32px;line-height:16px;white-space:normal;width:260px;z-index:20;
+  border:1px solid #525252;
 }
-.era-bars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.era-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center}
-.era-card .pct{font-size:1.35rem;font-weight:700;color:var(--slate-900)}
-.era-card .label{font-size:.78rem;color:var(--slate-500)}
-.bar-track{height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:6px}
-.bar-fill{height:100%;border-radius:999px}
-.bar-fill.pre{background:var(--teal-600);width:45%}
-.bar-fill.post{background:#94a3b8;width:22%}
+.era-bars{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px}
+.era-card{background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:12px;text-align:left;border-radius:0}
+.era-card .pct{font-size:32px;line-height:40px;font-weight:300;color:var(--cds-text-primary)}
+.era-card .label{font-size:12px;letter-spacing:0.32px;color:var(--cds-text-secondary);text-transform:uppercase}
+.bar-track{height:4px;background:var(--cds-layer-02);overflow:hidden;margin-top:8px;border-radius:0}
+.bar-fill{height:100%;border-radius:0}
+.bar-fill.pre{background:var(--cds-link-primary);width:45%}
+.bar-fill.post{background:#8d8d8d;width:22%}
 /* DUA */
 .dua-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media(max-width:900px){.dua-grid{grid-template-columns:1fr}}
-.dua-card{padding:16px}
-.stage-bar{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:8px 0}
-.stage-fill{height:100%;border-radius:999px}
-.stage-fill.ukb{background:var(--teal-600);width:40%}
-.stage-fill.carrs{background:var(--amber-600);width:58%}
-.stage-fill.indiaB{background:var(--slate-700);width:82%}
+@media(max-width:1056px){.dua-grid{grid-template-columns:1fr}}
+.dua-card{padding:16px;background:var(--cds-layer-01);border-radius:0}
+.dua-card:hover{background:var(--cds-layer-hover)}
+.stage-bar{height:4px;background:var(--cds-border-subtle);overflow:hidden;margin:12px 0;border-radius:0}
+.stage-fill{height:100%;border-radius:0}
+.stage-fill.ukb{background:var(--cds-link-primary);width:40%}
+.stage-fill.carrs{background:#525252;width:58%}
+.stage-fill.indiaB{background:#161616;width:82%}
 /* REPRO */
 .repro-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
-@media(max-width:900px){.repro-grid{grid-template-columns:1fr}}
-.hash-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.hash{font-family:JetBrains Mono,monospace;font-size:.76rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px;word-break:break-all}
-.hash b{color:var(--slate-900);display:block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
-/* -------------------------------------------------------------
-   GLOSSARY + OSF LINKS
-   ------------------------------------------------------------- */
-.glossary{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
-@media(max-width:700px){.glossary{grid-template-columns:1fr}}
-.gloss-item{background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px 12px}
-.gloss-item dt{font-weight:600;color:var(--slate-900);font-size:.86rem}
-.gloss-item dd{margin:4px 0 0;color:var(--slate-600);font-size:.84rem}
-.gloss-item .tr{font-size:.78rem;color:var(--teal-700);background:var(--teal-50);border:1px solid #99f6e4;padding:2px 6px;border-radius:999px;display:inline-block;margin-top:6px}
-.osf-table{width:100%;border-collapse:collapse;font-size:.84rem;margin-top:8px}
-.osf-table th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--slate-500);text-align:left;padding:8px;border-bottom:1px solid var(--border)}
-.osf-table td{padding:8px;border-bottom:1px solid #f1f5f9;color:var(--slate-700)}
+@media(max-width:1056px){.repro-grid{grid-template-columns:1fr}}
+.hash-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--cds-border-subtle);border:1px solid var(--cds-border-subtle);margin-top:12px}
+.hash{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.32px;background:var(--cds-background);padding:12px;word-break:break-all;line-height:16px;color:var(--cds-text-secondary)}
+.hash b{color:var(--cds-text-primary);display:block;font-size:12px;letter-spacing:0.32px;text-transform:uppercase;margin-bottom:4px;font-weight:600}
+/* GLOSSARY — Carbon tile grid */
+.glossary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--cds-border-subtle);border:1px solid var(--cds-border-subtle);margin-top:16px}
+@media(max-width:1056px){.glossary-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:672px){.glossary-grid{grid-template-columns:1fr}}
+.gloss-item{background:var(--cds-layer-01);padding:16px;border-radius:0}
+.gloss-item:hover{background:var(--cds-layer-hover)}
+.gloss-item dt{font-weight:600;color:var(--cds-text-primary);font-size:14px;letter-spacing:0.16px;line-height:18px}
+.gloss-item dt .abbr{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.32px;font-weight:400;color:var(--cds-text-secondary)}
+.gloss-item dd{margin:8px 0 0;color:var(--cds-text-secondary);font-size:14px;letter-spacing:0.16px;line-height:18px}
+.gloss-item .method-tag{font-size:12px;letter-spacing:0.32px;color:var(--cds-text-secondary);border-top:1px solid var(--cds-border-subtle);padding-top:8px;margin-top:8px;display:block}
+.gloss-alpha{margin-top:24px}
+.gloss-alpha h4{font-size:14px;letter-spacing:0.16px;font-weight:600;color:var(--cds-text-primary);margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--cds-text-primary);display:inline-block}
+.osf-table{width:100%;border-collapse:collapse;font-size:14px;letter-spacing:0.16px;margin-top:8px}
+.osf-table th{font-size:12px;letter-spacing:0.32px;text-transform:uppercase;color:var(--cds-text-secondary);text-align:left;padding:12px 16px;border-bottom:1px solid var(--cds-text-primary);font-weight:600;background:var(--cds-layer-01)}
+.osf-table td{padding:12px 16px;border-bottom:1px solid var(--cds-border-subtle);color:var(--cds-text-secondary);background:var(--cds-background)}
 .osf-table tr:last-child td{border-bottom:none}
-.pill{font-size:.70rem;padding:3px 7px;border-radius:999px;border:1px solid var(--border);background:var(--bg);white-space:nowrap}
-/* PRINT */
-@media print{
-  .topbar{position:static}
-  .card{box-shadow:none;break-inside:avoid}
-  .chart-wrap{break-inside:avoid}
-}
-.footer{padding:22px 0 36px;border-top:1px solid var(--border);margin-top:12px;color:var(--slate-500);font-size:.84rem}
+.pill{font-size:12px;letter-spacing:0.32px;padding:4px 8px;border-radius:0;border:1px solid var(--cds-border-subtle);background:var(--cds-background);white-space:nowrap;color:var(--cds-text-secondary)}
+.footer{padding:24px 0 32px;border-top:1px solid var(--cds-border-subtle);margin-top:0;color:var(--cds-text-secondary);font-size:12px;letter-spacing:0.32px;background:var(--cds-background)}
 .fade{opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease}
 .fade.in{opacity:1;transform:none}
-/* pad line 0 — keep single-file 800+ target, no visual change */
-/* pad line 1 — keep single-file 800+ target, no visual change */
-/* pad line 2 — keep single-file 800+ target, no visual change */
-/* pad line 3 — keep single-file 800+ target, no visual change */
-/* pad line 4 — keep single-file 800+ target, no visual change */
-/* pad line 5 — keep single-file 800+ target, no visual change */
-/* pad line 6 — keep single-file 800+ target, no visual change */
-/* pad line 7 — keep single-file 800+ target, no visual change */
-/* pad line 8 — keep single-file 800+ target, no visual change */
-/* pad line 9 — keep single-file 800+ target, no visual change */
-/* pad line 10 — keep single-file 800+ target, no visual change */
-/* pad line 11 — keep single-file 800+ target, no visual change */
-/* pad line 12 — keep single-file 800+ target, no visual change */
-/* pad line 13 — keep single-file 800+ target, no visual change */
-/* pad line 14 — keep single-file 800+ target, no visual change */
+@media print{
+  .topbar{position:static}
+  .tile,.figure,.dua-card,.gloss-item{break-inside:avoid}
+  .chart-wrap{break-inside:avoid}
+}
 </style>
 </head>
 <body>
 <header class="topbar">
   <div class="container">
     <div class="brand"><span class="brand-mark">CC</span> Clinical–Computational Methods</div>
-    <nav class="nav-links">
+    <nav class="nav-links" aria-label="Primary">
       <a href="#ideas">Studies</a>
       <a href="#figures">Key figures</a>
       <a href="#remain">What remains</a>
+      <a href="#glossary">Glossary</a>
       <a href="#repro">Reproducibility</a>
     </nav>
   </div>
 </header>
 
-<main class="container">
+<main>
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-grid">
-      <div>
-        <span class="eyebrow">Shareable with clinicians · No patient data · Reproducible</span>
-        <h1>Clinical–Computational Methods Research Programme</h1>
-        <p class="hero-subtitle">Seven pre-registered studies asking one plain question: <strong style="color:var(--slate-900)">which Western methods still work when the patients, labs, and clinic routines look different — especially in India?</strong> All designs, pilots and full 40k/8k synthetic runs are frozen and logged. Real hospital data is the next staged step, not a blocker.</p>
-        <div class="badges">
-          <span class="badge teal"><strong>7 ideas</strong> · frozen shortlist</span>
-          <span class="badge"><strong>12 cycles</strong> C0 → 14 · programme closure</span>
-          <span class="badge"><strong>1,624</strong> RR lines · OSF timestamped</span>
-          <span class="badge"><strong>40k + 8k + 150</strong> · full synthetic trajectory</span>
-          <span class="badge amber">DUA staged · 1–6 months</span>
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Shareable with clinicians · No patient data · Reproducible · IBM Carbon</div>
+          <h1>Clinical–Computational Methods Research Programme</h1>
+          <p class="hero-subtitle">Seven pre-registered studies asking one plain question: <strong>which Western methods still work when the patients, labs, and clinic routines look different — especially in India?</strong> All designs, pilots and full 40k/8k synthetic runs are frozen and logged. Real hospital data is the next staged step, not a blocker.</p>
+          <div class="tags" role="list" aria-label="Programme badges">
+            <span class="carbon-tag" role="listitem"><strong>7 ideas</strong> &nbsp;· frozen shortlist</span>
+            <span class="carbon-tag" role="listitem"><strong>12 cycles</strong> &nbsp;C0 → 14 · programme closure</span>
+            <span class="carbon-tag" role="listitem"><strong>1,624</strong> &nbsp;RR lines · OSF timestamped</span>
+            <span class="carbon-tag" role="listitem"><strong>40k + 8k + 150</strong> &nbsp;· full synthetic trajectory</span>
+            <span class="carbon-tag" role="listitem">DUA staged · 1–6 months</span>
+          </div>
+          <p class="caption" style="margin-top:16px">For doctors: no SMD/ICI jargon on this page — technical terms are translated; hover dotted <span class="tooltip" data-tip="Standardised mean difference — how far apart two groups' averages are. >0.1 is often taken as meaningful imbalance.">terms</span> for the methods wording.</p>
+          <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn-primary" href="#ideas">View studies <span aria-hidden="true">→</span></a>
+            <a class="btn-ghost" href="#glossary">Glossary</a>
+          </div>
         </div>
-        <p class="small muted" style="margin-top:10px">For doctors: no SMD/ICI/S<sub>score</sub> jargon on this page — technical terms are translated; hover dotted <span class="tooltip" data-tip="Standardised mean difference — how far apart two groups' averages are. >0.1 is often taken as meaningful imbalance.">terms</span> for the methods wording.</p>
-      </div>
-      <div class="hero-card">
-        <h3>At a glance — what you can cite</h3>
-        <div class="kv">
-          <div class="kv-item"><div class="k">Evidence base</div><div class="v">327 / 217</div><div class="d">search queries / papers in registry · all verified</div></div>
-          <div class="kv-item"><div class="k">Git head</div><div class="v mono">dbd67ad</div><div class="d">closure · seed 20260830</div></div>
-          <div class="kv-item"><div class="k">Reporting</div><div class="v">TRIPOD+AI 27-item</div><div class="d">Collins et al. BMJ 2024 · leakage checklist 6-item</div></div>
-          <div class="kv-item"><div class="k">Data posture</div><div class="v">No PHI</div><div class="d">synthetic proxy; hashes logged</div></div>
+        <div class="hero-card">
+          <h3>At a glance — what you can cite</h3>
+          <div class="kv">
+            <div class="kv-item"><div class="k">Evidence base</div><div class="v">327 / 217</div><div class="d">search queries / papers in registry · all verified</div></div>
+            <div class="kv-item"><div class="k">Git head</div><div class="v mono">dbd67ad</div><div class="d">closure · seed 20260830</div></div>
+            <div class="kv-item"><div class="k">Reporting</div><div class="v">TRIPOD+AI 27-item</div><div class="d">Collins et al. BMJ 2024 · leakage checklist 6-item</div></div>
+            <div class="kv-item"><div class="k">Data posture</div><div class="v">No PHI</div><div class="d">synthetic proxy; hashes logged</div></div>
+          </div>
+          <div class="notice"><strong>Honest proxy:</strong> 40k graded plasmode + 8k SA proxy are synthetic rnorm fallbacks (not real joint covariance). Shapes and dose–response are audit-anchored; real-data re-run is the same script with a switch.</div>
+          <p class="caption" style="margin:12px 0 0">Single file · inline CSS + vanilla JS · <span class="mono">Chart.js</span> via CDN with table fallback · print-friendly</p>
         </div>
-        <div class="notice"><strong>Honest proxy:</strong> 40k graded plasmode + 8k SA proxy are synthetic rnorm fallbacks (not real joint covariance). Shapes and dose–response are audit-anchored; real-data re-run is the same script with a switch.</div>
-        <p class="small muted" style="margin:8px 0 0">Single file · inline CSS + vanilla JS · <span class="mono">Chart.js</span> via CDN with table fallback · print-friendly</p>
       </div>
     </div>
   </section>
 
-  <!-- HOW TO READ -->
-  <section class="section fade">
-    <div class="section-head">
-      <h2>How to read this page</h2>
-      <p>Three lenses for every study — scan any card the same way.</p>
-    </div>
-    <div class="grid3">
-      <div class="card how-card">
-        <div class="icon" style="background:var(--teal-50);border:1px solid #99f6e4;color:var(--teal-700)">◉</div>
-        <h3>Idea — in one sentence</h3>
-        <p>What clinical question the methods study answers, in plain language a ward colleague would recognise.</p>
+  <!-- HOW TO READ — 3 Gray10 tiles -->
+  <section class="section section--alt fade">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">How to read this page</div>
+        <h2>Three lenses for every study</h2>
+        <p>Scan any card the same way — idea, evidence, and what remains.</p>
       </div>
-      <div class="card how-card">
-        <div class="icon" style="background:var(--amber-50);border:1px solid #fde68a;color:#92400e">▣</div>
-        <h3>Evidence — what we ran</h3>
-        <p>Pilot on 5k ×4 and full 40k/8k runs are logged (CSV + 109-line / 91-line logs, SHA256). Not “trust us” — hashes you can verify.</p>
-      </div>
-      <div class="card how-card">
-        <div class="icon" style="background:#f1f5f9;border:1px solid #cbd5e1;color:var(--slate-700)">↗</div>
-        <h3>Work needed — without dates</h3>
-        <p>Each card shows 4 stages: Design → Pilot (5k) → Full run (40k/8k/150) → Real data (staged 1–6 mo). Colour tells you where it stands.</p>
+      <div class="grid3">
+        <div class="tile how-tile">
+          <div class="icon">◉</div>
+          <h3>Idea — in one sentence</h3>
+          <p>What clinical question the methods study answers, in plain language a ward colleague would recognise.</p>
+        </div>
+        <div class="tile how-tile">
+          <div class="icon">▣</div>
+          <h3>Evidence — what we ran</h3>
+          <p>Pilot on 5k ×4 and full 40k/8k runs are logged (CSV + 109-line / 91-line logs, SHA256). Not “trust us” — hashes you can verify.</p>
+        </div>
+        <div class="tile how-tile">
+          <div class="icon">↗</div>
+          <h3>Work needed — without dates</h3>
+          <p>Each card shows 4 stages: Design → Pilot (5k) → Full run (40k/8k/150) → Real data (staged 1–6 mo). IBM stepper below.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- IDEAS -->
+  <!-- IDEAS — 7 flat tiles grouped -->
   <section id="ideas" class="section fade">
-    <div class="section-head">
-      <h2>7 studies — what each asks and where it stands</h2>
-      <p>Grouped by whether they can run today on open data versus needing hospital partnership. No Tier jargon — just “ready now” vs “needs data access.”</p>
-    </div>
-
-    <div class="ideas-group">
-      <div class="group-label"><span>Ready to run now — open or de-identified data</span><div class="line"></div></div>
-      <div class="ideas-grid">
-        <!-- 001 -->
-        <article class="card idea">
-          <div class="idea-top"><span class="idea-num">001 · Direct replication</span><span class="status pilot">pilot done · RR frozen</span></div>
-          <h3>Will the ICU risk model work in another hospital?</h3>
-          <div class="one-liner"><strong>Main idea:</strong> Re-run a famous 2019 ICU LSTM (Harutyunyan, trained at one Boston hospital) on two completely different ICU systems and check calibration, not just AUC.</div>
-          <ul class="bullets">
-            <li>Does performance hold on eICU (208 US hospitals) and AmsterdamUMC when the model is fully frozen — no re-training?</li>
-            <li>Does calibration (predicted vs observed risk) collapse even if discrimination looks okay — and do high-risk subgroups need a different threshold (DCA 10%/20%)?</li>
-          </ul>
-          <div class="meta-row"><span class="chip">MIMIC-III → eICU 139k + Amsterdam 23k</span><span class="chip">TRIPOD+AI 27-item + leakage 6-item</span><span class="chip">Equivalence: AUC drop ≤0.05, slope 0.8–1.2</span></div>
-          <div class="timeline">
-            <div class="tl-head"><span>Work timeline</span><span class="small muted">no dates — stages</span></div>
-            <div class="tl-bar">
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Design</div><div class="s">OSF 245L</div></div>
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Pilot</div><div class="s">ricu stub</div></div>
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Full run</div><div class="s">ready on cred.</div></div>
-              <div class="tl-step todo"><div class="tl-dot">○</div><div class="t">Real data</div><div class="s">PhysioNet 1–2w</div></div>
-            </div>
-          </div>
-        </article>
-        <!-- 002 -->
-        <article class="card idea">
-          <div class="idea-top"><span class="idea-num">002 · Synthetic → real ladder</span><span class="status pilot">pilot done · RR frozen</span></div>
-          <h3>When is synthetic patient data good enough?</h3>
-          <div class="one-liner"><strong>Main idea:</strong> Build a “fidelity ladder” — five grades of synthetic EHR realism — and find the lowest rung where method rankings on synthetic still match rankings on real data.</div>
-          <ul class="bullets">
-            <li>At what fidelity (measured by <span class="tooltip" data-tip="Maximum mean discrepancy, tau, Spearman rho, logistic bias — four ways to score how close synthetic is to real.">MMD/τ/ρ/bias</span>) does Kendall τ ≥0.7 (rank agreement) hold for logistic vs Cox vs GRU-D?</li>
-            <li>Does that threshold also preserve clinical usefulness (decision-curve net benefit at 10%/20%)?</li>
-          </ul>
-          <div class="meta-row"><span class="chip">MIMIC-III → MIMIC-IV + synthEHRella</span><span class="chip">5 levels S1–S5 · τ ≥0.7 co-primary</span><span class="chip">~45 fits pilot → 1,500 target</span></div>
-          <div class="timeline">
-            <div class="tl-head"><span>Work timeline</span><span class="small muted">no dates — stages</span></div>
-            <div class="tl-bar">
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Design</div><div class="s">OSF 238L</div></div>
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Pilot 5k</div><div class="s">τ 1.0 S1</div></div>
-              <div class="tl-step active"><div class="tl-dot">●</div><div class="t">Full run</div><div class="s">5k → MIMIC</div></div>
-              <div class="tl-step todo"><div class="tl-dot">○</div><div class="t">Real data</div><div class="s">PhysioNet wait</div></div>
-            </div>
-          </div>
-        </article>
-        <!-- 003 -->
-        <article class="card idea">
-          <div class="idea-top"><span class="idea-num">003 · CIMEHR plasmode</span><span class="status pilot">pilot done · RR frozen</span></div>
-          <h3>Can we test ICU prediction methods without waiting for new data?</h3>
-          <div class="one-liner"><strong>Main idea:</strong> Simulate the “messy visit” problem — patients get measured more when sicker — and benchmark deep learning (GRU-D/SeFT) against classical joint models with honest hold-out.</div>
-          <ul class="bullets">
-            <li>Does GRU-D beat LMM/JM on prediction-interval coverage and calibration when visits are informative (λ<sub>V</sub>/γ<sub>v</sub> sweep)?</li>
-            <li>How does the win-rate change from in-sample pilot (80–90%) to hold-out (30–43% pilot) at N=500→2k?</li>
-          </ul>
-          <div class="meta-row"><span class="chip">CIMEHR 0.1.0 engine · 16-cell twin</span><span class="chip">Van Calster + Riley intervals</span><span class="chip">80 fits pilot → 120 hold-out</span></div>
-          <div class="timeline">
-            <div class="tl-head"><span>Work timeline</span><span class="small muted">no dates — stages</span></div>
-            <div class="tl-bar">
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Design</div><div class="s">OSF 262L</div></div>
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Pilot</div><div class="s">80 fits exit 0</div></div>
-              <div class="tl-step active"><div class="tl-dot">●</div><div class="t">Full run</div><div class="s">120 hold-out</div></div>
-              <div class="tl-step todo"><div class="tl-dot">○</div><div class="t">Real data</div><div class="s">CPU only</div></div>
-            </div>
-          </div>
-        </article>
-        <!-- 004 -->
-        <article class="card idea">
-          <div class="idea-top"><span class="idea-num">004 · TRIPOD corpus audit</span><span class="status active pilot" style="background:#fff;border-color:#0d9488;color:#0f766e">60% done · κ 0.576 → 0.545</span></div>
-          <h3>Do studies report prediction results the same way now?</h3>
-          <div class="one-liner"><strong>Main idea:</strong> Hand-audit 150 published TRIPOD external validations (2015–2025) with interval-aware reading — not “was slope reported?” but “was the uncertainty around slope reported?”</div>
-          <ul class="bullets">
-            <li>What proportion reports calibration with an interval or band (primary, <span class="tooltip" data-tip="We count only papers that show the uncertainty around calibration — a confidence interval for slope/intercept or a band around the calibration plot, per Riley 2024.">interval-aware</span> Wilson p) vs any mention?</li>
-            <li>Did the 2024 TRIPOD+AI guidance change reporting (pre 45% vs post 22%, p=0.004 — needs full 150)?</li>
-          </ul>
-          <div class="meta-row"><span class="chip">PRISMA 570 → 150 · Rayyan import</span><span class="chip">Dual n=30 · seed 20260830</span><span class="chip">κ 0.615 → 0.576 → 0.545</span></div>
-          <div class="timeline">
-            <div class="tl-head"><span>Work timeline</span><span class="small muted">no dates — stages</span></div>
-            <div class="tl-bar">
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Design</div><div class="s">OSF 291L</div></div>
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Pilot 20</div><div class="s">κ 0.615</div></div>
-              <div class="tl-step active"><div class="tl-dot">●</div><div class="t">Full run</div><div class="s">90/150 done</div></div>
-              <div class="tl-step todo"><div class="tl-dot">○</div><div class="t">Final</div><div class="s">60 + final κ</div></div>
-            </div>
-          </div>
-        </article>
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Studies</div>
+        <h2>7 studies — what each asks and where it stands</h2>
+        <p>Grouped by whether they can run today on open data versus needing hospital partnership. “Ready now” vs “Needs partnership” — not tier jargon.</p>
       </div>
-    </div>
 
-    <div class="ideas-group">
-      <div class="group-label"><span>Needs hospital partnership — India focus (staged)</span><div class="line"></div></div>
-      <div class="ideas-grid">
-        <!-- 005+006 paired -->
-        <article class="card idea" style="border-top:3px solid var(--amber-600)">
-          <div class="idea-top"><span class="idea-num">005 + 006 · Paired India tilting</span><span class="status submission">submission-ready</span></div>
-          <h3>What happens when we move a model from US to Indian clinics?</h3>
-          <div class="one-liner"><strong>Main idea:</strong> One engineering run, two papers: (A) how far can US data be stretched toward rural India before the model breaks, and (B) how robust are trial-style effect estimates when most Indian patients use non-prescription / AYUSH medicines.</div>
-          <ul class="bullets">
-            <li><strong>005 Transport:</strong> As we tilt source data G0→G3 (BMI 28.3→22.8, Thin-fat 0→56.7%, generic 100→4.7%) — at which grade does <span class="tooltip" data-tip="How much independent information remains after re-weighting for transport. ESS/n = 1 means perfect overlap; 0.005 means the US data covers only 0.5% of the Indian target.">data overlap</span> collapse and re-tuning become required?</li>
-            <li><strong>006 Robustness:</strong> For a true RR of 1.2 vs 1.8, how much hidden confounding (AYUSH 10–96%) flips conclusions? Paired 9-cell R* 1.001–1.531 anchors the answer.</li>
-          </ul>
-          <div class="meta-row"><span class="chip">Stat Med / JASA · 335L OSF + 303L RR</span><span class="chip">40k audit-anchored G0→G3</span><span class="chip">Trim 67% at G3 · remains pre-printable</span></div>
-          <div class="timeline">
-            <div class="tl-head"><span>Work timeline</span><span class="small muted">two papers, one run</span></div>
-            <div class="tl-bar">
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Design</div><div class="s">OSF 335L</div></div>
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Pilot 5k</div><div class="s">AUC→0.94</div></div>
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Full 40k</div><div class="s">logged 109L</div></div>
-              <div class="tl-step active"><div class="tl-dot">●</div><div class="t">Real data</div><div class="s">UKB-SA → CARRS → ICMR 113k</div></div>
+      <div class="ideas-group">
+        <div class="group-label"><span>Ready now — open or de-identified data</span><div class="line"></div></div>
+        <div class="ideas-grid">
+          <article class="tile idea">
+            <div class="idea-top"><span class="idea-num">001 · Direct replication</span><span class="status pilot">pilot done · RR frozen</span></div>
+            <h3>Will the ICU risk model work in another hospital?</h3>
+            <div class="one-liner"><strong>Main idea:</strong> Re-run a famous 2019 ICU LSTM (Harutyunyan, trained at one Boston hospital) on two completely different ICU systems and check calibration, not just AUC.</div>
+            <ul class="bullets">
+              <li>Does performance hold on eICU (208 US hospitals) and AmsterdamUMC when the model is fully frozen — no re-training?</li>
+              <li>Does calibration (predicted vs observed risk) collapse even if discrimination looks okay — and do high-risk subgroups need a different threshold (DCA 10%/20%)?</li>
+            </ul>
+            <div class="meta-row"><span class="chip">MIMIC-III → eICU 139k + Amsterdam 23k</span><span class="chip">TRIPOD+AI 27-item + leakage 6-item</span><span class="chip">Equivalence: AUC drop ≤0.05, slope 0.8–1.2</span></div>
+            <div class="stepper">
+              <div class="stepper-head"><span>Work timeline</span><span class="caption">no dates — stages</span></div>
+              <div class="stepper-bar">
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 245L</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot</div><div class="s">ricu stub</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Full run</div><div class="s">ready on cred.</div></div>
+                <div class="step todo"><div class="step-dot">○</div><div class="t">Real data</div><div class="s">PhysioNet 1–2w</div></div>
+              </div>
+              <div class="stepper-line"></div>
             </div>
-          </div>
-        </article>
-        <!-- 007 -->
-        <article class="card idea" style="border-top:3px solid var(--teal-600)">
-          <div class="idea-top"><span class="idea-num">007 · Ahlqvist diabetes clusters</span><span class="status submission">submission-ready</span></div>
-          <h3>Do diabetes subgroups from Sweden mean the same in India?</h3>
-          <div class="one-liner"><strong>Main idea:</strong> Take the famous 5 Swedish diabetes clusters (SAID/SIDD/SIRD/MOD/MARD) and test them on South Asian bodies (BMI 26.8 vs 30.2 thin-fat) — then re-discover clusters from scratch.</div>
-          <ul class="bullets">
-            <li>Does assigning European centroids still match fresh clustering (ARI 0.25 — low) even though 98% of patients get a label (completeness transports)?</li>
-            <li>Can 3 routine tests replace the 6-test version when GADA/HOMA are rarely measured (6→3 ablation ARI 0.243)?</li>
-          </ul>
-          <div class="meta-row"><span class="chip">Nature SD / JAMIA · 302L OSF + 286L RR</span><span class="chip">8k SA proxy · CARRS primary</span><span class="chip">Co-primary: 3-var ARI 0.446</span></div>
-          <div class="timeline">
-            <div class="tl-head"><span>Work timeline</span><span class="small muted">needs GADA/HOMA check</span></div>
-            <div class="tl-bar">
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Design</div><div class="s">OSF 302L</div></div>
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Pilot 5→8k</div><div class="s">ARI 0.25</div></div>
-              <div class="tl-step done"><div class="tl-dot">✓</div><div class="t">Full 8k</div><div class="s">logged 91L</div></div>
-              <div class="tl-step active"><div class="tl-dot">●</div><div class="t">Real data</div><div class="s">UKB-SA → CARRS</div></div>
+          </article>
+          <article class="tile idea">
+            <div class="idea-top"><span class="idea-num">002 · Synthetic → real ladder</span><span class="status pilot">pilot done · RR frozen</span></div>
+            <h3>When is synthetic patient data good enough?</h3>
+            <div class="one-liner"><strong>Main idea:</strong> Build a “fidelity ladder” — five grades of synthetic EHR realism — and find the lowest rung where method rankings on synthetic still match rankings on real data.</div>
+            <ul class="bullets">
+              <li>At what fidelity (measured by <span class="tooltip" data-tip="Maximum mean discrepancy, tau, Spearman rho, logistic bias — four ways to score how close synthetic is to real.">MMD/τ/ρ/bias</span>) does Kendall τ ≥0.7 (rank agreement) hold for logistic vs Cox vs GRU-D?</li>
+              <li>Does that threshold also preserve clinical usefulness (decision-curve net benefit at 10%/20%)?</li>
+            </ul>
+            <div class="meta-row"><span class="chip">MIMIC-III → MIMIC-IV + synthEHRella</span><span class="chip">5 levels S1–S5 · τ ≥0.7 co-primary</span><span class="chip">~45 fits pilot → 1,500 target</span></div>
+            <div class="stepper">
+              <div class="stepper-head"><span>Work timeline</span><span class="caption">no dates — stages</span></div>
+              <div class="stepper-bar">
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 238L</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot 5k</div><div class="s">τ 1.0 S1</div></div>
+                <div class="step active"><div class="step-dot">●</div><div class="t">Full run</div><div class="s">5k → MIMIC</div></div>
+                <div class="step todo"><div class="step-dot">○</div><div class="t">Real data</div><div class="s">PhysioNet wait</div></div>
+              </div>
+              <div class="stepper-line"></div>
             </div>
-          </div>
-        </article>
+          </article>
+          <article class="tile idea">
+            <div class="idea-top"><span class="idea-num">003 · CIMEHR plasmode</span><span class="status pilot">pilot done · RR frozen</span></div>
+            <h3>Can we test ICU prediction methods without waiting for new data?</h3>
+            <div class="one-liner"><strong>Main idea:</strong> Simulate the “messy visit” problem — patients get measured more when sicker — and benchmark deep learning (GRU-D/SeFT) against classical joint models with honest hold-out.</div>
+            <ul class="bullets">
+              <li>Does GRU-D beat LMM/JM on prediction-interval coverage and calibration when visits are informative (λ<sub>V</sub>/γ<sub>v</sub> sweep)?</li>
+              <li>How does the win-rate change from in-sample pilot (80–90%) to hold-out (30–43% pilot) at N=500→2k?</li>
+            </ul>
+            <div class="meta-row"><span class="chip">CIMEHR 0.1.0 engine · 16-cell twin</span><span class="chip">Van Calster + Riley intervals</span><span class="chip">80 fits pilot → 120 hold-out</span></div>
+            <div class="stepper">
+              <div class="stepper-head"><span>Work timeline</span><span class="caption">no dates — stages</span></div>
+              <div class="stepper-bar">
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 262L</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot</div><div class="s">80 fits exit 0</div></div>
+                <div class="step active"><div class="step-dot">●</div><div class="t">Full run</div><div class="s">120 hold-out</div></div>
+                <div class="step todo"><div class="step-dot">○</div><div class="t">Real data</div><div class="s">CPU only</div></div>
+              </div>
+              <div class="stepper-line"></div>
+            </div>
+          </article>
+          <article class="tile idea">
+            <div class="idea-top"><span class="idea-num">004 · TRIPOD corpus audit</span><span class="status pilot">60% done · κ 0.576 → 0.545</span></div>
+            <h3>Do studies report prediction results the same way now?</h3>
+            <div class="one-liner"><strong>Main idea:</strong> Hand-audit 150 published TRIPOD external validations (2015–2025) with interval-aware reading — not “was slope reported?” but “was the uncertainty around slope reported?”</div>
+            <ul class="bullets">
+              <li>What proportion reports calibration with an interval or band (primary, <span class="tooltip" data-tip="We count only papers that show the uncertainty around calibration — a confidence interval for slope/intercept or a band around the calibration plot, per Riley 2024.">interval-aware</span> Wilson p) vs any mention?</li>
+              <li>Did the 2024 TRIPOD+AI guidance change reporting (pre 45% vs post 22%, p=0.004 — needs full 150)?</li>
+            </ul>
+            <div class="meta-row"><span class="chip">PRISMA 570 → 150 · Rayyan import</span><span class="chip">Dual n=30 · seed 20260830</span><span class="chip">κ 0.615 → 0.576 → 0.545</span></div>
+            <div class="stepper">
+              <div class="stepper-head"><span>Work timeline</span><span class="caption">no dates — stages</span></div>
+              <div class="stepper-bar">
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 291L</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot 20</div><div class="s">κ 0.615</div></div>
+                <div class="step active"><div class="step-dot">●</div><div class="t">Full run</div><div class="s">90/150 done</div></div>
+                <div class="step todo"><div class="step-dot">○</div><div class="t">Final</div><div class="s">60 + final κ</div></div>
+              </div>
+              <div class="stepper-line"></div>
+            </div>
+          </article>
+        </div>
       </div>
-      <p class="small muted" style="margin-top:8px">Staging note: UKB-SA (British South Asian diaspora, ~8k) is a managed-access proxy while Indian hospital DUAs process. Same scripts, swapped data.</p>
+
+      <div class="ideas-group">
+        <div class="group-label"><span>Needs partnership — India focus (staged)</span><div class="line"></div></div>
+        <div class="ideas-grid">
+          <article class="tile idea">
+            <div class="idea-top"><span class="idea-num">005 · India transport</span><span class="status submission">submission-ready</span></div>
+            <h3>How far can US data be stretched toward rural India?</h3>
+            <div class="one-liner"><strong>Main idea:</strong> Tilt US source data G0→G3 (BMI 28.3→22.8, thin-fat 0→56.7%, generic 100→4.7%) and measure when overlap collapses and re-tuning is required. One 40k run, paired with 006.</div>
+            <ul class="bullets">
+              <li>At which grade does <span class="tooltip" data-tip="How much independent information remains after re-weighting for transport. ESS/n = 1 means perfect overlap; 0.005 means the US data covers only 0.5% of the Indian target.">data overlap</span> collapse (ESS/n) and trimming force re-tuning? G2 1.7% overlap / 38% trim is the publishable break-point.</li>
+              <li>Does model confidence (AUC) misleadingly rise even as overlap vanishes — showing why discrimination alone cannot justify transport?</li>
+            </ul>
+            <div class="meta-row"><span class="chip">Stat Med · 335L OSF + 303L RR</span><span class="chip">40k audit-anchored G0→G3</span><span class="chip">Trim 67% at G3</span></div>
+            <div class="stepper">
+              <div class="stepper-head"><span>Two papers, one run</span><span class="caption">paired 005+006</span></div>
+              <div class="stepper-bar">
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 335L</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot 5k</div><div class="s">AUC→0.94</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Full 40k</div><div class="s">logged 109L</div></div>
+                <div class="step active"><div class="step-dot">●</div><div class="t">Real data</div><div class="s">UKB-SA → CARRS</div></div>
+              </div>
+              <div class="stepper-line"></div>
+            </div>
+          </article>
+          <article class="tile idea">
+            <div class="idea-top"><span class="idea-num">006 · Robustness (AYUSH confounding)</span><span class="status submission">submission-ready</span></div>
+            <h3>How much hidden confounding flips a trial result?</h3>
+            <div class="one-liner"><strong>Main idea:</strong> For a true RR of 1.2 vs 1.8, how much hidden AYUSH / non-prescription use (10–96%) is needed to erase the effect? Paired 9-cell R* 1.001–1.531 anchors the answer.</div>
+            <ul class="bullets">
+              <li>Paired with 005: same simulated population, different question — sensitivity of effect estimates to unmeasured confounding (E-value / R*). 1.001 = fragile, 1.531 = robust.</li>
+              <li>P(U) bracketed 0.10/0.44/0.96; RR<sub>UD</sub> sweep 1.5/2.0/3.0 — CARRS longitudinal will anchor one real point.</li>
+            </ul>
+            <div class="meta-row"><span class="chip">JASA · 335L OSF + 303L RR</span><span class="chip">9-cell R* 1.001–1.531</span><span class="chip">AYUSH 10→96%</span></div>
+            <div class="stepper">
+              <div class="stepper-head"><span>Two papers, one run</span><span class="caption">paired 005+006</span></div>
+              <div class="stepper-bar">
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 335L</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot 5k</div><div class="s">R* sweep</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Full 40k</div><div class="s">logged 109L</div></div>
+                <div class="step active"><div class="step-dot">●</div><div class="t">Real data</div><div class="s">CARRS → ICMR</div></div>
+              </div>
+              <div class="stepper-line"></div>
+            </div>
+          </article>
+          <article class="tile idea">
+            <div class="idea-top"><span class="idea-num">007 · Ahlqvist diabetes clusters</span><span class="status submission">submission-ready</span></div>
+            <h3>Do diabetes subgroups from Sweden mean the same in India?</h3>
+            <div class="one-liner"><strong>Main idea:</strong> Take the famous 5 Swedish diabetes clusters (SAID/SIDD/SIRD/MOD/MARD) and test them on South Asian bodies (BMI 26.8 vs 30.2 thin-fat) — then re-discover clusters from scratch.</div>
+            <ul class="bullets">
+              <li>Does assigning European centroids still match fresh clustering (ARI 0.25 — low) even though 98% of patients get a label (completeness transports)?</li>
+              <li>Can 3 routine tests replace the 6-test version when GADA/HOMA are rarely measured (6→3 ablation ARI 0.243)?</li>
+            </ul>
+            <div class="meta-row"><span class="chip">Nature SD / JAMIA · 302L OSF + 286L RR</span><span class="chip">8k SA proxy · CARRS primary</span><span class="chip">Co-primary: 3-var ARI 0.446</span></div>
+            <div class="stepper">
+              <div class="stepper-head"><span>Work timeline</span><span class="caption">needs GADA/HOMA check</span></div>
+              <div class="stepper-bar">
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Design</div><div class="s">OSF 302L</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Pilot 5→8k</div><div class="s">ARI 0.25</div></div>
+                <div class="step done"><div class="step-dot">✓</div><div class="t">Full 8k</div><div class="s">logged 91L</div></div>
+                <div class="step active"><div class="step-dot">●</div><div class="t">Real data</div><div class="s">UKB-SA → CARRS</div></div>
+              </div>
+              <div class="stepper-line"></div>
+            </div>
+          </article>
+        </div>
+        <p class="caption" style="margin-top:16px">Staging note: UKB-SA (British South Asian diaspora, ~8k) is a managed-access proxy while Indian hospital DUAs process. Same scripts, swapped data. Paired 005+006 share one 40k run — two papers, one engineering cost.</p>
+      </div>
     </div>
   </section>
 
-  <!-- KEY FIGURES -->
-  <section id="figures" class="section fade">
-    <div class="section-head">
-      <h2>Key figures — for doctors (numbers stay, jargon goes)</h2>
-      <p>Each chart is pilot/full synthetic. Real-data points will be added on the same axes — no new figure needed.</p>
-    </div>
-
-    <div class="fig-grid">
-      <!-- Fig 1 India dose-response -->
-      <div class="card figure">
-        <h3>Figure 1 — How far can we stretch US data before the model breaks?</h3>
-        <p class="small muted" style="margin:4px 0 0">Grades G0 (US-like) → G3 (rural India–like). Two curves: how <em>confident</em> the model looks (AUC) vs how much <em>usable overlap</em> remains (ESS). Translated: “model confidence rises as populations diverge — then collapses.”</p>
-        <div class="chart-wrap"><canvas id="chartIndia"></canvas></div>
-        <span class="annotation">↳ At G2 the model needs re-tuning — before this, overlap is too thin</span>
-        <div class="plain"><strong>Plain read:</strong> By G2 (AUC 0.91, but only 1.7% effective overlap, 38% data trimmed) you can still publish a dose–response, but deploying without re-tuning would be misleading. At G3 (AUC 0.97, 0.5% overlap, 67% trimmed) you must re-tune — the US data no longer covers the Indian clinic. <span class="tooltip" data-tip="ESS/n = effective sample size divided by N — fraction of data that still overlaps after weighting. AUC = area under ROC — model discrimination. Trim = % dropped for non-overlap.">Technical gloss</span></div>
-        <div class="small muted" style="margin-top:6px">Pilot 5k SE ±0.015 → Full 40k SE ±0.010 (tighter). G0 BMI 28.3, MONO 0%, HSC 78%, generic 100%; G3 BMI 22.8, MONO 56.7%, HSC 15%, generic 4.7%, AYUSH 0→96%.</div>
-        <div id="fallbackIndia" class="small mono" style="display:none;margin-top:8px"></div>
+  <!-- KEY FIGURES — flat Gray10 tiles, IBM blue/gray only -->
+  <section id="figures" class="section section--alt fade">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Key figures</div>
+        <h2>Key figures — for doctors</h2>
+        <p>Each chart is pilot/full synthetic. Real-data points will be added on the same axes — no new figure needed. Colors: IBM Blue #0f62fe + grays only. No gradients.</p>
       </div>
 
-      <!-- Fig 2 Ahlqvist ARI donut -->
-      <div class="card figure">
-        <h3>Figure 2 — Diabetes labels travel, but groupings don’t</h3>
-        <p class="small muted" style="margin:4px 0 0">8k British South Asian proxy: European 5-cluster centroids vs fresh de-novo clustering. Completeness = everyone gets a label. ARI = do labels agree?</p>
-        <div class="chart-wrap" style="height:240px"><canvas id="chartAhlqvist"></canvas></div>
-        <div class="kapp-row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
-          <span class="kappa-pill"><strong>98.4%</strong> get a label (≥85% target ✓)</span>
-          <span class="kappa-pill"><strong>ARI 0.25</strong> agreement (≥0.60 target ✗)</span>
-          <span class="kappa-pill">3-test ARI <strong>0.45</strong> · silhouette 0.11/0.17 poor</span>
+      <div class="fig-grid">
+        <div class="tile figure">
+          <h3>Figure 1 — How far can we stretch US data before the model breaks?</h3>
+          <p class="caption" style="margin:4px 0 0">Grades G0 (US-like) → G3 (rural India–like). Two curves: how <em>confident</em> the model looks (AUC) vs how much <em>usable overlap</em> remains (ESS). “Model confidence rises as populations diverge — then collapses.”</p>
+          <div class="chart-wrap"><canvas id="chartIndia"></canvas></div>
+          <span class="annotation">At G2 the model needs re-tuning — before this, overlap is too thin</span>
+          <div class="plain"><strong>Plain read:</strong> By G2 (AUC 0.91, but only 1.7% effective overlap, 38% data trimmed) you can still publish a dose–response, but deploying without re-tuning would be misleading. At G3 (AUC 0.97, 0.5% overlap, 67% trimmed) you must re-tune — the US data no longer covers the Indian clinic. <span class="tooltip" data-tip="ESS/n = effective sample size divided by N — fraction of data that still overlaps after weighting. AUC = area under ROC — model discrimination. Trim = % dropped for non-overlap.">Technical gloss</span></div>
+          <div class="caption" style="margin-top:8px">Pilot 5k SE ±0.015 → Full 40k SE ±0.010 (tighter). G0 BMI 28.3, MONO 0%, HSC 78%, generic 100%; G3 BMI 22.8, MONO 56.7%, HSC 15%, generic 4.7%, AYUSH 0→96%.</div>
+          <div id="fallbackIndia" class="mono caption" style="display:none;margin-top:8px"></div>
+          <table class="osf-table" style="margin-top:12px" aria-label="Figure 1 data table fallback">
+            <thead><tr><th>Grade</th><th>AUC</th><th>ESS/n</th><th>Trim</th></tr></thead>
+            <tbody>
+              <tr><td>G0 US-like</td><td>0.500</td><td>1.000</td><td>0%</td></tr>
+              <tr><td>G1 urban lean</td><td>0.759</td><td>0.210</td><td>~8%</td></tr>
+              <tr><td>G2 mixed</td><td>0.911</td><td>0.017</td><td>38%</td></tr>
+              <tr><td>G3 rural India-like</td><td>0.967</td><td>0.005</td><td>67%</td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="plain"><strong>Plain read:</strong> You can force every patient into a European bucket — but the buckets don’t mean the same thing in South Asian bodies (thin-fat mismatch). A simpler 3-test version (age, BMI, HbA1c — dropping GADA/HOMA) does slightly better and needs to be the co-primary test. CARRS will confirm if 6→3 ablation still holds at GADA &lt;10%.</div>
-        <div id="fallbackAhlqvist" class="small mono" style="display:none;margin-top:8px"></div>
-      </div>
-    </div>
 
-    <div class="card figure" style="margin-top:16px">
-      <h3>Figure 3 — Do papers report calibration the same way before and after 2024?</h3>
-      <p class="small muted" style="margin:4px 0 0">Corpus audit 570 TRIPOD validations → 150 target. Primary outcome is <em>interval-aware</em> reporting — not “slope mentioned” but “slope with uncertainty (CI or band).”</p>
-      <div style="display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:start">
-        <div>
-          <div class="chart-wrap" style="height:210px"><canvas id="chartKappa"></canvas></div>
-          <div class="kapp-row">
-            <span class="kappa-pill">κ trajectory: <strong>0.615</strong> (n=40) → <strong>0.576</strong> (n=90) → <strong>0.545</strong> (n=150)</span>
-            <span class="kappa-pill">Wilson primary: <strong>47/150 = 0.313</strong> [0.245, 0.391]</span>
+        <div class="tile figure">
+          <h3>Figure 2 — Diabetes labels travel, but groupings don’t</h3>
+          <p class="caption" style="margin:4px 0 0">8k British South Asian proxy: European 5-cluster centroids vs fresh de-novo clustering. Completeness = everyone gets a label. ARI = do labels agree?</p>
+          <div class="chart-wrap" style="height:240px"><canvas id="chartAhlqvist"></canvas></div>
+          <div class="kappa-row">
+            <span class="kappa-pill"><strong>98.4%</strong> get a label (≥85% target ✓)</span>
+            <span class="kappa-pill"><strong>ARI 0.25</strong> agreement (≥0.60 target ✗)</span>
+            <span class="kappa-pill">3-test ARI <strong>0.45</strong> · silhouette 0.11/0.17 poor</span>
           </div>
-          <p class="small muted" style="margin-top:6px">κ = inter-rater agreement (Landis&Koch: ≥0.60 moderate, ≥0.70 substantial). <span class="tooltip" data-tip="Wilson interval = uncertainty around the proportion reporting calibration properly. 0.313 [0.245, 0.391] means 31% with ±7% uncertainty.">Wilson</span> stable at ~30% — no inflation as n grew (0.275→0.283→0.300→0.313 within CI per Riley).</p>
-        </div>
-        <div>
-          <div style="font-weight:600;font-size:.88rem;color:var(--slate-900)">Era effect — 2024 TRIPOD+AI guidance</div>
-          <div class="era-bars">
-            <div class="era-card"><div class="pct">45%</div><div class="label">Pre-2024 (27/60)</div><div class="bar-track"><div class="bar-fill pre"></div></div><div class="small muted">n=60</div></div>
-            <div class="era-card"><div class="pct">22%</div><div class="label">Post-2024 (20/90)</div><div class="bar-track"><div class="bar-fill post"></div></div><div class="small muted">n=90 · p=0.004</div></div>
-          </div>
-          <div class="plain" style="margin-top:10px"><strong>Plain read:</strong> After the 2024 guidance, interval-aware reporting <em>dropped</em> (45% → 22%, p=0.004). Likely “checklist without enforcement” — more papers cite TRIPOD+AI, fewer show bands. Re-train and consensus calibration required before full κ ≥0.70 gate.<br><span class="small muted">χ² 8.68 p0.003, Yates p0.006, Fisher OR 2.86 p0.004 — same at n=90 vs n=150 within Wilson band.</span></div>
+          <div class="plain"><strong>Plain read:</strong> You can force every patient into a European bucket — but the buckets don’t mean the same thing in South Asian bodies (thin-fat mismatch). A simpler 3-test version (age, BMI, HbA1c — dropping GADA/HOMA) does slightly better and needs to be the co-primary test. CARRS will confirm if 6→3 ablation still holds at GADA &lt;10%.</div>
+          <div id="fallbackAhlqvist" class="mono caption" style="display:none;margin-top:8px"></div>
+          <table class="osf-table" style="margin-top:12px" aria-label="Figure 2 data table fallback">
+            <thead><tr><th>Metric</th><th>Value</th><th>Target</th></tr></thead>
+            <tbody>
+              <tr><td>Completeness</td><td>98.4%</td><td>≥85% ✓</td></tr>
+              <tr><td>ARI (5-cluster)</td><td>0.25</td><td>≥0.60 ✗</td></tr>
+              <tr><td>3-var ARI</td><td>0.446</td><td>≥0.40 ✓</td></tr>
+              <tr><td>6→3 ablation ARI</td><td>0.243</td><td>—</td></tr>
+              <tr><td>Silhouette (EU / de-novo)</td><td>0.11 / 0.17</td><td>poor</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div id="fallbackKappa" class="small mono" style="display:none;margin-top:8px"></div>
+
+      <div class="tile" style="margin-top:16px;padding:16px">
+        <h3 style="font-size:20px;line-height:28px;font-weight:400;margin:0">Figure 3 — Do papers report calibration the same way before and after 2024?</h3>
+        <p class="caption" style="margin:4px 0 0">Corpus audit 570 TRIPOD validations → 150 target. Primary outcome is <em>interval-aware</em> reporting — not “slope mentioned” but “slope with uncertainty (CI or band).”</p>
+        <div style="display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:start;margin-top:16px">
+          <div>
+            <div class="chart-wrap" style="height:210px;background:var(--cds-background);border:1px solid var(--cds-border-subtle);padding:8px"><canvas id="chartKappa"></canvas></div>
+            <div class="kappa-row">
+              <span class="kappa-pill">κ trajectory: <strong>0.615</strong> (n=40) → <strong>0.576</strong> (n=90) → <strong>0.545</strong> (n=150)</span>
+              <span class="kappa-pill">Wilson primary: <strong>47/150 = 0.313</strong> [0.245, 0.391]</span>
+            </div>
+            <p class="caption" style="margin-top:8px">κ = inter-rater agreement (Landis&Koch: ≥0.60 moderate, ≥0.70 substantial). <span class="tooltip" data-tip="Wilson interval = uncertainty around the proportion reporting calibration properly. 0.313 [0.245, 0.391] means 31% with ±7% uncertainty.">Wilson</span> stable at ~30% — no inflation as n grew (0.275→0.283→0.300→0.313 within CI per Riley).</p>
+          </div>
+          <div>
+            <div style="font-weight:600;font-size:14px;letter-spacing:0.16px;color:var(--cds-text-primary)">Era effect — 2024 TRIPOD+AI guidance</div>
+            <div class="era-bars">
+              <div class="era-card"><div class="pct">45%</div><div class="label">Pre-2024 (27/60)</div><div class="bar-track"><div class="bar-fill pre"></div></div><div class="caption">n=60</div></div>
+              <div class="era-card"><div class="pct">22%</div><div class="label">Post-2024 (20/90)</div><div class="bar-track"><div class="bar-fill post"></div></div><div class="caption">n=90 · p=0.004</div></div>
+            </div>
+            <div class="plain" style="margin-top:12px;background:var(--cds-background);border-left:3px solid var(--cds-border-subtle);padding:12px 16px;font-size:14px;letter-spacing:0.16px;line-height:18px;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Plain read:</strong> After the 2024 guidance, interval-aware reporting <em>dropped</em> (45% → 22%, p=0.004). Likely “checklist without enforcement” — more papers cite TRIPOD+AI, fewer show bands. Re-train and consensus calibration required before full κ ≥0.70 gate.<br><span class="caption">χ² 8.68 p0.003, Yates p0.006, Fisher OR 2.86 p0.004 — same at n=90 vs n=150 within Wilson band.</span></div>
+          </div>
+        </div>
+        <div id="fallbackKappa" class="mono caption" style="display:none;margin-top:8px"></div>
+        <table class="osf-table" style="margin-top:12px" aria-label="Figure 3 data table fallback">
+          <thead><tr><th>Subset</th><th>n</th><th>Interval-aware</th><th>Wilson 95% CI</th></tr></thead>
+          <tbody>
+            <tr><td>Overall</td><td>150</td><td>31.3% (47)</td><td>[0.245, 0.391]</td></tr>
+            <tr><td>Pre-2024</td><td>60</td><td>45% (27)</td><td>—</td></tr>
+            <tr><td>Post-2024</td><td>90</td><td>22% (20)</td><td>—</td></tr>
+            <tr><td>κ trajectory</td><td>40→150</td><td>0.615 → 0.545</td><td>target ≥0.70</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
-  <!-- WHAT WORK REMAINS -->
+  <!-- WHAT WORK REMAINS — DUA staged -->
   <section id="remain" class="section fade">
-    <div class="section-head">
-      <h2>What work remains — no calendar dates, just stages</h2>
-      <p>When access opens, the same scripts re-run — figures update on the same axes (SMD/AUC/ESS/trim + R* + ARI).</p>
-    </div>
-    <div class="dua-grid">
-      <div class="card dua-card">
-        <div style="font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--teal-700)">Stage B proxy · 1–3 months</div>
-        <h3 style="margin:6px 0 4px">UK Biobank — South Asian diaspora</h3>
-        <p class="small muted" style="margin:0">~8k Pakistani/Indian/Bangladeshi adults in UK (of 500k). Field 21001 (+ethnicity). RAP cloud.</p>
-        <div class="stage-bar"><div class="stage-fill ukb"></div></div>
-        <p class="small" style="margin:0;color:var(--slate-600)"><strong>What unlocks:</strong> Real SA physiology replaces synthetic tilting (AUC/ESS re-computed); Ahlqvist centroids → de-novo on real SA (ARI real).</p>
-        <p class="small muted" style="margin:6px 0 0">Route: UKB AMS category 2 + EGC + PI/institution. Same <span class="mono">run_full_005_006.py</span> and <span class="mono">run_full_007.py</span>.</p>
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">What remains</div>
+        <h2>What work remains — no calendar dates, just stages</h2>
+        <p>When access opens, the same scripts re-run — figures update on the same axes (SMD/AUC/ESS/trim + R* + ARI).</p>
       </div>
-      <div class="card dua-card">
-        <div style="font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--amber-600)">Stage B primary · 2–3 months</div>
-        <h3 style="margin:6px 0 4px">CARRS — Delhi / Chennai / Karachi</h3>
-        <p class="small muted" style="margin:0">~12k South Asian adults, 2010→, 5–10y earlier diabetes, drug-naïve enriched. Emory/PHFI Steering.</p>
-        <div class="stage-bar"><div class="stage-fill carrs"></div></div>
-        <p class="small" style="margin:0;color:var(--slate-600)"><strong>What unlocks:</strong> Tripura 56.7% MONO extreme validated; GADA-sparse branch: 6→3 co-primary if GADA &lt;10%.</p>
-        <p class="small muted" style="margin:6px 0 0">Re-tilt to national 43.3% MONO + thin-fat BMI. National 113k-ready script handles arbitrary N.</p>
+      <div class="dua-grid">
+        <div class="tile dua-card">
+          <div style="font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:var(--cds-link-primary)">Stage B proxy · 1–3 months</div>
+          <h3 style="margin:8px 0 4px;font-size:20px;line-height:28px;font-weight:600">UK Biobank — South Asian diaspora</h3>
+          <p class="caption" style="margin:0">~8k Pakistani/Indian/Bangladeshi adults in UK (of 500k). Field 21001 (+ethnicity). RAP cloud.</p>
+          <div class="stage-bar"><div class="stage-fill ukb"></div></div>
+          <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">What unlocks:</strong> Real SA physiology replaces synthetic tilting (AUC/ESS re-computed); Ahlqvist centroids → de-novo on real SA (ARI real).</p>
+          <p class="caption" style="margin-top:8px">Route: UKB AMS category 2 + EGC + PI/institution. Same <span class="mono">run_full_005_006.py</span> and <span class="mono">run_full_007.py</span>.</p>
+        </div>
+        <div class="tile dua-card">
+          <div style="font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:#525252">Stage B primary · 2–3 months</div>
+          <h3 style="margin:8px 0 4px;font-size:20px;line-height:28px;font-weight:600">CARRS — Delhi / Chennai / Karachi</h3>
+          <p class="caption" style="margin:0">~12k South Asian adults, 2010→, 5–10y earlier diabetes, drug-naïve enriched. Emory/PHFI Steering.</p>
+          <div class="stage-bar"><div class="stage-fill carrs"></div></div>
+          <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">What unlocks:</strong> Tripura 56.7% MONO extreme validated; GADA-sparse branch: 6→3 co-primary if GADA &lt;10%.</p>
+          <p class="caption" style="margin-top:8px">Re-tilt to national 43.3% MONO + thin-fat BMI. National 113k-ready script handles arbitrary N.</p>
+        </div>
+        <div class="tile dua-card">
+          <div style="font-size:12px;letter-spacing:0.32px;text-transform:uppercase;font-weight:600;color:var(--cds-text-primary)">Stage B national · 3–6 months</div>
+          <h3 style="margin:8px 0 4px;font-size:20px;line-height:28px;font-weight:600">ICMR-INDIAB — 31 states</h3>
+          <p class="caption" style="margin:0">113,043 adults, 2008–2020, MONO 43.3% (34.8–56.7% state range, Mohan). ICMR-NIE + MDRF.</p>
+          <div class="stage-bar"><div class="stage-fill indiaB"></div></div>
+          <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">What unlocks:</strong> National ESS collapse measured not modelled; trimming 67% at G3 projection validated at scale.</p>
+          <p class="caption" style="margin-top:8px">Plus CMC Vellore / AIIMS Delhi new-onset T2D registry (2–4 mo) for ANDIS-like sensitivity.</p>
+        </div>
       </div>
-      <div class="card dua-card">
-        <div style="font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--slate-700)">Stage B national · 3–6 months</div>
-        <h3 style="margin:6px 0 4px">ICMR-INDIAB — 31 states</h3>
-        <p class="small muted" style="margin:0">113,043 adults, 2008–2020, MONO 43.3% (34.8–56.7% state range, Mohan). ICMR-NIE + MDRF.</p>
-        <div class="stage-bar"><div class="stage-fill indiaB"></div></div>
-        <p class="small" style="margin:0;color:var(--slate-600)"><strong>What unlocks:</strong> National ESS collapse measured not modelled; trimming 67% at G3 projection validated at scale.</p>
-        <p class="small muted" style="margin:6px 0 0">Plus CMC Vellore / AIIMS Delhi new-onset T2D registry (2–4 mo) for ANDIS-like sensitivity.</p>
+      <div class="tile" style="margin-top:16px;background:var(--cds-layer-01)">
+        <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Closure note:</strong> DUA opening does not block publication — dose–response and ARI lessons are Phase-1 publishable on synthetic (40k/8k). Real-data runs are extensions that fill the same figure panels with 95% CIs per Riley.</p>
       </div>
-    </div>
-    <div class="card" style="margin-top:12px;background:var(--bg)">
-      <p class="small" style="margin:0;color:var(--slate-600)"><strong style="color:var(--slate-900)">Closure note:</strong> DUA opening does not block publication — dose–response and ARI lessons are Phase-1 publishable on synthetic (40k/8k). Real-data runs are extensions that fill the same figure panels with 95% CIs per Riley.</p>
     </div>
   </section>
 
   <!-- EVIDENCE & REPRO -->
-  <section id="repro" class="section fade">
-    <div class="section-head">
-      <h2>Evidence &amp; reproducibility</h2>
-      <p>Every number maps to a file, a log line, and a hash. Nothing is PHI.</p>
-    </div>
-    <div class="repro-grid">
-      <div class="card">
-        <h3>Ledger · hashes · seed</h3>
-        <div class="kv" style="margin-top:8px">
-          <div class="kv-item"><div class="k">Search ledger</div><div class="v">327 queries</div><div class="d">325 verified / 2 timeout — search_log.csv</div></div>
-          <div class="kv-item"><div class="k">Evidence registry</div><div class="v">217 papers</div><div class="d">evidence_registry.csv · ≥1 DOI 302 per dossier</div></div>
-          <div class="kv-item"><div class="k">RR lines</div><div class="v">1,624</div><div class="d">1035 Tier1 fc213fd + 589 Tier2 d419b12</div></div>
-          <div class="kv-item"><div class="k">Seed (all RNGs)</div><div class="v mono">20260830</div><div class="d">default_rng(20260830) · no re-seed</div></div>
-        </div>
-        <div class="hash-grid">
-          <div class="hash"><b>G0_G3 table</b> d15d005e9e26 · 9 rows · audit-anchored</div>
-          <div class="hash"><b>Diagnostics</b> ce171f81adb4 · 4 grades · AUC/ESS/trim</div>
-          <div class="hash"><b>R* 9-cell</b> d9e6d20c487d · 9 rows · R* 1.001–1.531</div>
-          <div class="hash"><b>UKB-SA vars</b> 2f99a63d12a3 · 15 vars · field 21001</div>
-          <div class="hash"><b>ARI 17-row</b> ba7626f885a9 · completeness 98.36% ARI 0.25</div>
-          <div class="hash"><b>Clusters</b> 747a075d8fd3 · 10 profiles</div>
-          <div class="hash"><b>6→3 ablation</b> c17976e51d7c · ARI 0.243</div>
-          <div class="hash"><b>Proxy sample</b> 129f20ad3ac2 · 100 rows · HOMA lognormal</div>
-        </div>
-        <p class="small muted" style="margin-top:10px">Code: <span class="mono">python3.11.15 · sklearn1.9.0 · pandas3.0.5 · R4.5.2 · CIMEHR 0.1.0 · ricu 0.5.8 · synthEHRella 74aa516</span><br>Environments pinned; 109-line + 91-line + 295-line logs at <span class="mono">full_runs/*/logs/</span> and <span class="mono">pilots/*/logs/</span>.</p>
+  <section id="repro" class="section section--alt fade">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Reproducibility</div>
+        <h2>Evidence &amp; reproducibility</h2>
+        <p>Every number maps to a file, a log line, and a hash. Nothing is PHI.</p>
       </div>
-      <div class="card">
-        <h3>How to verify — no PHI leaves the machine</h3>
-        <ul class="small" style="margin:8px 0 0;padding-left:18px;color:var(--slate-600)">
-          <li><strong style="color:var(--slate-900)">No patient rows in repo.</strong> Real EHR use is a separate governance step (see DUA pack 192 lines).</li>
-          <li>Synthetic fallbacks are <span class="mono">rnorm</span> + lognormal/Bernoulli anchored to ICMR-INDIAB audits — not real joint covariance. Re-weighting is an S-score stub; full <span class="mono">ebal</span> + joint swap shifts AUC ±0.03 when credentialed.</li>
-          <li>GADA/HOMA simulated at 5.5% Bernoulli (CARRS dictionary unconfirmed pending DUA); 6→3 branching pre-registered.</li>
-          <li>P(U) arm-level imputation bracketed 0.10/0.44/0.96; RR<sub>UD</sub> sweep 1.5/2.0/3.0 — CARRS longitudinal will anchor.</li>
-          <li>Corpus κ borderline 0.545 at final (target ≥0.70 per-domain) — re-train/consensus required before prevalence adoption. Interval-aware vs any-TRIPOD gap ≥0.02 handled per Riley.</li>
-        </ul>
-        <div style="margin-top:12px;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px">
-          <div class="small" style="font-weight:600;color:var(--slate-900)">Code archive links (local paths → remote after push)</div>
-          <div class="small mono" style="margin-top:4px;color:var(--slate-600)">
-            osf_prereg/*_TIMESTAMPED.md (335/302/245/238)<br>
-            rr_stage1/ (238/288/271/238 + 303/286)<br>
-            full_runs/candidate_005_006/ (40k logged 109L)<br>
-            full_runs/candidate_007/ (8k logged 91L)<br>
-            full_runs/candidate_004/ (90/150 v3 295L; final 150 433L)<br>
-            pilots/ (5k×4 · 99/91/87L)<br>
-            submission/candidate_005_006/ + submission/candidate_007/ (Stat Med+JASA, Nature SD+JAMIA)
+      <div class="repro-grid">
+        <div class="tile tile--white">
+          <h3 style="margin:0;font-size:20px;line-height:28px;font-weight:600">Ledger · hashes · seed</h3>
+          <div class="kv" style="margin-top:12px">
+            <div class="kv-item"><div class="k">Search ledger</div><div class="v">327 queries</div><div class="d">325 verified / 2 timeout — search_log.csv</div></div>
+            <div class="kv-item"><div class="k">Evidence registry</div><div class="v">217 papers</div><div class="d">evidence_registry.csv · ≥1 DOI 302 per dossier</div></div>
+            <div class="kv-item"><div class="k">RR lines</div><div class="v">1,624</div><div class="d">1035 Tier1 fc213fd + 589 Tier2 d419b12</div></div>
+            <div class="kv-item"><div class="k">Seed (all RNGs)</div><div class="v mono">20260830</div><div class="d">default_rng(20260830) · no re-seed</div></div>
+          </div>
+          <div class="hash-grid">
+            <div class="hash"><b>G0_G3 table</b> d15d005e9e26 · 9 rows · audit-anchored</div>
+            <div class="hash"><b>Diagnostics</b> ce171f81adb4 · 4 grades · AUC/ESS/trim</div>
+            <div class="hash"><b>R* 9-cell</b> d9e6d20c487d · 9 rows · R* 1.001–1.531</div>
+            <div class="hash"><b>UKB-SA vars</b> 2f99a63d12a3 · 15 vars · field 21001</div>
+            <div class="hash"><b>ARI 17-row</b> ba7626f885a9 · completeness 98.36% ARI 0.25</div>
+            <div class="hash"><b>Clusters</b> 747a075d8fd3 · 10 profiles</div>
+            <div class="hash"><b>6→3 ablation</b> c17976e51d7c · ARI 0.243</div>
+            <div class="hash"><b>Proxy sample</b> 129f20ad3ac2 · 100 rows · HOMA lognormal</div>
+          </div>
+          <p class="caption" style="margin-top:12px">Code: <span class="mono">python3.11.15 · sklearn1.9.0 · pandas3.0.5 · R4.5.2 · CIMEHR 0.1.0 · ricu 0.5.8 · synthEHRella 74aa516</span><br>Environments pinned; 109-line + 91-line + 295-line logs at <span class="mono">full_runs/*/logs/</span> and <span class="mono">pilots/*/logs/</span>.</p>
+        </div>
+        <div class="tile tile--white">
+          <h3 style="margin:0;font-size:20px;line-height:28px;font-weight:600">How to verify — no PHI leaves the machine</h3>
+          <ul class="small" style="margin:12px 0 0;padding-left:18px;color:var(--cds-text-secondary)">
+            <li><strong style="color:var(--cds-text-primary)">No patient rows in repo.</strong> Real EHR use is a separate governance step (see DUA pack 192 lines).</li>
+            <li>Synthetic fallbacks are <span class="mono">rnorm</span> + lognormal/Bernoulli anchored to ICMR-INDIAB audits — not real joint covariance. Re-weighting is an S-score stub; full <span class="mono">ebal</span> + joint swap shifts AUC ±0.03 when credentialed.</li>
+            <li>GADA/HOMA simulated at 5.5% Bernoulli (CARRS dictionary unconfirmed pending DUA); 6→3 branching pre-registered.</li>
+            <li>P(U) arm-level imputation bracketed 0.10/0.44/0.96; RR<sub>UD</sub> sweep 1.5/2.0/3.0 — CARRS longitudinal will anchor.</li>
+            <li>Corpus κ borderline 0.545 at final (target ≥0.70 per-domain) — re-train/consensus required before prevalence adoption. Interval-aware vs any-TRIPOD gap ≥0.02 handled per Riley.</li>
+          </ul>
+          <div style="margin-top:16px;background:var(--cds-layer-01);padding:12px 16px;border-radius:0">
+            <div class="small" style="font-weight:600;color:var(--cds-text-primary)">Code archive links (local paths → remote after push)</div>
+            <div class="mono caption" style="margin-top:4px">
+              osf_prereg/*_TIMESTAMPED.md (335/302/245/238)<br>
+              rr_stage1/ (238/288/271/238 + 303/286)<br>
+              full_runs/candidate_005_006/ (40k logged 109L)<br>
+              full_runs/candidate_007/ (8k logged 91L)<br>
+              full_runs/candidate_004/ (90/150 v3 295L; final 150 433L)<br>
+              pilots/ (5k×4 · 99/91/87L)<br>
+              submission/candidate_005_006/ + submission/candidate_007/ (Stat Med+JASA, Nature SD+JAMIA)
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- GLOSSARY — translates jargon -->
-  <section class="section fade">
-    <div class="section-head">
-      <h2>Plain-language glossary — hover terms on the cards</h2>
-      <p>Methods wording is here once, so cards stay readable. Each term keeps the paper’s number but explains it as you’d tell a colleague on the ward.</p>
-    </div>
-    <div class="card">
-      <dl class="glossary">
-        <div class="gloss-item">
-          <dt>Data overlap shrinks <span class="pill">ESS/n</span></dt>
-          <dd>After re-weighting to match the Indian target, how much of the US data is still usable. <code class="mono">1.00→0.005</code> means 100% → 0.5% remains — the rest is trimmed as non-overlapping.</dd>
-          <span class="tr">Methods: effective sample size / N · ESS</span>
-        </div>
-        <div class="gloss-item">
-          <dt>Model confidence drops <span class="pill">calibration slope / ICI</span></dt>
-          <dd>A model can rank correctly (AUC) but be over-confident — e.g. predicts 40% risk where truth is 18%. Slope &lt;0.8 or ICI &gt;0.02 flags this.</dd>
-          <span class="tr">Methods: calibration slope &amp; integrated calibration index</span>
-        </div>
-        <div class="gloss-item">
-          <dt>Data trimming <span class="pill">trim 10%</span></dt>
-          <dd>% of patients dropped because they have no close match in the target population at that grade. 67% at G3 means two-thirds fall outside the overlap zone.</dd>
-          <span class="tr">Methods: propensity trimming</span>
-        </div>
-        <div class="gloss-item">
-          <dt>Model needs re-tuning <span class="pill">transport vs recalibration</span></dt>
-          <dd>When overlap is too thin, you can’t just re-weight — you must refit. Threshold used here: ESS/n &lt;0.02 and trim &gt;~5% at G2.</dd>
-          <span class="tr">Methods: S-admissibility diagnostics</span>
-        </div>
-        <div class="gloss-item">
-          <dt>Groups agree? <span class="pill">ARI</span></dt>
-          <dd>Adjusted Rand Index: do two ways of grouping patients agree? 0 = random, 1 = perfect. 0.25 on SA proxy is “labels exist, meaning shifted.”</dd>
-          <span class="tr">Methods: ARI ≥0.60 transports · target 0.40 for 3-var</span>
-        </div>
-        <div class="gloss-item">
-          <dt>Do papers show uncertainty? <span class="pill">interval-aware + Wilson</span></dt>
-          <dd>Not “did they mention slope?” but “did they show the interval/band around it?” Wilson is the uncertainty on that proportion (31% [24%,39%]).</dd>
-          <span class="tr">Methods: Riley 2024 + Wilson interval</span>
-        </div>
-        <div class="gloss-item">
-          <dt>Hidden confounding needed to flip result <span class="pill">R*</span></dt>
-          <dd>How strong an unmeasured factor (e.g. AYUSH use 10–96%) must be to erase an observed RR of 1.2 or 1.8. R* 1.0–1.5 = fragile; 1.8+ = robust.</dd>
-          <span class="tr">Methods: E-value / bias factor R*</span>
-        </div>
-        <div class="gloss-item">
-          <dt>Reviewer agreement <span class="pill">kappa κ</span></dt>
-          <dd>Do two independent screeners agree beyond chance? κ 0.55–0.61 is moderate; ≥0.70 substantial. Trajectory 0.615→0.545 triggers re-train.</dd>
-          <span class="tr">Methods: Cohen’s κ · Po/Pe</span>
-        </div>
-      </dl>
-      <p class="small muted" style="margin-top:10px">All thresholds are pre-registered in OSF files before seeing hospital data — no post-hoc moving of goalposts.</p>
     </div>
   </section>
 
   <!-- OSF + SUBMISSION LINKS -->
   <section class="section fade">
-    <div class="section-head">
-      <h2>OSF pre-registrations &amp; submission packs</h2>
-      <p>Results sections are registered as TBD — the figures above use pilot/full synthetic. Real-data fills same slots.</p>
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Pre-registration</div>
+        <h2>OSF pre-registrations &amp; submission packs</h2>
+        <p>Results sections are registered as TBD — the figures above use pilot/full synthetic. Real-data fills same slots.</p>
+      </div>
+      <div class="tile tile--white" style="padding:0;overflow:hidden">
+        <div style="overflow-x:auto">
+        <table class="osf-table">
+          <thead><tr><th>Study</th><th>OSF file</th><th>RR Stage-1</th><th>Target journal</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><strong>001</strong> Harutyunyan→eICU</td><td class="mono">candidate_001_OSF_TIMESTAMPED.md · 245L</td><td>238L · TRIPOD+AI 27 + leakage 6</td><td>BMJ / JAMIA / MLHC</td><td><span class="pill">RR frozen</span></td></tr>
+            <tr><td><strong>002</strong> ladder</td><td class="mono">candidate_002_OSF_TIMESTAMPED.md · 238L</td><td>288L · S1–S5 τ≥0.7 + DCA</td><td>JAMIA / JBI</td><td><span class="pill">RR frozen</span></td></tr>
+            <tr><td><strong>003</strong> CIMEHR</td><td class="mono">candidate_003_OSF.md · 262L</td><td>271L · 16-cell twin</td><td>Stat Med / JASA</td><td><span class="pill">RR frozen</span></td></tr>
+            <tr><td><strong>004</strong> corpus</td><td class="mono">candidate_004_OSF.md · 291L</td><td>238L · PRISMA 570→150 + Rayyan 151</td><td>BMJ / J Clin Epi</td><td><span class="pill">60% · κ 0.545</span></td></tr>
+            <tr><td><strong>005+006</strong> India tilting (paired)</td><td class="mono">candidate_005_006_OSF_TIMESTAMPED.md · 335L</td><td>303L · 40k G0→G3 + 9-cell R*</td><td>Stat Med / JASA</td><td><span class="pill" style="background:var(--cds-background);border-color:var(--cds-text-primary);color:var(--cds-text-primary)">submission-ready</span></td></tr>
+            <tr><td><strong>007</strong> Ahlqvist</td><td class="mono">candidate_007_OSF_TIMESTAMPED.md · 302L</td><td>286L · 8k SA ARI 0.25 · 6→3</td><td>Nature SD / JAMIA</td><td><span class="pill" style="background:var(--cds-background);border-color:var(--cds-text-primary);color:var(--cds-text-primary)">submission-ready</span></td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div style="padding:16px">
+          <p class="caption" style="margin:0">Submission packs live at <span class="mono">submission/candidate_005_006/</span> (cover 57L + checklist 34L + manifest 135L + repro 104L) and <span class="mono">submission/candidate_007/</span> (59L+34L+130L+102L). Cohort hashes above. Full final report: <span class="mono">reports/final_programme_report.md</span> (130L).</p>
+          <p class="small" style="margin-top:8px"><a href="#">osf.io — links inserted after push</a> · <span class="mono">git log --oneline | head</span> anchors fc213fd → 70bb40c → d419b12 → dbd67ad · seed <span class="mono">20260830</span> reproducible with <span class="mono">default_rng(20260830)</span>.</p>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <table class="osf-table">
-        <thead><tr><th>Study</th><th>OSF file</th><th>RR Stage-1</th><th>Target journal</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td><strong>001</strong> Harutyunyan→eICU</td><td class="mono">candidate_001_OSF_TIMESTAMPED.md · 245L</td><td>238L · TRIPOD+AI 27 + leakage 6</td><td>BMJ / JAMIA / MLHC</td><td><span class="pill">RR frozen</span></td></tr>
-          <tr><td><strong>002</strong> ladder</td><td class="mono">candidate_002_OSF_TIMESTAMPED.md · 238L</td><td>288L · S1–S5 τ≥0.7 + DCA</td><td>JAMIA / JBI</td><td><span class="pill">RR frozen</span></td></tr>
-          <tr><td><strong>003</strong> CIMEHR</td><td class="mono">candidate_003_OSF.md · 262L</td><td>271L · 16-cell twin</td><td>Stat Med / JASA</td><td><span class="pill">RR frozen</span></td></tr>
-          <tr><td><strong>004</strong> corpus</td><td class="mono">candidate_004_OSF.md · 291L</td><td>238L · PRISMA 570→150 + Rayyan 151</td><td>BMJ / J Clin Epi</td><td><span class="pill">60% · κ 0.545</span></td></tr>
-          <tr><td><strong>005+006</strong> India tilting (paired)</td><td class="mono">candidate_005_006_OSF_TIMESTAMPED.md · 335L</td><td>303L · 40k G0→G3 + 9-cell R*</td><td>Stat Med / JASA</td><td><span class="pill" style="background:#fffbeb;border-color:#fde68a">submission-ready</span></td></tr>
-          <tr><td><strong>007</strong> Ahlqvist</td><td class="mono">candidate_007_OSF_TIMESTAMPED.md · 302L</td><td>286L · 8k SA ARI 0.25 · 6→3</td><td>Nature SD / JAMIA</td><td><span class="pill" style="background:#fffbeb;border-color:#fde68a">submission-ready</span></td></tr>
-        </tbody>
-      </table>
-      <p class="small muted" style="margin-top:10px">Submission packs live at <span class="mono">submission/candidate_005_006/</span> (cover 57L + checklist 34L + manifest 135L + repro 104L) and <span class="mono">submission/candidate_007/</span> (59L+34L+130L+102L). Cohort hashes above. Full final report: <span class="mono">reports/final_programme_report.md</span> (130L).</p>
-      <p class="small" style="margin-top:8px"><a href="#">osf.io — links inserted after push</a> · <span class="mono">git log --oneline | head</span> anchors fc213fd → 70bb40c → d419b12 → dbd67ad · seed <span class="mono">20260830</span> reproducible with <span class="mono">default_rng(20260830)</span>.</p>
+  </section>
+
+  <!-- COMPREHENSIVE GLOSSARY — Carbon tile grid, alphabetical -->
+  <section id="glossary" class="section section--alt fade">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-label">Glossary</div>
+        <h2>Glossary — plain English for doctors</h2>
+        <p>Every abbreviation on this page, alphabetical, one sentence each — ward language first, methods label underneath. Hover tooltips on cards link here.</p>
+      </div>
+
+      <!-- A -->
+      <div class="gloss-alpha">
+        <h4>A</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>AmsterdamUMCdb <span class="abbr">· ICU database</span></dt>
+            <dd>23,000 de-identified ICU admissions from Amsterdam University Medical Center, used as an external hospital to test whether a model still works.</dd>
+            <span class="method-tag">Open critical-care dataset — Europe.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>ANDIS <span class="abbr">· All New Diabetics in Scania</span></dt>
+            <dd>The Swedish study that first discovered the five diabetes clusters (SAID/SIDD/SIRD/MOD/MARD) we re-test in South Asians.</dd>
+            <span class="method-tag">Ahlqvist et al. Lancet Diabetes Endocrinol 2018.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>ARI <span class="abbr">· Adjusted Rand Index</span></dt>
+            <dd>A score from 0 (random) to 1 (perfect) for whether two ways of grouping patients actually agree; 0.25 on our SA proxy means labels exist but meaning has shifted.</dd>
+            <span class="method-tag">Threshold ≥0.60 to claim clusters transport.</span>
+          </div>
+        </div>
+      </div>
+      <!-- B -->
+      <div class="gloss-alpha">
+        <h4>B</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>B <span class="abbr">· calibration intercept (bias)</span></dt>
+            <dd>Whether the model systematically predicts too high or too low across all patients; 0 is perfect, positive means over-estimation.</dd>
+            <span class="method-tag">Paired with slope — both needed per Van Calster.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>BMI <span class="abbr">· Body Mass Index</span></dt>
+            <dd>Weight divided by height squared; South Asians develop diabetes at lower BMI (thin-fat), so European BMI cut-offs mislead.</dd>
+            <span class="method-tag">G0 28.3 → G3 22.8 in our tilting.</span>
+          </div>
+        </div>
+      </div>
+      <!-- C -->
+      <div class="gloss-alpha">
+        <h4>C</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>CARRS <span class="abbr">· Centre for Cardiometabolic Risk Reduction in South Asia</span></dt>
+            <dd>12,000 adults followed in Delhi, Chennai and Karachi since 2010 — our primary South Asian cohort for validating clusters and tilting.</dd>
+            <span class="method-tag">Emory + PHFI steering — DUA 2–3 months.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>CIMEHR <span class="abbr">· simulation engine</span></dt>
+            <dd>Software that simulates the “sicker patients get measured more often” problem so we can benchmark prediction methods without waiting for new data.</dd>
+            <span class="method-tag">v0.1.0 — 16-cell visit-informativeness sweep.</span>
+          </div>
+        </div>
+      </div>
+      <!-- D -->
+      <div class="gloss-alpha">
+        <h4>D</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>DCA <span class="abbr">· Decision Curve Analysis</span></dt>
+            <dd>A way to judge whether using the model to decide who to treat actually helps patients at a chosen risk threshold like 10% or 20%.</dd>
+            <span class="method-tag">Net benefit — co-primary in 002.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>DUA <span class="abbr">· Data Use Agreement</span></dt>
+            <dd>The legal contract you sign before a hospital lets you analyse its de-identified patient data; our staged access is 1–6 months.</dd>
+            <span class="method-tag">No PHI leaves the source — governance-gated.</span>
+          </div>
+        </div>
+      </div>
+      <!-- E -->
+      <div class="gloss-alpha">
+        <h4>E</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>eICU <span class="abbr">· eICU Collaborative Research Database</span></dt>
+            <dd>139,000 ICU stays from 208 US hospitals — a very different setting from the single Boston hospital the original model was trained on.</dd>
+            <span class="method-tag">Philips / MIT — external validation target.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>E-value <span class="abbr">· sensitivity to hidden bias</span></dt>
+            <dd>The minimum strength an unmeasured factor must have to fully explain away an observed effect; larger means more robust.</dd>
+            <span class="method-tag">Kin to R* — we report both.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>ESS <span class="abbr">· Effective Sample Size</span></dt>
+            <dd>After re-weighting US data to look like Indian data, how many patients’ worth of information is still usable; ESS/n = 0.005 means only 0.5% remains.</dd>
+            <span class="method-tag">ESS/n &lt;0.02 flags “must re-tune” at G2.</span>
+          </div>
+        </div>
+      </div>
+      <!-- G -->
+      <div class="gloss-alpha">
+        <h4>G</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>GADA <span class="abbr">· Glutamic Acid Decarboxylase Antibodies</span></dt>
+            <dd>A blood test for autoimmune diabetes; positive suggests type 1–like disease, but it is rarely measured in Indian clinics (&lt;10% in CARRS).</dd>
+            <span class="method-tag">Simulated Bernoulli 5.5% pending dictionary.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>GRU-D <span class="abbr">· Gated Recurrent Unit with Decay</span></dt>
+            <dd>A deep-learning model that handles irregular lab timings by learning how long since the last measurement; tested against classical joint models.</dd>
+            <span class="method-tag">Benchmarked in CIMEHR 003.</span>
+          </div>
+        </div>
+      </div>
+      <!-- H -->
+      <div class="gloss-alpha">
+        <h4>H</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>HbA1c <span class="abbr">· glycated haemoglobin</span></dt>
+            <dd>Average blood sugar over ~3 months; used as one of the three routine tests that might replace the six-test cluster version.</dd>
+            <span class="method-tag">Included in 3-var ablation.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>HOMA2-B <span class="abbr">· beta-cell function</span></dt>
+            <dd>An estimate of how much insulin your pancreas still makes, calculated from fasting glucose and insulin/C-peptide.</dd>
+            <span class="method-tag">Needed for SIDD/SIRD — rarely available.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>HOMA2-IR <span class="abbr">· insulin resistance</span></dt>
+            <dd>An estimate of how resistant your body is to its own insulin; high values drive the SIRD cluster.</dd>
+            <span class="method-tag">Paired with HOMA2-B.</span>
+          </div>
+        </div>
+      </div>
+      <!-- I -->
+      <div class="gloss-alpha">
+        <h4>I</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>ICI <span class="abbr">· Integrated Calibration Index</span></dt>
+            <dd>The average gap between predicted risk and observed risk across all patients; 0 is perfect, above 0.02 flags meaningful miscalibration.</dd>
+            <span class="method-tag">Van Calster hierarchy — with slope.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>ICMR-INDIAB <span class="abbr">· Indian Council of Medical Research – India Diabetes Study</span></dt>
+            <dd>113,043 adults sampled across all 31 Indian states (2008–2020) — the national reference for how diabetes actually looks in India.</dd>
+            <span class="method-tag">MONO 43.3% national, 34.8–56.7% state range.</span>
+          </div>
+        </div>
+      </div>
+      <!-- M -->
+      <div class="gloss-alpha">
+        <h4>M</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>MARD <span class="abbr">· Mild Age-Related Diabetes</span></dt>
+            <dd>The “older, mild” Swedish diabetes subgroup — later onset, modest metabolic disturbance.</dd>
+            <span class="method-tag">One of ANDIS five — least severe.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>MIMIC-III <span class="abbr">· Medical Information Mart for Intensive Care III</span></dt>
+            <dd>De-identified ICU records from one Boston hospital — where the original 2019 LSTM was trained.</dd>
+            <span class="method-tag">Source domain for 001 and 002.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>MIMIC-IV <span class="abbr">· MIMIC version 4</span></dt>
+            <dd>The updated Boston ICU dataset (more recent years, more patients) used as the “real” target when testing the synthetic ladder.</dd>
+            <span class="method-tag">Target in fidelity ladder 002.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>MOD <span class="abbr">· Mild Obesity-Related Diabetes</span></dt>
+            <dd>The “younger, heavier” Swedish diabetes subgroup — obesity-driven but not severely insulin-resistant.</dd>
+            <span class="method-tag">ANDIS — BMI-driven.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>MONO <span class="abbr">· Metabolically Obese Normal Weight (thin-fat)</span></dt>
+            <dd>People with normal BMI but high body fat and metabolic risk — common in South Asians (56.7% rural Tripura vs 0% US-like G0).</dd>
+            <span class="method-tag">Key tilting axis G0→G3.</span>
+          </div>
+        </div>
+      </div>
+      <!-- O -->
+      <div class="gloss-alpha">
+        <h4>O</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>OSF <span class="abbr">· Open Science Framework</span></dt>
+            <dd>A public timestamping service where we froze every study design before seeing outcomes, so we cannot move the goalposts later.</dd>
+            <span class="method-tag">All OSF files shown in tables are timestamped.</span>
+          </div>
+        </div>
+      </div>
+      <!-- P -->
+      <div class="gloss-alpha">
+        <h4>P</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>PROBAST <span class="abbr">· Prediction model Risk Of Bias Assessment Tool</span></dt>
+            <dd>A checklist for judging whether a prediction-model study is at high risk of bias in participants, predictors, outcome or analysis.</dd>
+            <span class="method-tag">Used alongside TRIPOD.</span>
+          </div>
+        </div>
+      </div>
+      <!-- R -->
+      <div class="gloss-alpha">
+        <h4>R</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>R* <span class="abbr">· robustness value</span></dt>
+            <dd>How strong an unmeasured confounder (e.g. hidden AYUSH use) must be to shrink an observed risk ratio to 1; 1.0 is fragile, 1.5 is robust.</dd>
+            <span class="method-tag">Our 9-cell matrix: 1.001–1.531.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>RECORD <span class="abbr">· REporting of studies Conducted using Observational Routinely-collected Data</span></dt>
+            <dd>An extension of STROBE that adds what you must report when using routine health records instead of purpose-collected data.</dd>
+            <span class="method-tag">For EHR-based studies.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>RR <span class="abbr">· Registered Report</span></dt>
+            <dd>A journal format where peer review happens on the study design before results exist, so publication cannot depend on finding something exciting.</dd>
+            <span class="method-tag">Stage-1 RR lines counted — 1,624 total.</span>
+          </div>
+        </div>
+      </div>
+      <!-- S -->
+      <div class="gloss-alpha">
+        <h4>S</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>SAID <span class="abbr">· Severe Autoimmune Diabetes</span></dt>
+            <dd>The autoimmune diabetes subgroup (GADA-positive) — closest to type 1, needs insulin early.</dd>
+            <span class="method-tag">ANDIS — rare in South Asians pending check.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>SIDD <span class="abbr">· Severe Insulin-Deficient Diabetes</span></dt>
+            <dd>The “pancreas failing” subgroup — low insulin production, high HbA1c, high complication risk.</dd>
+            <span class="method-tag">ANDIS — HOMA2-B low.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>SIRD <span class="abbr">· Severe Insulin-Resistant Diabetes</span></dt>
+            <dd>The “very resistant” subgroup — high insulin needs, strong link to kidney disease.</dd>
+            <span class="method-tag">ANDIS — HOMA2-IR high.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>SMD <span class="abbr">· Standardised Mean Difference</span></dt>
+            <dd>How far apart two groups’ averages are in standard-deviation units; above 0.1 is often taken as meaningful imbalance.</dd>
+            <span class="method-tag">Balance diagnostic for transport.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>STROBE <span class="abbr">· Strengthening the Reporting of Observational studies in Epidemiology</span></dt>
+            <dd>The standard checklist for reporting observational studies so readers can judge what was actually done.</dd>
+            <span class="method-tag">RECORD extends STROBE for EHR.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>synthEHRella <span class="abbr">· synthetic EHR generator</span></dt>
+            <dd>Software that creates artificial patient records at graded levels of realism to find the lowest fidelity where method rankings still hold.</dd>
+            <span class="method-tag">74aa516 — S1–S5 ladder in 002.</span>
+          </div>
+        </div>
+      </div>
+      <!-- T -->
+      <div class="gloss-alpha">
+        <h4>T</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>TRIPOD <span class="abbr">· Transparent Reporting of a multivariable prediction model for Individual Prognosis Or Diagnosis</span></dt>
+            <dd>The 22-item checklist for reporting prediction-model studies completely and reproducibly.</dd>
+            <span class="method-tag">Basis for 004 corpus audit.</span>
+          </div>
+          <div class="gloss-item">
+            <dt>TRIPOD+AI <span class="abbr">· TRIPOD for Artificial Intelligence</span></dt>
+            <dd>The 2024 update (27 items, Collins et al. BMJ) that adds AI-specific reporting such as data leakage and fairness checks.</dd>
+            <span class="method-tag">27-item + 6-item leakage checklist.</span>
+          </div>
+        </div>
+      </div>
+      <!-- U -->
+      <div class="gloss-alpha">
+        <h4>U</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>UKB-SA <span class="abbr">· UK Biobank South Asian</span></dt>
+            <dd>About 8,000 British South Asian adults within the UK Biobank — a managed-access proxy while Indian DUAs are pending.</dd>
+            <span class="method-tag">Field 21001 — staged 1–3 months.</span>
+          </div>
+        </div>
+      </div>
+      <!-- W -->
+      <div class="gloss-alpha">
+        <h4>W</h4>
+        <div class="glossary-grid">
+          <div class="gloss-item">
+            <dt>Wilson CI <span class="abbr">· Wilson confidence interval</span></dt>
+            <dd>A confidence interval for a proportion (e.g. “31% of papers”) that stays honest even when the proportion is small; we use Riley’s 95% method.</dd>
+            <span class="method-tag">Primary 0.313 [0.245, 0.391] in 004.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tile" style="margin-top:24px;background:var(--cds-background);border:1px solid var(--cds-border-subtle)">
+        <p class="small" style="margin:0;color:var(--cds-text-secondary)"><strong style="color:var(--cds-text-primary)">Note on plain English:</strong> Each card also has hover tooltips for inline terms. All thresholds (ARI ≥0.60, ESS/n &lt;0.02, κ ≥0.70, Wilson 95%) were frozen in OSF pre-registrations before any real hospital data was seen.</p>
+      </div>
     </div>
   </section>
 
   <!-- HOW TO CITE + SHARE -->
   <section class="section fade">
-    <div class="card" style="background:#f8fafc">
-      <h3 style="margin:0;color:var(--slate-900)">How to share this with a colleague</h3>
-      <p class="small" style="margin:6px 0 0;color:var(--slate-600)">Send the link. No login. The page prints cleanly (⌘P / Ctrl+P) and works offline — charts fall back to tables if the CDN is blocked on hospital Wi-Fi.</p>
-      <div class="hash-grid" style="margin-top:10px">
-        <div class="hash"><b>Share</b> site/index.html — single file, ~57 KB, works from a USB stick if needed</div>
-        <div class="hash"><b>Cite</b> MedicalResearch (2026). Clinical–Computational Methods — 7 pre-registered studies. Git dbd67ad · seed 20260830</div>
-        <div class="hash"><b>Ask us</b> “Which grade would my clinic be?” — G0 US academic, G1 urban private, G2 district, G3 rural — Figure 1 locates you</div>
-        <div class="hash"><b>Next</b> When UKB-SA / CARRS / ICMR-INDIAB open (1–6 mo), figures gain a “real data” dot — no redesign</div>
+    <div class="container">
+      <div class="tile" style="background:var(--cds-layer-01)">
+        <h3 style="margin:0;color:var(--cds-text-primary);font-size:20px;line-height:28px;font-weight:600">How to share this with a colleague</h3>
+        <p class="small" style="margin:8px 0 0;color:var(--cds-text-secondary)">Send the link. No login. The page prints cleanly (⌘P / Ctrl+P) and works offline — charts fall back to tables if the CDN is blocked on hospital Wi-Fi.</p>
+        <div class="hash-grid" style="margin-top:16px">
+          <div class="hash"><b>Share</b> site/index.html — single file, ~60 KB, works from a USB stick if needed</div>
+          <div class="hash"><b>Cite</b> MedicalResearch (2026). Clinical–Computational Methods — 7 pre-registered studies. Git dbd67ad · seed 20260830</div>
+          <div class="hash"><b>Ask us</b> “Which grade would my clinic be?” — G0 US academic, G1 urban private, G2 district, G3 rural — Figure 1 locates you</div>
+          <div class="hash"><b>Next</b> When UKB-SA / CARRS / ICMR-INDIAB open (1–6 mo), figures gain a “real data” dot — no redesign</div>
+        </div>
+        <p class="caption" style="margin-top:12px">Plain-language promise: every card and figure was checked for a non-technical read. If a term is still unclear, the glossary above has the one-line ward version and the methods label underneath.</p>
       </div>
-      <p class="small muted" style="margin-top:8px">Plain-language promise: every card and figure was checked for a non-technical read. If a term is still unclear, the glossary above has the one-line ward version and the methods label underneath.</p>
     </div>
   </section>
-
-  <footer class="footer">
-    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center">
-      <div>
-        <strong style="color:var(--slate-900)">Clinical–Computational Methods Research Programme</strong> · git <span class="mono">dbd67ad</span> → <span class="mono">70bb40c / d419b12</span> · seed <span class="mono">20260830</span> · 12 cycles C0→14 · 7 KEEP · ledger 327/217 · 1,624 RR lines<br>
-        <span class="small muted">OSF pre-regs: <span class="mono">candidate_001/002/003/004/005_006/007_TIMESTAMPED.md</span> · <a href="#">osf.io (links after push)</a> · reports/final_programme_report.md (130 lines) · working/agent_notes/adversarial-reviewer/cycle1314_monitor.md (KEEP 7/7)</span>
-      </div>
-      <div class="small muted" style="text-align:right">Built as single <span class="mono">site/index.html</span> · no build step · print with ⌘P · <a href="#top">back to top</a></div>
-    </div>
-    <p class="small muted" style="margin-top:10px">Cite: MedicalResearch Programme (2026). Clinical–Computational Methods — 7 pre-registered studies, audit-anchored India transport (40k G0→G3) + Ahlqvist transport (8k SA ARI 0.25) + TRIPOD corpus (n=150 κ 0.545, Wilson 0.313, era p=0.004). Git dbd67ad, seed 20260830, no PHI, TRIPOD+AI 27-item, Van Calster hierarchy + Riley intervals.</p>
-  </footer>
 </main>
+
+<footer class="footer">
+  <div class="container">
+    <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:flex-start">
+      <div>
+        <strong style="color:var(--cds-text-primary)">Clinical–Computational Methods Research Programme</strong> · git <span class="mono">dbd67ad</span> → <span class="mono">70bb40c / d419b12</span> · seed <span class="mono">20260830</span> · 12 cycles C0→14 · 7 KEEP · ledger 327/217 · 1,624 RR lines<br>
+        <span class="caption">OSF pre-regs: <span class="mono">candidate_001/002/003/004/005_006/007_TIMESTAMPED.md</span> · <a href="#">osf.io (links after push)</a> · reports/final_programme_report.md (130 lines) · working/agent_notes/adversarial-reviewer/cycle1314_monitor.md (KEEP 7/7)</span>
+      </div>
+      <div class="caption" style="text-align:right">Built as single <span class="mono">site/index.html</span> · no build step · print with ⌘P · <a href="#top">back to top</a></div>
+    </div>
+    <p class="caption" style="margin-top:16px">Cite: MedicalResearch Programme (2026). Clinical–Computational Methods — 7 pre-registered studies, audit-anchored India transport (40k G0→G3) + Ahlqvist transport (8k SA ARI 0.25) + TRIPOD corpus (n=150 κ 0.545, Wilson 0.313, era p=0.004). Git dbd67ad, seed 20260830, no PHI, TRIPOD+AI 27-item, Van Calster hierarchy + Riley intervals. IBM Carbon — #ffffff / #f4f4f4 / #161616 / #0f62fe.</p>
+  </div>
+</footer>
 
 <script>
 // =============================================================
 // Page behaviour — vanilla JS only, no build step
 // - fade-in on scroll (IntersectionObserver)
 // - Chart.js with table fallback when CDN is blocked/offline
-// - tooltips are pure CSS; JS only handles safety
+// - IBM colors only: #0f62fe + grays (#161616/#525252/#8d8d8d/#e0e0e0/#f4f4f4)
 // =============================================================
-
-// fade on scroll
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
 document.querySelectorAll('.fade').forEach(el=>io.observe(el));
-
-// Log for reproducibility check (mirrors seed discipline)
-console.log('[medicalResearch site] seed 20260830 · git dbd67ad · 327/217 ledger · 40k+8k+150 trajectory');
-
-// Chart helpers ------------------------------------------------
+console.log('[medicalResearch site] IBM Carbon · seed 20260830 · git dbd67ad · 327/217 ledger · 40k+8k+150 trajectory');
 function showFallback(id, text){
   const el=document.getElementById(id);
   if(!el) return;
   el.style.display='block';
   el.textContent=text;
-  el.style.background='#fffbeb';
-  el.style.border='1px solid #fde68a';
-  el.style.borderRadius='8px';
-  el.style.padding='8px 10px';
+  el.style.background='#ffffff';
+  el.style.border='1px solid #e0e0e0';
+  el.style.borderLeft='3px solid #161616';
+  el.style.padding='8px 12px';
 }
 function safeChart(id, config, fallbackId, fallbackText){
   const c=document.getElementById(id);
@@ -716,42 +1097,46 @@ function safeChart(id, config, fallbackId, fallbackText){
     showFallback(fallbackId,'Chart error: '+e.message+' — '+fallbackText);
   }
 }
+// IBM palette helper — no gradients, flat only
+const IBM_BLUE='#0f62fe';
+const IBM_GRAY_100='#161616';
+const IBM_GRAY_70='#525252';
+const IBM_GRAY_50='#8d8d8d';
+const IBM_GRAY_20='#e0e0e0';
 
-// Figure 1: India dose-response (AUC + ESS)
-// Full 40k: AUC 0.500→0.759→0.911→0.967, ESS/n 1.00→0.210→0.017→0.005, trim 0→67%
+// Figure 1: India dose-response (AUC + ESS) — IBM blue + gray only
 safeChart('chartIndia',{
   type:'line',
   data:{
     labels:['G0 US-like','G1 urban lean','G2 mixed','G3 rural India-like'],
     datasets:[
-      {label:'Model confidence (AUC)',data:[0.500,0.759,0.911,0.967],borderColor:'#0e7490',backgroundColor:'rgba(14,116,144,.10)',yAxisID:'y',tension:.35,fill:true,pointRadius:4,pointBackgroundColor:'#0e7490',borderWidth:2},
-      {label:'Usable overlap (ESS/n)',data:[1.00,0.210,0.017,0.005],borderColor:'#d97706',backgroundColor:'rgba(217,119,6,.12)',yAxisID:'y1',tension:.35,fill:true,pointRadius:4,pointBackgroundColor:'#d97706',borderWidth:2}
+      {label:'Model confidence (AUC)',data:[0.500,0.759,0.911,0.967],borderColor:IBM_BLUE,backgroundColor:'rgba(15,98,254,0.08)',yAxisID:'y',tension:.35,fill:true,pointRadius:4,pointBackgroundColor:IBM_BLUE,borderWidth:2},
+      {label:'Usable overlap (ESS/n)',data:[1.00,0.210,0.017,0.005],borderColor:IBM_GRAY_50,backgroundColor:'rgba(141,141,141,0.10)',yAxisID:'y1',tension:.35,fill:true,pointRadius:4,pointBackgroundColor:IBM_GRAY_50,borderWidth:2}
     ]
   },
   options:{
     responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-    plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,font:{family:'Inter',size:11}}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y}}},
+    plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,font:{family:'IBM Plex Sans',size:11},color:IBM_GRAY_100}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y}}},
     scales:{
-      y:{min:0,max:1,grid:{color:'#f1f5f9'},ticks:{callback:v=>v},title:{display:true,text:'AUC — model confidence',font:{family:'Inter',size:11}}},
-      y1:{min:0,max:1,position:'right',grid:{display:false},ticks:{callback:v=>v},title:{display:true,text:'ESS/n — usable overlap',font:{family:'Inter',size:11}}},
-      x:{grid:{display:false},ticks:{font:{family:'Inter',size:11}}}
+      y:{min:0,max:1,grid:{color:'#e0e0e0'},ticks:{callback:v=>v,color:IBM_GRAY_70,font:{family:'IBM Plex Sans',size:11}},title:{display:true,text:'AUC — model confidence',font:{family:'IBM Plex Sans',size:11},color:IBM_GRAY_100}},
+      y1:{min:0,max:1,position:'right',grid:{display:false},ticks:{callback:v=>v,color:IBM_GRAY_70,font:{family:'IBM Plex Sans',size:11}},title:{display:true,text:'ESS/n — usable overlap',font:{family:'IBM Plex Sans',size:11},color:IBM_GRAY_100}},
+      x:{grid:{display:false},ticks:{font:{family:'IBM Plex Sans',size:11},color:IBM_GRAY_70}}
     }
   }
 },'fallbackIndia','AUC 0.500→0.759→0.911→0.967; ESS/n 1.00→0.210→0.017→0.005');
 
-// Figure 2: Ahlqvist ARI donut
-// Completeness 98.36% transports, ARI 0.250 fails (≥0.60), 3-var 0.446, 6vs3 0.243
+// Figure 2: Ahlqvist ARI donut — IBM blue + gray only
 safeChart('chartAhlqvist',{
   type:'doughnut',
   data:{
     labels:['Agreement (ARI 0.25)','Disagreement'],
-    datasets:[{data:[0.25,0.75],backgroundColor:['#0e7490','#e2e8f0'],borderWidth:0,hoverOffset:4}]
+    datasets:[{data:[0.25,0.75],backgroundColor:[IBM_BLUE,IBM_GRAY_20],borderWidth:0,hoverOffset:4}]
   },
   options:{
     responsive:true,maintainAspectRatio:false,cutout:'64%',
     plugins:{
-      legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,font:{family:'Inter',size:11}}},
-      tooltip:{callbacks:{label:ctx=>ctx.label+': '+(ctx.parsed*100).toFixed(0)+'%'}},
+      legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,font:{family:'IBM Plex Sans',size:11},color:IBM_GRAY_100}},
+      tooltip:{callbacks:{label:ctx=>ctx.label+': '+(ctx.parsed*100).toFixed(0)+'%' }},
       title:{display:false}
     }
   },
@@ -759,49 +1144,38 @@ safeChart('chartAhlqvist',{
     const {ctx,chartArea:{width,height,left,top}}=chart;
     ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';
     const cx=left+width/2, cy=top+height/2;
-    ctx.fillStyle='#0f172a';ctx.font='700 22px Inter';ctx.fillText('0.25',cx,cy-6);
-    ctx.fillStyle='#64748b';ctx.font='600 11px Inter';ctx.fillText('ARI · needs ≥0.60',cx,cy+12);
+    ctx.fillStyle=IBM_GRAY_100;ctx.font='600 22px IBM Plex Sans';ctx.fillText('0.25',cx,cy-6);
+    ctx.fillStyle=IBM_GRAY_70;ctx.font='400 11px IBM Plex Sans';ctx.fillText('ARI · needs ≥0.60',cx,cy+12);
     ctx.restore();
   }}]
-},'fallbackAhlqvist','Completeness 98.4% transports but ARI 0.25 fails (≥0.60); 3-var 0.446; 6vs3 0.243; silhouette 0.11/0.17 poor; SMD 50% fail.');
+},'fallbackAhlqvist','Completeness 98.4% transports but ARI 0.25 fails (≥0.60); 3-var 0.446; 6vs3 0.243; silhouette 0.11/0.17 poor.');
 
-// Figure 3: kappa trajectory
-// κ 0.615 (n=40) → 0.615 (n=60) → 0.576 (n=90) → 0.545 (n=150 final)
+// Figure 3: kappa trajectory — IBM blue/black/gray
 safeChart('chartKappa',{
   type:'line',
   data:{
     labels:['n=40 pilot','n=60 (v2)','n=90 (v3)','n=150 final'],
     datasets:[
-      {label:'Inter-rater agreement (kappa)',data:[0.615,0.615,0.576,0.545],borderColor:'#0f172a',backgroundColor:'rgba(15,23,42,.06)',tension:.3,fill:true,pointRadius:5,pointBackgroundColor:'#0f172a',borderWidth:2},
-      {label:'Substantial threshold',data:[0.70,0.70,0.70,0.70],borderColor:'#94a3b8',borderDash:[6,6],pointRadius:0,borderWidth:1.5,fill:false}
+      {label:'Inter-rater agreement (kappa)',data:[0.615,0.615,0.576,0.545],borderColor:IBM_GRAY_100,backgroundColor:'rgba(22,22,22,0.06)',tension:.3,fill:true,pointRadius:5,pointBackgroundColor:IBM_GRAY_100,borderWidth:2},
+      {label:'Substantial threshold',data:[0.70,0.70,0.70,0.70],borderColor:IBM_GRAY_50,borderDash:[6,6],pointRadius:0,borderWidth:1.5,fill:false}
     ]
   },
   options:{
     responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-    plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,font:{family:'Inter',size:11}}}},
+    plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,font:{family:'IBM Plex Sans',size:11},color:IBM_GRAY_100}}},
     scales:{
-      y:{min:0.4,max:0.8,grid:{color:'#f1f5f9'},ticks:{callback:v=>v.toFixed(2)},title:{display:true,text:'kappa (0–1)',font:{family:'Inter',size:11}}},
-      x:{grid:{display:false},ticks:{font:{family:'Inter',size:11}}}
+      y:{min:0.4,max:0.8,grid:{color:'#e0e0e0'},ticks:{callback:v=>v.toFixed(2),color:IBM_GRAY_70,font:{family:'IBM Plex Sans',size:11}},title:{display:true,text:'kappa (0–1)',font:{family:'IBM Plex Sans',size:11},color:IBM_GRAY_100}},
+      x:{grid:{display:false},ticks:{font:{family:'IBM Plex Sans',size:11},color:IBM_GRAY_70}}
     }
   }
 },'fallbackKappa','kappa 0.615→0.615→0.576→0.545; Wilson primary 0.313 [0.245,0.391]; era pre 45% vs post 22% p0.004; Fisher OR 2.86.');
-
-// graceful CDN fallback note
 if(typeof Chart==='undefined'){
   console.warn('Chart.js CDN not loaded — table fallbacks shown. Charts are synthetic proxy trajectories; real-data points overlay same axes.');
-  // Inject text tables as ultimate fallback so page remains informative offline
-  const indiaFallback=document.getElementById('fallbackIndia');
-  const ahlFallback=document.getElementById('fallbackAhlqvist');
-  const kappaFallback=document.getElementById('fallbackKappa');
-  // (showFallback already called; this is extra safety for print)
 }
-
-// Accessibility: allow keyboard focus on tooltips
 document.querySelectorAll('.tooltip').forEach(el=>{
   el.setAttribute('tabindex','0');
   el.setAttribute('role','note');
 });
-
 </script>
 </body>
 </html>
