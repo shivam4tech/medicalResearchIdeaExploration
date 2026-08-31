@@ -1,5 +1,5 @@
 === FULL 005+006 — G0->G3 India plasmode N=10k×4 (40k total) audit-anchored II ===
-Seed 20260830, 2026-08-31 12:16:52 IST, Python 3.11.15
+Seed 20260830, 2026-08-31 12:47:45 IST, Python 3.11.15
 Versions: sklearn 1.9.0 pandas 3.0.5 numpy 2.4.3
 Base: /home/shivam/Projects/medicalResearch/full_runs/candidate_005_006
 Git rev 8824caa (Cycle10), shortlist FROZEN Tier2 005+006, honest synthetic 40k (MIMIC credential staged)

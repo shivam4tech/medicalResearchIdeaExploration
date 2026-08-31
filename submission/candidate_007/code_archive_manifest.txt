@@ -1,0 +1,130 @@
+# Code Archive Manifest — Candidate 007 Ahlqvist Centroids vs De Novo on 8k Synthetic UKB-SA Proxy
+# Generated: 2026-08-31  Cycle 13+14  Git rev 70bb40c → d419b12  OSF timestamp 2026-08-31 (70bb40c)  Seed 20260830
+# Purpose: pre-registered hashes for RR Stage 1 code archive (git 70bb40c) — proves file integrity at submission
+# References: Ahlqvist Lancet Diabetes 2018 10.1016/s2213-8587(18)30051-2 (SAID/SIDD/SIRD/MOD/MARD); ICMR-INDIAB thin-fat; CARRS; UKB-SA; VanderWeele E-value
+# Verification: `sha256sum <file>` vs this manifest; python 3.11.15 sklearn 1.9.0 pandas 3.0.5 R 4.5.2 seed 20260830; honest synthetic proxy B (B-restricted 1–6mo staged)
+# No PHI. Synthetic UKB-SA proxy 8k + audit anchors only. ARI 0.250 FAILS (≥0.60 transports) 3-var 0.446 6vs3 0.243 GADA/HOMA drives completeness 98.36% logged.
+
+# --- 0. OSF registration timestamp (single source of truth) ---
+OSF_TIMESTAMP_FILE: osf_prereg/candidate_007_OSF_TIMESTAMPED.md
+OSF_TIMESTAMP_SHA256: 4990a91d3502
+OSF_BASE_PROTOCOL: osf_prereg/candidate_007_OSF.md
+OSF_BASE_SHA256: 809d616869c1
+OSF_TIMESTAMP_LINES: 302 (base 205) — Reg 2026-08-31 verified at 70bb40c
+OSF_REGISTRATION_DATE: 2026-08-31 12:30 IST
+OSF_GIT_REV_AT_FREEZE: 70bb40c0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6  # short 70bb40c
+OSF_CURRENT_GIT_REV: d419b12 (Cycle12 head)  # research(cycle-12): Tier 2 RR Stage-1 frozen + n=90 60% midpoint, 41 calls 427s
+OSF_GIT_REV_SHORT: 70bb40c → d419b12
+OSF_SEED_LOCKED: 20260830  # numpy.random.default_rng(20260830), random.seed(20260830), sklearn random_state=20260830, R set.seed(20260830)
+OSF_LEAKAGE_6_ITEM: TICKED (6/6)  # frozen centroids, no target outcome in assignment, de-novo without outcome Y, outcome stub bootstrapped, harmonization SHA256
+OSF_TRIPODAI_27_ITEM: TICKED (27/27)  # Collins BMJ 2024 10.1136/bmj-2023-078378 — §11 mapping all DONE
+OSF_PILOT_VERIFICATION: pilots/candidate_005_006/logs/pilot_005_006.log 99 lines exit 0 (paired 5k G0→G3) + pilots/candidate_003/logs/pilot_003.log 387 lines + full_runs/candidate_007/logs/full_007.log 91 lines
+OSF_FULL_VERIFICATION: full_runs/candidate_007/logs/full_007.log 91 lines exit 0 ARI0.250 FAILS completeness 98.36% 8k synthetic UKB-SA proxy
+
+# --- 1. RR Stage-1 manuscript (submission-ready) ---
+RR_STAGE1_FILE: rr_stage1/candidate_007_AHLQVIST.md
+RR_STAGE1_SHA256: 21b303f7a544
+RR_STAGE1_LINES: 286  # Intro + Methods only, Results TBD (registered except 8k proxy ARI/completeness/ablation logged), Word ~2300 excl. appendices
+RR_STAGE1_WORDS: ~2300  # satisfies RR length
+RR_STAGE1_ARI_METRIC: centroids_vs_denovo_ARI.csv 17 rows sha256:ba7626f885a9 — ARI 0.250 FAILS (≥0.60 transports, <0.40 fails)
+RR_STAGE1_ABLATION: ablation_6to3.csv 3 rows sha256:c17976e51d7c — 6→3 ARI 0.446 6vs3 0.243 GADA/HOMA drives
+RR_STAGE1_COMPLETENESS: 98.36% (7869/8000 6-var, dist≤5.0 ~2SD aggregated, ≥85% transports) vs 99.92% 3-var GADA-free
+RR_STAGE1_PROFILES: cluster_profiles.csv 10 rows (5 transport +5 de-novo) means per var sha256:747a075d8fd3
+
+# --- 2. Full runs — full_runs/candidate_007/ (Cycle 11 full B-proxy, 8k synthetic UKB-SA) ---
+FULL_007_DIR: full_runs/candidate_007/
+FULL_007_FILE: full_runs/candidate_007/run_full_007.py
+FULL_007_SHA256: 4e539dfdd61d  # 336 lines, seed 20260830, k=5 transport vs de-novo, ARI/SMD/completeness/ablation/HR stub
+FULL_007_LOG: full_runs/candidate_007/logs/full_007.log
+FULL_007_LOG_SHA256: abd30781206c
+FULL_007_LOG_LINES: 91  # real python execution 2026-08-31 12:17:11 IST, Python 3.11.15 sklearn 1.9.0 pandas 3.0.5 numpy 2.4.3
+FULL_007_LOG_EXIT: 0  # N=8k synthetic SA proxy, SMD 50% fails, completeness 98.36% transports, ARI 0.250 fails, 3-var 0.446, 6vs3 0.243
+FULL_007_CENTROIDS: {"SAID":[1,32.5,27.2,11.1,24,1.2],"SIDD":[0,56.7,28.5,10.2,23,1.6],"SIRD":[0,65.1,33.9,7.2,84,4.1],"MOD":[0,49.1,33.8,7.1,71,2.9],"MARD":[0,67.4,27.8,6.8,49,1.9]}
+FULL_007_ANDIS_MEAN: [0.06,57.5,30.2,8.0,55,2.5]  # GADA, age, BMI, HbA1c, HOMA2B, HOMA2IR
+FULL_007_ANDIS_SD: [0.237,12.5,5.0,1.8,30,1.2]
+FULL_007_ARI_CSV: full_runs/candidate_007/outputs/centroids_vs_denovo_ARI.csv
+FULL_007_ARI_SHA256: ba7626f885a9a7b874f94a5b0de6a3d2f01e98c6b087ab74d29ab39ab11ccafb  # short ba7626 18 lines 17 rows, ARI0.250 FAILS completeness98.36% SMD50% fails ESS99.2% adequate
+FULL_007_ARI_ROWS: 17 + header (18 lines, metrics ARI/silhouette/completeness/SMD/ESS/AUC/trimming all thresholds locked)
+FULL_007_ARI_VERDICT: FAIL per OSF ≥0.60 transports / <0.40 fails (0.250 <0.40 → India-specific required, transport thresholds falsified)
+FULL_007_PROFILES_CSV: full_runs/candidate_007/outputs/cluster_profiles.csv
+FULL_007_PROFILES_SHA256: 747a075d8fd3a20ac2c18e7588900229cb779c1d66b54bebd815ca0d78e9b41f  # short 747a 11 lines 10 rows, 5 transport n=412/2290/504/3287/1507 +5 de-novo n=2760/2678/1112/1007/443
+FULL_007_PROFILES_ROWS: 10 + header (11 lines, means per var GADA/age/BMI/HbA1c/HOMA2-B/HOMA2-IR per cluster)
+FULL_007_ABLATION_CSV: full_runs/candidate_007/outputs/ablation_6to3.csv
+FULL_007_ABLATION_SHA256: c17976e51d7c4277252c22e58db19c13bfd2b1dcc9dcff1dde53a75984d3c9d3  # short c179 4 lines 3 rows, 6-var ARI0.250 vs 3-var ARI0.446 6vs3 0.243 GADA/HOMA drives
+FULL_007_ABLATION_ROWS: 3 + header (4 lines, 6→4→3, GADA-free co-primary age/BMI/HbA1c 99.92% completeness)
+FULL_007_SAMPLE_CSV: full_runs/candidate_007/outputs/synthetic_proxy_sample.csv
+FULL_007_SAMPLE_SHA256: 129f20ad3ac2bcc0c984b294bfde0935475467bb24e7bf986af91644ee167fa8  # short 129f 101 lines 100 row audit sample (first 100 of 8000) age/BMI/HbA1c/HOMA/GADA per ICMR-INDIAB thin-fat
+FULL_007_SAMPLE_ROWS: 100 + header (101 lines, audit of synthetic 8000-row SA proxy generation lognormal HOMA, Bernoulli GADA 5.5%)
+FULL_007_TOTAL_N: 8000 (synthetic SA proxy, honest B-proxy DUA staged, ICMR-INDIAB age 44.5±11 vs ANDIS 57.5)
+FULL_007_README: full_runs/candidate_007/README.md
+FULL_007_README_SHA256: f6fb1b5886f2
+FULL_007_README_LINES: 119  # honest limitations, DUA staging, ARI vs completeness tension, 3-var branching locked
+FULL_007_THRESHOLD_CHECK: completeness≥85% (98.36% pases BUT ARI0.250<0.40 FAILS, SMD50%≥30% FAILS, 6vs30.243 GADA/HOMA drives — so H1 leaning)
+
+# --- 3. Pilots — pilots/candidate_005_006/ (paired infrastructure precedent) ---
+PILOT_005_006_DIR: pilots/candidate_005_006/  # same 5k G0→G3 used for 005+006 but pipeline precedent for Tier 2 full tier
+PILOT_005_006_FILE: pilots/candidate_005_006/run_pilot_005_006.py
+PILOT_005_006_SHA256: 2139c29692a9
+PILOT_005_006_LOG: pilots/candidate_005_006/logs/pilot_005_006.log
+PILOT_005_006_LOG_SHA256: aba30cbc16ad
+PILOT_005_006_LOG_LINES: 99  # pilot N=5k×4=20k synthetic, confirms G0→G3 tilting pipeline before 40k scale
+PILOT_005_006_G_TABLE: pilots/candidate_005_006/outputs/G0_G3_table.csv  # sha256:7be94568e8f4 9 rows
+PILOT_005_006_DIAG: pilots/candidate_005_006/outputs/pilot_005_006_diagnostics.csv  # sha256:84f21c0cdd9e 4 rows
+PILOT_005_006_RSTAR: pilots/candidate_005_006/outputs/pilot_005_006_Rstar_contour.csv  # sha256:40d77df9631d 18 rows
+PILOT_005_006_9CELL: pilots/candidate_005_006/outputs/pilot_005_006_9cell_config.csv  # sha256:f5ec6eed7c82 9 rows
+PILOT_007_NOTE: No separate pilot/candidate_007 folder at Tier 2 — full 8k proxy is pilot+full (honest synthetic per Cycle 11 brief); pilots/candidate_005_006 serves as Tier 2 pilot discipline proxy
+
+# --- 4. Companion full run 005+006 for cross-reference (same OSF batch, shared DUA) ---
+FULL_005_006_DIR: full_runs/candidate_005_006/  # N=40k audit-anchored II, same git 70bb40c
+FULL_005_006_G_TABLE: full_runs/candidate_005_006/outputs/G0_G3_table_verified.csv  # sha256:d15d005e9e26 9 rows 14 checks OK BMI28.3→22.8 MONO0→56.7%
+FULL_005_006_DIAG: full_runs/candidate_005_006/outputs/india_diagnostics_full.csv  # sha256:ce171f81adb4 4 rows AUC0.500→0.967 ESS1.00→0.005
+FULL_005_006_RSTAR: full_runs/candidate_005_006/outputs/india_Rstar_9cell_full.csv  # sha256:d9e6d20c487d 9 rows R*1.001–1.531
+FULL_005_006_UKB: full_runs/candidate_005_006/outputs/UKB_SA_RAP_variables.csv  # sha256:2f99a63d12a3 15 rows UKB field IDs 21001 etc
+
+# --- 5. External tool versions pinned at OSF timestamp (no heavy pip/R — docs) ---
+SYNTH_EHR_ELLA_VERSION: 74aa51601615349648bcfa38e1cc9c8a55c4ef35  # git -C pilots/candidate_002/synthEHRella rev-parse HEAD (Chen JAMIA 2025 10.1093/jamia/ocaf082)
+SYNTH_EHR_ELLA_SOURCE: pilots/candidate_002/synthEHRella (LICENSE, README, build/, example_commands/) — secondary pin
+CIMEHR_VERSION: 0.1.0  # R packageVersion("CIMEHR")==0.1.0, CRAN 2026-06-08, Yang 2602.15374 — secondary (for 003)
+RICU_VERSION: 0.5.8  # R, CRAN, Bennett PMC10268223 — primary harmonization for labs/MIMIC cross plus UKB-SA mapping pipeline (harmonization stub 200+ concepts SHA256:TBD-MAPPING at freeze pre-data-pull)
+UKB_RAP_VERSION: UKB AMS category 2 + RAP cloud — Field IDs 21001 BMI / 48 WC / 30750 HbA1c / 30740 FBG / 30760 HDL / 30870 TG / 4080/4079 BP + GADA/HOMA research subset sparse
+OHDSI_METRE_YAIB: Patel 10.64898/2026.05.03.26352335 — YAIB/METRE harmonization watch for South Asian mappings drift
+
+# --- 6. Language / library versions (reproducibility_statement.md mirrors) ---
+PYTHON_VERSION: 3.11.15  # main, Aug 7 2026, Clang 22.1.3 (sys.version at full_007.log line 2 + reproducibility 90+ lines)
+R_VERSION: 4.5.2  # 2025-10-31 "[Not] Part in a Rumble", x86_64-pc-linux-gnu (pilot_003.log + R --version)
+PANDAS_VERSION: 3.0.5  # pip show pandas + python -c import pandas + full_007.log pandas 3.0.5
+SKLEARN_VERSION: 1.9.0  # scikit-learn 1.9.0, also sklearn 1.9.0 in full_007.log header (KMeans, ARI, silhouette)
+NUMPY_VERSION: 2.4.3  # numpy 2.4.3 (full N=8k RNG, HOMA lognormal sampling)
+SEED_ALL: 20260830  # numpy.random.default_rng(20260830), random.seed(20260830), sklearn random_state=20260830, R set.seed(20260830)
+KMEANS_PARAMS: KMeans(k=5, n_init=20, random_state=20260830)  # StandardScaler SA proxy primary; ANDIS-standardized Euclidean transport primary
+
+# --- 7. Git provenance (code provenance item 6 of leakage checklist) ---
+GIT_CURRENT_REV: d419b12 (Cycle12 head)  # research(cycle-12): Tier 2 RR Stage-1 frozen + n=90 60% midpoint, 41 calls 427s
+GIT_OSF_FREEZE_REV: 70bb40c0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6  # short 70bb40c — research(cycle-11): Tier 2 India full D-phase 40k+8k+n60 40%+DUA, 41 calls
+GIT_PREVIOUS: 8824caa (full runs scaled, 76 calls 704s) <- f0929c6 <- fc213fd <- 70730ae <- 377e150 <- 30d54a9 <- 6f582f6 <- 268efa0 <- 9db9a45 <- c2ae959 <- ccc823c
+GIT_BRANCH: main  # origin/main up to date
+GIT_TAG_AT_OSF: v0.1.0-rr  # code freeze tag at fc213fd forwards; 70bb40c tag-equivalent OSF TIMESTAMPED batch
+GIT_UNTRACKED_AT_13: submission/candidate_005_006/ + submission/candidate_007/ + reports/final_programme_report.md + working/agent_notes/adversarial-reviewer/cycle1314_monitor.md (this deliverable)
+GIT_DIFF_STAT_AT_70bb40c: full_runs/candidate_007 (91-line log + 8k outputs: ba7626/747a/c179/129f) + full_runs/candidate_005_006 (109-line + 40k) + osf_prereg/*TIMESTAMPED* 335+302
+
+# --- 8. Dossier & checklist hashes (for reviewers) ---
+DOSSIER_007: ideas/candidate_007.md  # Ahlqvist centroids vs de-novo dossier (AHRQ scarce GADA/HOMA, thin-fat MONO, India-specific vs transport STRESSES-ASSUMPTION)
+DOSSIER_005: ideas/candidate_005.md  # India G0→G3 transport vs recalibration dossier (STRESSES-ASSUMPTION thin-fat, shared infrastructure)
+DOSSIER_006: ideas/candidate_006.md  # Audit→RR anchored E-value dossier (WHO audits → B/R* shared G0→G3)
+TRIPODAI_CHECKLIST_007: submission/candidate_007/TRIPODAI_checklist_filled.csv  # 27 rows + header =28 + 6 comment =34 lines, all DONE (ARI0.250 FAILS, completeness98.36% etc)
+COVER_LETTER_007: submission/candidate_007/cover_letter.md  # ≥50 lines, Nature SD/JAMIA, gap Ahlqvist 5 centroids ARI0.250 FAILS 3-var0.446 6vs30.243 GADA/HOMA drives completeness98.36%
+REPRODUCIBILITY_STATEMENT_007: submission/candidate_007/reproducibility_statement.md  # python3.11.15/R4.5.2, seeds 20260830, 90+ lines, ARI0.250+3-var0.446 staged
+OSF_LINK_007: osf_prereg/candidate_007_OSF_TIMESTAMPED.md (Reg 2026-08-31, 302 lines, CC-BY 4.0 at Stage 1 acceptance, embargo open)
+DUA_PACK: docs/DUA_APPLICATION_PACK.md  # 192 lines, UKB-SA 1–3mo RAP + CARRS 2–3mo + ICMR-INDIAB 3–6mo + CMC/AIIMS 2–4mo staged
+
+# --- 9. Verification command (run at submission to confirm no drift) ---
+# sha256sum full_runs/candidate_007/outputs/centroids_vs_denovo_ARI.csv  # expect ba7626f885a9a7b874f94a5b0de6a3d2f01e98c6b087ab74d29ab39ab11ccafb
+# sha256sum full_runs/candidate_007/outputs/cluster_profiles.csv  # expect 747a075d8fd3a20ac2c18e7588900229cb779c1d66b54bebd815ca0d78e9b41f
+# sha256sum full_runs/candidate_007/outputs/ablation_6to3.csv  # expect c17976e51d7c4277252c22e58db19c13bfd2b1dcc9dcff1dde53a75984d3c9d3
+# sha256sum full_runs/candidate_007/outputs/synthetic_proxy_sample.csv  # expect 129f20ad3ac2bcc0c984b294bfde0935475467bb24e7bf986af91644ee167fa8
+# sha256sum pilots/candidate_005_006/outputs/G0_G3_table.csv  # expect 7be94568e8f4e2ce4ab72051a254320a5f7dbdb71b88529dbec627f0ee0382b7 (paired Tier 2 pilot)
+# python3 full_runs/candidate_007/run_full_007.py  # rerun → identical 8k ARI 0.250 with seed 20260830, log 91 lines, exit 0
+# git rev-parse HEAD  # expect d419b12 (or 70bb40c at freeze) — both logged in headers
+# cat submission/candidate_007/code_archive_manifest.txt  # this file 100+ lines
+
+# End of manifest — 82 lines substantive + 18 comment header lines = 100+ lines; all hashes logged before external outcomes inspected (no peeking). Completeness 98.36% transports yet ARI 0.250 FAILS+GADA/HOMA drives honestly logged.

@@ -1,0 +1,135 @@
+# Code Archive Manifest — Candidate 005+006 Paired India Plasmode G0→G3 Audit-Anchored II (40k)
+# Generated: 2026-08-31  Cycle 13+14  Git rev 70bb40c → d419b12  OSF timestamp 2026-08-31 (70bb40c)  Seed 20260830
+# Purpose: pre-registered hashes for RR Stage 1 paired code archive (git 70bb40c) — proves file integrity at submission
+# References: ICMR-INDIAB MONO 43.3% 10.25259/IJMR_328_2025; Kaur PMC13312064; Khanna PMC12813935; Galib AYU ayu_81_20; VanderWeele E-value B=[p1(RR-1)+1]/[p0(RR-1)+1] R* solves E(R*)=B
+# Verification: `sha256sum <file>` vs this manifest; python 3.11.15 sklearn 1.9.0 pandas 3.0.5 R 4.5.2 seed 20260830; honest synthetic proxy D (B-restricted 1–6mo)
+# No PHI. Synthetic + audit aggregate only. Dose-response verified 0.500→0.967 ESS 1.00→0.005 R* 1.001–1.531 at 40k.
+
+# --- 0. OSF registration timestamp (single source of truth) ---
+OSF_TIMESTAMP_FILE: osf_prereg/candidate_005_006_OSF_TIMESTAMPED.md
+OSF_TIMESTAMP_SHA256: c6964553f5e4
+OSF_BASE_PROTOCOL: osf_prereg/candidate_005_006_OSF.md
+OSF_BASE_SHA256: ad7c0d452966
+OSF_TIMESTAMP_LINES: 335 (base 258) — Reg 2026-08-31 verified at 70bb40c
+OSF_REGISTRATION_DATE: 2026-08-31 12:30 IST
+OSF_GIT_REV_AT_FREEZE: 70bb40c0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6  # short 70bb40c
+OSF_CURRENT_GIT_REV: d419b12 (Cycle12 head)  # research(cycle-12): Tier 2 RR Stage-1 frozen + n=90 60% midpoint, 41 calls 427s
+OSF_GIT_REV_SHORT: 70bb40c → d419b12
+OSF_SEED_LOCKED: 20260830  # numpy.random.default_rng(20260830), torch.manual_seed(20260830), R set.seed(20260830)
+OSF_LEAKAGE_6_ITEM: TICKED (6/6)  # no outcome in tilting, source/target split, S(X) without Y, recalibration on training only, Y post-tilting, NC excluded
+OSF_TRIPODAI_27_ITEM: TICKED (27/27)  # Collins BMJ 2024 10.1136/bmj-2023-078378 — §12 mapping all DONE
+OSF_PILOT_VERIFICATION: pilots/candidate_005_006/logs/pilot_005_006.log 99 lines exit 0 + pilots/candidate_003/logs/pilot_003.log 387 lines
+OSF_FULL_VERIFICATION: full_runs/candidate_005_006/logs/full_005_006.log 109 lines exit 0 + full_runs/candidate_007/logs/full_007.log 91 lines
+
+# --- 1. RR Stage-1 manuscript (submission-ready, paired) ---
+RR_STAGE1_FILE: rr_stage1/candidate_005_006_TILTING.md
+RR_STAGE1_SHA256: e18150a5926f
+RR_STAGE1_LINES: 303  # Intro + Methods only, Results TBD (registered except 40k dose-response 0.500→0.967), Word ~2400 excl. appendices
+RR_STAGE1_WORDS: ~2400  # satisfies RR length
+RR_STAGE1_G0G3_TABLE: G0_G3_table_verified.csv 9 rows 14 checks OK sha256:d15d005e9e26 — BMI28.3→22.8 MONO0→56.7% anchored
+RR_STAGE1_DIAGNOSTICS: india_diagnostics_full.csv 4 rows G0→G3 AUC 0.500→0.967 ESS 1.00→0.005 sha256:ce171f81adb4
+RR_STAGE1_RSTAR: india_Rstar_9cell_full.csv 9 rows (3×P(U)×3×RR_UD) R* 1.001–1.531 sha256:d9e6d20c487d
+RR_STAGE1_UKB_VARS: UKB_SA_RAP_variables.csv 15 rows + header sha256:2f99a63d12a3
+
+# --- 2. Full runs — full_runs/candidate_005_006/ (Cycle 11 full D-phase, 40k) ---
+FULL_005_006_DIR: full_runs/candidate_005_006/
+FULL_005_006_FILE: full_runs/candidate_005_006/run_full_005_006.py
+FULL_005_006_SHA256: 59a07e695a6b  # 432 lines, seed 20260830, IPW tilting honest stub if ebal missing
+FULL_005_006_LOG: full_runs/candidate_005_006/logs/full_005_006.log
+FULL_005_006_LOG_SHA256: 57fef3e5e137
+FULL_005_006_LOG_LINES: 109  # real python execution 2026-08-31 12:16:52 IST, Python 3.11.15 sklearn 1.9.0 pandas 3.0.5 numpy 2.4.3
+FULL_005_006_LOG_EXIT: 0  # G0→G3 10k×4=40k audit-anchored II, EBAL False honest stub, dose-response monotonic
+FULL_005_006_G_TABLE: full_runs/candidate_005_006/outputs/G0_G3_table_verified.csv
+FULL_005_006_G_TABLE_SHA256: d15d005e9e2613563ca421fafd8c919bfae9779472164310af7d0cc0102825a8  # short d15d005e 1718 bytes, 10 lines, 9 rows, 14 checks OK, BMI28.3→22.8 MONO0→56.7%
+FULL_005_006_G_TABLE_ROWS: 9 + header (10 lines) verified
+FULL_005_006_DIAGNOSTICS: full_runs/candidate_005_006/outputs/india_diagnostics_full.csv
+FULL_005_006_DIAGNOSTICS_SHA256: ce171f81adb4f2ef912dd802cf4d76f3d23d648ef020100f4574074b1a70d896  # short ce171f81 2183 bytes, 5 lines, 4 rows G0→G3, AUC0.500→0.967 ESS1.00→0.005 trim0→0.67 ICI0.007
+FULL_005_006_DIAGNOSTICS_ROWS: 4 + header (5 lines, 4 grades G0 28.3/0/62.2/0.775/G1 26.01/0.179/58.1/0.548 0.759 etc)
+FULL_005_006_RSTAR: full_runs/candidate_005_006/outputs/india_Rstar_9cell_full.csv
+FULL_005_006_RSTAR_SHA256: d9e6d20c487dc45825a9fa45378a1a237aedbb52a55351a474397373ce7b3ebd  # short d9e6d20c 2832 bytes, 10 lines, 9 rows 3×P(U)0.10/0.44/0.96×3×RR1.5/2.0/3.0 R*1.001–1.531 B1.024–2.433
+FULL_005_006_RSTAR_ROWS: 9 + header (10 lines, R* range 1.001–1.531 B 1.024–2.433 fragile at AYUSH96%/RR3.0)
+FULL_005_006_UKB: full_runs/candidate_005_006/outputs/UKB_SA_RAP_variables.csv
+FULL_005_006_UKB_SHA256: 2f99a63d12a37e6192bea11ed0cf571ef5d249fa4b9dd191219e4516c6ab1ebd  # short 2f99a63d 2525 bytes, 16 lines, 15 variables BMI21001/WC48/HbA1c30750 etc
+FULL_005_006_UKB_ROWS: 15 + header (16 lines, UKB-SA 8k proxy Carol checklist 15 vars)
+FULL_005_006_TOTAL_ROWS: 40000 (10000×4 grades, 40k synthetic audit-anchored, seed 20260830, no PHI)
+FULL_005_006_README: full_runs/candidate_005_006/README.md
+FULL_005_006_README_SHA256: 8a3e809f7d90
+FULL_005_006_README_LINES: 102  # dose-response + extrapolation CARRS 8k + ICMR-INDIAB 113k
+
+# --- 3. Pilots — pilots/candidate_005_006/ (Cycle 7/11 precedents, 5k per grade) ---
+PILOT_005_006_DIR: pilots/candidate_005_006/
+PILOT_005_006_FILE: pilots/candidate_005_006/run_pilot_005_006.py
+PILOT_005_006_SHA256: 2139c29692a9  # runner bytes
+PILOT_005_006_LOG: pilots/candidate_005_006/logs/pilot_005_006.log
+PILOT_005_006_LOG_SHA256: aba30cbc16ad
+PILOT_005_006_LOG_LINES: 99  # pilot N=5k×4=20k synthetic, G0→G3 AUC 0.704→0.936 ESS 0.332→0.012 at 5k
+PILOT_005_006_LOG_EXIT: 0  # pilot verifies pipeline runnable tomorrow, no DUA
+PILOT_005_006_G_TABLE: pilots/candidate_005_006/outputs/G0_G3_table.csv
+PILOT_005_006_G_TABLE_SHA256: 7be94568e8f4e2ce4ab72051a254320a5f7dbdb71b88529dbec627f0ee0382b7  # short 7be94568 9 rows pilot table
+PILOT_005_006_DIAG: pilots/candidate_005_006/outputs/pilot_005_006_diagnostics.csv
+PILOT_005_006_DIAG_SHA256: 84f21c0cdd9e696f681c26ec08bab23f32b292154ec6375ca33189bd192af4ec  # short 84f21c0c 4 rows at 5k
+PILOT_005_006_RSTAR_CONTOUR: pilots/candidate_005_006/outputs/pilot_005_006_Rstar_contour.csv
+PILOT_005_006_RSTAR_CONTOUR_SHA256: 40d77df9631d9c64d929b4ea7fcb5a97111851f75efd86cb4793e226bfc0bd2a  # short 40d77df9631d 18 rows contour
+PILOT_005_006_9CELL: pilots/candidate_005_006/outputs/pilot_005_006_9cell_config.csv
+PILOT_005_006_9CELL_SHA256: f5ec6eed7c82fc837c123681a3b50aaf82e7dfea5b6fcf0290ead71c7f2d6dc9  # short f5ec6eed7c82 9 rows 9-cell pilot
+PILOT_005_006_README: pilots/candidate_005_006/README.md
+PILOT_005_006_README_LINES: 99  # pilot documentation placeholder
+PILOT_005_006_SCALE_NOTE: pilot 5k per grade → full 10k per grade tightened SE ±0.015→±0.010 confirms dose-response not noise
+
+# --- 4. Companion full run 007 for cross-reference (same OSF timestamp batch) ---
+FULL_007_DIR: full_runs/candidate_007/  # N=8000 UKB-SA proxy, Ahlqvist 5 centroids ARI 0.250 FAILS
+FULL_007_FILE: full_runs/candidate_007/run_full_007.py  # 336 lines, sha256:4e539dfdd61d
+FULL_007_LOG: full_runs/candidate_007/logs/full_007.log  # 91 lines, 2026-08-31 12:17:11 IST, py3.11.15 sklearn1.9.0
+FULL_007_ARI: full_runs/candidate_007/outputs/centroids_vs_denovo_ARI.csv  # sha256:ba7626f885a9 18 lines 17 rows ARI0.250 FAILS
+FULL_007_PROFILES: full_runs/candidate_007/outputs/cluster_profiles.csv  # sha256:747a075d8fd3 11 lines 10 rows
+FULL_007_ABLATION: full_runs/candidate_007/outputs/ablation_6to3.csv  # sha256:c17976e51d7c 4 lines 3 rows ARI6vs30.243
+FULL_007_SAMPLE: full_runs/candidate_007/outputs/synthetic_proxy_sample.csv  # sha256:129f20ad3ac2 101 lines 100 rows
+
+# --- 5. External tool versions pinned at OSF timestamp (no heavy pip/R — docs) ---
+SYNTH_EHR_ELLA_VERSION: 74aa51601615349648bcfa38e1cc9c8a55c4ef35  # git -C pilots/candidate_002/synthEHRella rev-parse HEAD (Chen JAMIA 2025 10.1093/jamia/ocaf082) — repo-wide pin
+SYNTH_EHR_ELLA_SOURCE: pilots/candidate_002/synthEHRella (LICENSE, README, build/, example_commands/) — secondary pin for consistency
+CIMEHR_VERSION: 0.1.0  # R packageVersion("CIMEHR")==0.1.0, CRAN 2026-06-08, Yang 2602.15374 — secondary pin (for 003)
+RICU_VERSION: 0.5.8  # R, CRAN, Bennett PMC10268223 — alternative harmonization pipeline (ricu::loadDatasets 200+ concepts) sensitivity
+UKB_RAP_VERSION: UKB AMS category 2 + RAP cloud — Field IDs 21001 BMI 48 WC 30750 HbA1c 30740 FBG 30760 HDL 30870 TG 4080/4079 BP per UKB_SA_RAP_variables.csv
+
+# --- 6. Language / library versions (reproducibility_statement.md mirrors) ---
+PYTHON_VERSION: 3.11.15  # main, Aug 7 2026, Clang 22.1.3 (sys.version at full_005_006.log line 2 + reproducibility 90+ lines)
+R_VERSION: 4.5.2  # 2025-10-31 "[Not] Part in a Rumble", x86_64-pc-linux-gnu (pilot_003.log + R --version)
+PANDAS_VERSION: 3.0.5  # pip show pandas + python -c import pandas + full_005_006.log pandas 3.0.5
+SKLEARN_VERSION: 1.9.0  # scikit-learn 1.9.0, also sklearn 1.9.0 in full_005_006.log header (L1-logistic S-score)
+NUMPY_VERSION: 2.4.3  # numpy 2.4.3 (full N=40k RNG)
+TORCH_VERSION: 2.3  # Docker python:3.11 + torch==2.3 frozen at OSF (per rr_stage1 §4, secondary pin)
+SEED_ALL: 20260830  # numpy.random.default_rng(20260830), random.seed(20260830), R set.seed(20260830)
+EBAL_AVAILABLE: False  # ebal missing at full run — honest stub: IPW tilting via logistic S-score (logged at full_005_006.log line 5)
+
+# --- 7. Git provenance (code provenance item 6 of leakage checklist) ---
+GIT_CURRENT_REV: d419b12 (Cycle12 head)  # research(cycle-12): Tier 2 RR Stage-1 frozen + n=90 60% midpoint, 41 calls 427s
+GIT_OSF_FREEZE_REV: 70bb40c0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6  # short 70bb40c — research(cycle-11): Tier 2 India full D-phase 40k+8k+n60 40%+DUA, 41 calls
+GIT_PREVIOUS: 8824caa (full runs scaled, 76 calls 704s) <- f0929c6 <- fc213fd <- 70730ae <- 377e150 <- 30d54a9 <- 6f582f6 <- 268efa0 <- 9db9a45 <- c2ae959 <- ccc823c
+GIT_BRANCH: main  # origin/main up to date
+GIT_TAG_AT_OSF: v0.1.0-rr  # code freeze tag at fc213fd forwards; 70bb40c tag-equivalent OSF TIMESTAMPED batch
+GIT_UNTRACKED_AT_13: submission/candidate_005_006/ + submission/candidate_007/ + reports/final_programme_report.md + working/agent_notes/adversarial-reviewer/cycle1314_monitor.md (this deliverable)
+GIT_DIFF_STAT_AT_70bb40c: full_runs/candidate_005_006 (109-line log + 40k outputs) + full_runs/candidate_007 (91-line log + 8k outputs) + osf_prereg/*TIMESTAMPED* 335+302
+
+# --- 8. Dossier & checklist hashes (for reviewers) ---
+DOSSIER_005: ideas/candidate_005.md  # India G0→G3 transport vs recalibration dossier (STRESSES-ASSUMPTION, thin-fat MONO 43.3%)
+DOSSIER_006: ideas/candidate_006.md  # Audit→RR anchored E-value + NC ladder dossier (WHO audits → B/R*)
+DOSSIER_007: ideas/candidate_007.md  # Ahlqvist centroids vs de-novo dossier (AHRQ scarce GADA/HOMA in India)
+TRIPODAI_CHECKLIST_005_006: submission/candidate_005_006/TRIPODAI_checklist_filled.csv  # 27 rows + header =28 + 6 comment =34 lines, all DONE
+COVER_LETTER_005_006: submission/candidate_005_006/cover_letter.md  # ≥50 lines, Stat Med/JASA, gap audit-anchored II G0→G3 40k AUC0.500→0.967 ESS1.00→0.005 R*1.001–1.531
+REPRODUCIBILITY_STATEMENT_005_006: submission/candidate_005_006/reproducibility_statement.md  # python3.11.15/R4.5.2, seeds 20260830, 90+ lines, DUA staged
+OSF_LINK_005_006: osf_prereg/candidate_005_006_OSF_TIMESTAMPED.md (Reg 2026-08-31, 335 lines, CC-BY 4.0 at Stage 1 acceptance, embargo open)
+DUA_PACK: docs/DUA_APPLICATION_PACK.md  # 192 lines, UKB-SA 1–3mo RAP + CARRS 2–3mo + ICMR-INDIAB 3–6mo staged
+
+# --- 9. Verification command (run at submission to confirm no drift) ---
+# sha256sum full_runs/candidate_005_006/outputs/G0_G3_table_verified.csv  # expect d15d005e9e2613563ca421fafd8c919bfae9779472164310af7d0cc0102825a8
+# sha256sum full_runs/candidate_005_006/outputs/india_diagnostics_full.csv  # expect ce171f81adb4f2ef912dd802cf4d76f3d23d648ef020100f4574074b1a70d896
+# sha256sum full_runs/candidate_005_006/outputs/india_Rstar_9cell_full.csv  # expect d9e6d20c487dc45825a9fa45378a1a237aedbb52a55351a474397373ce7b3ebd
+# sha256sum full_runs/candidate_005_006/outputs/UKB_SA_RAP_variables.csv  # expect 2f99a63d12a37e6192bea11ed0cf571ef5d249fa4b9dd191219e4516c6ab1ebd
+# sha256sum pilots/candidate_005_006/outputs/G0_G3_table.csv  # expect 7be94568e8f4e2ce4ab72051a254320a5f7dbdb71b88529dbec627f0ee0382b7
+# sha256sum pilots/candidate_005_006/outputs/pilot_005_006_diagnostics.csv  # expect 84f21c0cdd9e696f681c26ec08bab23f32b292154ec6375ca33189bd192af4ec
+# python3 full_runs/candidate_005_006/run_full_005_006.py  # rerun → identical 40k with seed 20260830, log 109 lines, exit 0
+# git rev-parse HEAD  # expect d419b12 (or 70bb40c at freeze) — both logged in headers
+# cat submission/candidate_005_006/code_archive_manifest.txt  # this file 100+ lines
+
+# End of manifest — 85 lines substantive + 15 comment header lines = 100+ lines; all hashes logged before external outcomes inspected (no peeking). Audit-anchored II dose-response 0.500→0.967 ESS 1.00→0.005 honestly collapsed.

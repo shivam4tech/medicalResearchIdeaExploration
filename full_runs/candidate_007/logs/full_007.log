@@ -1,5 +1,5 @@
 === FULL RUN 007 — Ahlqvist centroids vs de-novo on N=8k synthetic UKB-SA proxy ===
-Seed 20260830, 2026-08-31 12:17:11 IST, python 3.11.15
+Seed 20260830, 2026-08-31 12:47:46 IST, python 3.11.15
 sklearn 1.9.0 pandas 3.0.5 numpy 2.4.3
 Data tier: B staged — UKB-SA 8k synthetic proxy (DUA pending), CARRS/ICMR-INDIAB restricted Honest synthetic proxy per OSF 007
 Lock: Ahlqvist 2018 centroid Table 1 supplements, 5 clusters SAID/SIDD/SIRD/MOD/MARD, 6 vars GADA/age/BMI/HbA1c/HOMA2B/HOMA2IR
